@@ -1,0 +1,4 @@
+EnglishDistricts=["Akkar","Aley","Baabda","Baalbeck","Batroun","Batroun","Bcharre","Beirut",
+"Bint Jbayl","Chouf","El Metn","Hasbaya","Hermel","Jezzine","Jezzine","Jubail","Kasrouane","Knaitré et Mar gergesse Bhurdok",
+"Koura","Marjaayoun","Minieh-Danieh","Minieh-Danieh","Nabatiyeh","Nabatiyeh","Rachiaya","Saida","Sour","Tripoli",
+"West Bekaa","Zahleh","Zgharta"]
