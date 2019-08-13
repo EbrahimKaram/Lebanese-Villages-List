@@ -29,3 +29,8 @@ If we compare the IPA of each village name, we might be able to get somewhere.
 So arabic to IPA
 latin to IPA
 then compare the IPA's of both
+
+## Other ideas
+Probably perform a transliteration
+Look into the following
+https://www.geonames.org/export/ws-overview.html
