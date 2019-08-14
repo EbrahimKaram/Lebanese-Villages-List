@@ -15,7 +15,7 @@ I have been trying to map the Latin names with their Arabic counterparts for the
 * Using the Yamli api on the Latin name and matching it with the following Arabic name
 * Doing a Latin translation for the Arabic names and doing a Levenstein distance on every word.
 * Using the Open Maps api (https://nominatim.openstreetmap.org/search?)
-
+* Using the data from LibanData and doing matches based on that
 
 
 # Future Attempts
