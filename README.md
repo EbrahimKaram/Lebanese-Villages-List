@@ -30,6 +30,13 @@ So arabic to IPA
 latin to IPA
 then compare the IPA's of both
 
+
+# How to Contribute
+Simply download /English List of districts. Arabic names of districts 2.0.xlsx and create a column with your name. Put a one on all the villages that you edit
+
+Then just email me or edit the excel straight here
+
+
 ## Other ideas
 Probably perform a transliteration
 Look into the following
