@@ -18,26 +18,37 @@ I have been trying to map the Latin names with their Arabic counterparts for the
 * Using the data from LibanData and doing matches based on that
 
 
-# Future Attempts
+# Future Attempts (If I'm still motivated)
 Do a join for all the villages that are divided into multiple ones.
 ## Mechanical Turk
-Improve the map but also do a blank submission for those that lack names.
-You would get an email with the potential name.
-This would be a way to crowd source the names.
+Make a WebApp that would allow people to add the arabic village name from the Lebanon D3 District map itself. 
+
+Possible UI/Implemetation)
+They click on the blank village name. They get diverted to maybe a Google Submit form with prefilled info. They would then select from a drown downlist of possible arabic names of what they think it is. 
+I guess that might be easy (ish)
+
 ## Arabic to IPA
 If we compare the IPA of each village name, we might be able to get somewhere.
 So arabic to IPA
 latin to IPA
-then compare the IPA's of both
+then compare the IPA's of both. 
 
-
-# How to Contribute
-Simply download /English List of districts. Arabic names of districts 2.0.xlsx and create a column with your name. Put a one on all the villages that you edit
-
-Then just email me or edit the excel straight here
-
+Might be a bit convoluted. 
 
 ## Other ideas
 Probably perform a transliteration
 Look into the following
 https://www.geonames.org/export/ws-overview.html
+
+# How to Contribute
+
+If you are eager to help. Just download the repo and make a merge request. 
+Follow the steps below when editing:
+1. OpenEnglish List of districts. Arabic names of districts 2.0.xlsx
+2. create a column with your name. 
+3. Put a one on all the villages that you edited in the column with your name. 
+
+Then Simply create a merge request
+
+
+
