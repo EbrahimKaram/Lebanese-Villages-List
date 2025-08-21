@@ -1,1843 +1,615 @@
 English Name,English District,Best Arabic Match,Match Score
-Aidamoun shikhlar,Akkar,بني صخر,48.0
-Akkar El-Atika,Akkar,عكار العتيقه,41.666666666666664
-Al-Amara,Akkar,العماير,46.15384615384615
-Al-Hissa,Akkar,الحيصه,46.15384615384615
-Al-Jédidé,Akkar,جديدة القيطع,35.294117647058826
-Al-Khraibé (Kousha),Akkar,الشيخ طابا,41.666666666666664
-Al-Kleiat,Akkar,خط البترول,37.5
-Al-Massoudié,Akkar,المسعوديه,40.0
-Al-Moukaiteh,Akkar,الحميره,33.33333333333333
-Al-Mouzeihmé,Akkar,الحميره,33.33333333333333
-Al-Roumoul,Akkar,جرمنايا,33.33333333333333
-Al-Semmakli,Akkar,السهلة,37.5
-Al-Souaissé,Akkar,السويسه,35.294117647058826
-Al-Zoureiribe,Akkar,الزواريب,42.10526315789474
-Al Moghrak,Akkar,العماير,40.0
-Barcha,Akkar,الدوره,40.0
-Chakdouf,Akkar,الشقدوف,42.857142857142854
-Cheikh Taba Montagne,Akkar,الشيخ طابا,42.857142857142854
-Cheikh Taba Plaine,Akkar,الشيخ طابا,46.15384615384615
-Cheikh Zennad Tal Bibé,Akkar,الشيخ زناد,45.16129032258065
-Cheir Homeirine,Akkar,النهرية وبستان الحرش,37.5
-Dabbabiyé Charkié,Akkar,القبيات الضهر,38.46153846153846
-Dahr-Leyciné,Akkar,ضهر ليسينه,54.54545454545455
-Dahr el-Kneissé,Akkar,ضهر القنبر,50.0
-Dahr Haddara,Akkar,ضهر القنبر,47.61904761904762
-Danbou,Akkar,دارين,40.0
-Daoucé et Baghdadi,Akkar,القبيات القطلبه,27.58620689655173
-Daoura,Akkar,الدوره,40.0
-Dayret Nahr El-Kébir,Akkar,ضهر القنبر,41.37931034482759
-Deirine,Akkar,دارين,54.54545454545455
-Denké et El-Amriyeh,Akkar,حكر الشيخ طابا,43.75
-El-Armeh,Akkar,الدوره,46.15384615384615
+Aidamoun shikhlar,Akkar,عيدمون,100.0
+Akkar El-Atika,Akkar,عكار العتيقه,81.81818181818181
+Al-Amara,Akkar,العماير,66.66666666666666
+Al-Hissa,Akkar,الحيصه,54.54545454545455
+Al-Jédidé,Akkar,جديدة القيطع,55.55555555555556
+Al-Khraibé (Kousha),Akkar,خريبة الجندي,38.46153846153846
+Al-Kleiat,Akkar,قليعات,61.53846153846154
+Al-Massoudié,Akkar,المسعوديه,75.0
+Al-Moukaiteh,Akkar,المسعوديه,50.0
+Al-Mouzeihmé,Akkar,المسعوديه,47.05882352941177
+Al-Roumoul,Akkar,القبيات مرتموره,40.0
+Al-Semmakli,Akkar,المقيطع,46.15384615384615
+Al-Souaissé,Akkar,السويسه,100.0
+Al-Zoureiribe,Akkar,الزواريب,53.333333333333336
+Al Moghrak,Akkar,مراح الخوخ,50.0
+Barcha,Akkar,القرنة,54.54545454545455
+Chakdouf,Akkar,الشقدوف,100.0
+Cheikh Taba Montagne,Akkar,الشيخ طابا,100.0
+Cheikh Taba Plaine,Akkar,حكر الشيخ طابا,80.0
+Cheikh Zennad Tal Bibé,Akkar,الشيخ زناد,100.0
+Cheir Homeirine,Akkar,الحميره,66.66666666666666
+Dabbabiyé Charkié,Akkar,الدبابيه,100.0
+Dahr-Leyciné,Akkar,ضهر ليسينه,94.73684210526315
+Dahr el-Kneissé,Akkar,ضهر القنبر,63.1578947368421
+Dahr Haddara,Akkar,ضهر القنبر,66.66666666666666
+Danbou,Akkar,دارين,66.66666666666666
+Daoucé et Baghdadi,Akkar,جديدة القيطع,60.869565217391305
+Daoura,Akkar,الدوره,85.71428571428571
+Dayret Nahr El-Kébir,Akkar,القبيات الغربية,55.172413793103445
+Deirine,Akkar,دارين,90.9090909090909
+Denké et El-Amriyeh,Akkar,الريحانيه,52.17391304347826
+El-Armeh,Akkar,الحميره,62.5
 El-Bardé,Akkar,الفرض,50.0
-El-Ghozaili,Akkar,غزيله,46.15384615384615
-El-Haouchab,Akkar,حوشب,46.15384615384615
-El-Kantara,Akkar,القنطره,50.0
-El-Kneissé,Akkar,الكنيسة,50.0
-El-Korné,Akkar,القرنة,46.15384615384615
-El-Kouachra,Akkar,الكواشره,44.44444444444444
-El-Msallé,Akkar,السهلة,42.857142857142854
-El-Nfeicé,Akkar,النفيسه,40.0
-Fseikine et Aïn Achma,Akkar,النهرية وبستان الحرش,31.578947368421055
-Homeira,Akkar,الحميره,50.0
-Iate,Akkar,عيات,28.57142857142857
-Janine,Akkar,جرمنايا,36.36363636363637
-Jedeidet-El-Kayteh,Akkar,جديدة القيطع,41.37931034482759
-Jouret Srar,Akkar,جبل المنصورة,36.36363636363637
-Kaabarine,Akkar,كرم زبدين,33.33333333333333
-Kafr Malka,Akkar,حكر الشيخ طابا,43.47826086956522
-Katté,Akkar,خط البترول,40.0
-Khalsa,Akkar,الحيصه,40.0
-Khirbet Er Remmane,Akkar,خربة الجرد,42.857142857142854
-Khreibet Aakkar,Akkar,حكر الشيخ طابا,42.857142857142854
-litige,Akkar,قليعات,36.36363636363637
-Majdel,Akkar,جديدة القيطع,35.294117647058826
-Mazraet-El-Nahrieh,Akkar,الحميره,33.33333333333333
-Mechaïlha Hakour,Akkar,مشيلحة حاكوره,55.172413793103445
-Merlayet Melhem,Akkar,القبيات الضهر,48.0
-Noura El-Faouka et Tahta,Akkar,القبيات مرتموره,32.432432432432435
-Qarha,Akkar,القنطره,60.0
-Sadaka,Akkar,السنديانة,33.33333333333333
-Safiné-El-Kayteh,Akkar,الشيخ عياش,29.629629629629633
-Saïdnaya,Akkar,السنديانة,42.857142857142854
-Sindianet Zeidan,Akkar,السنديانة,36.36363636363637
-Tal Kerri,Akkar,خربة الجرد,42.10526315789474
-Tal Sibhel,Akkar,الشيخ طابا,44.44444444444444
-Zouk-El-Hosmieh et Dahr Ayasse,Akkar,ضهر ليسينه,35.0
-Addous,Baalbeck,كفردبش,30.769230769230774
-Aïn El-Beniyé,Baalbeck,الجوبانية,40.0
-Aïn El-Jaouzé,Baalbeck,حي الزهراء,30.0
-Aïn Séa et Chadourah,Baalbeck,الخضر حي الاشعل,36.36363636363637
-Al-Aïne,Baalbeck,الانصار,36.36363636363637
-Al-Fakiat,Baalbeck,الكواخ,28.57142857142857
-Al-Khodré,Baalbeck,الخضر الغربي,50.0
-Al-Nabi Chite,Baalbeck,النبي رشاده,43.47826086956522
-Al-Qa Bayoun,Baalbeck,القرينة,44.44444444444444
-Al-Qa El-Benjakie,Baalbeck,راس بعلبك,36.36363636363637
-Al-Qa Jouar Mekie,Baalbeck,الفاكهة حي مار جرجس,33.33333333333333
-Al-Qa Wadi El-Khanzir,Baalbeck,مزرعة آل سويدان,45.714285714285715
-Al-Saïdat,Baalbeck,السعيده,40.0
-Al-Taybat,Baalbeck,التوفيقيه,35.294117647058826
-Baalbek,Baalbeck,راس بعلبك,53.333333333333336
-Barka,Baalbeck,برقه,44.44444444444444
-Chaat,Baalbeck,حي الست,36.36363636363637
-Chaïbé,Baalbeck,الشربين,33.33333333333333
-Conflict,Baalbeck,فلاوي,33.33333333333333
-Couvent St Maron,Baalbeck,النبي شيت حي الجامع,37.5
-Dar El-Ouassia,Baalbeck,دار الواسعة,45.45454545454545
-Haddet,Baalbeck,الحدث الغربي,37.5
-Jabba,Baalbeck,جبعا,50.0
-Jaboulé et Al-Bijage,Baalbeck,النبي شيت حي طبشار,31.578947368421055
-Jenta,Baalbeck,الجوبانية,36.36363636363637
-Kfar Dabache,Baalbeck,الحدث الغربي,36.36363636363637
-Khreibé,Baalbeck,الخضر الغربي,47.05882352941177
-Knaissat,Baalbeck,الانصار,36.36363636363637
-litige,Baalbeck,الشواغير التحتا,35.294117647058826
-Mazraet Beit Mcheik,Baalbeck,مزرعة بيت مطر,43.75
-Misraya,Baalbeck,المعاصر,54.54545454545455
-Oummouchki,Baalbeck,بيت مشيك,31.578947368421055
-Ras Baalbek El-Charki,Baalbeck,راس بعلبك,48.275862068965516
-Ras Baalbek El-Sahl,Baalbeck,راس بعلبك,51.851851851851855
-Slouky,Baalbeck,فلاوي,40.0
-Yamouné,Baalbeck,اليمونه,50.0
-Conflict,Hermel,فلاوي,33.33333333333333
-El-Méaisseri,Hermel,المعاصر,47.05882352941177
-Hermel,Hermel,الهرمل حي الحارة,44.44444444444444
-Hermel Charbine,Hermel,الهرمل حي الحارة,50.0
-Hermel Djebab,Hermel,الهرمل حي بديتا,48.0
-Hermel Zighrine,Hermel,الهرمل حي الحارة,51.851851851851855
-Michaa Mrajhiné,Hermel,مراح العين,34.78260869565217
-Ouadi El-Osse,Hermel,وادي العس,40.0
-Ouadi Faara,Hermel,وادي فعرة,42.10526315789474
-Ras-Baalbek - Wadi Faara,Hermel,مزرعة ابو صليبي,31.578947368421055
-Ras Baalbek El-Gharbi,Hermel,راس بعلبك,48.275862068965516
+El-Ghozaili,Akkar,غزيله,66.66666666666666
+El-Haouchab,Akkar,حوشب,100.0
+El-Kantara,Akkar,القنطره,66.66666666666666
+El-Kneissé,Akkar,الكنيسة,66.66666666666666
+El-Korné,Akkar,القرنة,60.0
+El-Kouachra,Akkar,الكواشره,66.66666666666666
+El-Msallé,Akkar,العماير,46.15384615384615
+El-Nfeicé,Akkar,النفيسه,61.53846153846154
+Fseikine et Aïn Achma,Akkar,عين الذهب,60.0
+Homeira,Akkar,الحميره,88.88888888888889
+Iate,Akkar,عيات,85.71428571428571
+Janine,Akkar,النفيسه,60.0
+Jedeidet-El-Kayteh,Akkar,جديدة القيطع,69.56521739130434
+Jouret Srar,Akkar,خربة الجرد,55.55555555555556
+Kaabarine,Akkar,الكواشره,66.66666666666666
+Kafr Malka,Akkar,القبيات الضهر,60.869565217391305
+Katté,Akkar,القنطره,75.0
+Khalsa,Akkar,البساتين,61.53846153846154
+Khirbet Er Remmane,Akkar,خربة الجرد,66.66666666666666
+Khreibet Aakkar,Akkar,خريبة الجندي,71.42857142857143
+litige,Akkar,البقيعة,54.54545454545455
+Majdel,Akkar,العماير,54.54545454545455
+Mazraet-El-Nahrieh,Akkar,الريحانيه,47.61904761904762
+Mechaïlha Hakour,Akkar,مشيلحة حاكوره,91.66666666666667
+Merlayet Melhem,Akkar,القبيات الضهر,64.0
+Noura El-Faouka et Tahta,Akkar,النورة,100.0
+Qarha,Akkar,القرنة,75.0
+Sadaka,Akkar,العوادة,60.0
+Safiné-El-Kayteh,Akkar,سفينة القيطع,63.63636363636363
+Saïdnaya,Akkar,المسعوديه,61.53846153846154
+Sindianet Zeidan,Akkar,السنديانة,100.0
+Tal Kerri,Akkar,القرنة,66.66666666666666
+Tal Sibhel,Akkar,السهلة,71.42857142857143
+Zouk-El-Hosmieh et Dahr Ayasse,Akkar,ضهر القنبر,54.54545454545455
+Addous,Baalbeck,وادي العس,80.0
+Aïn El-Beniyé,Baalbeck,البرانيه حي المسيحيين,61.53846153846154
+Aïn El-Jaouzé,Baalbeck,حي عز الدين,55.55555555555556
+Aïn Séa et Chadourah,Baalbeck,النبي شيت حي طبشار,60.60606060606061
+Al-Aïne,Baalbeck,مراح العين,66.66666666666666
+Al-Fakiat,Baalbeck,القرينة,50.0
+Al-Khodré,Baalbeck,الخضر الشرقي,66.66666666666666
+Al-Nabi Chite,Baalbeck,النبي شيت حي الجامع,82.35294117647058
+Al-Qa Bayoun,Baalbeck,قلعة غربي,55.55555555555556
+Al-Qa El-Benjakie,Baalbeck,الفاكهة حي مار جرجس,43.75
+Al-Qa Jouar Mekie,Baalbeck,جوار الحشيش,61.53846153846154
+Al-Qa Wadi El-Khanzir,Baalbeck,وادي النيرة,64.51612903225806
+Al-Saïdat,Baalbeck,السعيده,61.53846153846154
+Al-Taybat,Baalbeck,الصوانية,42.857142857142854
+Baalbek,Baalbeck,راس بعلبك,100.0
+Barka,Baalbeck,برقه,85.71428571428571
+Chaat,Baalbeck,شعت حي الجامع,100.0
+Chaïbé,Baalbeck,الشربين,75.0
+Conflict,Baalbeck,وادي بنيت,54.54545454545455
+Couvent St Maron,Baalbeck,حي الست,100.0
+Dar El-Ouassia,Baalbeck,دار الواسعة,66.66666666666666
+Haddet,Baalbeck,العقيدية,60.0
+Jabba,Baalbeck,جبعا,85.71428571428571
+Jaboulé et Al-Bijage,Baalbeck,جبوله,100.0
+Jenta,Baalbeck,القرينة,66.66666666666666
+Kfar Dabache,Baalbeck,وادي الصفا الشرقي,58.8235294117647
+Khreibé,Baalbeck,الخريبه حي الجامع,100.0
+Knaissat,Baalbeck,وادي النيرة,66.66666666666666
+litige,Baalbeck,التوفيقيه,61.53846153846154
+Mazraet Beit Mcheik,Baalbeck,بيت مشيك,100.0
+Misraya,Baalbeck,المعاصر,66.66666666666666
+Oummouchki,Baalbeck,العلاق,50.0
+Ras Baalbek El-Charki,Baalbeck,الخضر الشرقي,66.66666666666666
+Ras Baalbek El-Sahl,Baalbeck,النبي رشاده,57.142857142857146
+Slouky,Baalbeck,السويسة,60.0
+Yamouné,Baalbeck,اليمونه,100.0
+Conflict,Hermel,وادي بنيت,54.54545454545455
+El-Méaisseri,Hermel,المعاصر,61.53846153846154
+Hermel,Hermel,الهرمل حي الحارة,100.0
+Hermel Charbine,Hermel,الشربين,100.0
+Hermel Djebab,Hermel,الهرمل حي بديتا,73.6842105263158
+Hermel Zighrine,Hermel,الهرمل حي الوقف,66.66666666666666
+Michaa Mrajhiné,Hermel,مراح العين,55.55555555555556
+Ouadi El-Osse,Hermel,وادي الزين,63.63636363636363
+Ouadi Faara,Hermel,وادي فعرة,100.0
+Ras-Baalbek - Wadi Faara,Hermel,وادي الصفا الشرقي,74.28571428571428
+Ras Baalbek El-Gharbi,Hermel,الحدث الغربي,66.66666666666666
 Beirut Central District,Beirut,,0
-Aïha,Rachiaya,عيحا,28.57142857142857
-Aïn Arab,Rachiaya,كفردنيس,26.66666666666667
-Aïn Horché,Rachiaya,عين حرشا,55.55555555555556
-Akabé,Rachiaya,الدكوه,22.22222222222223
-Conflict,Rachiaya,عين التينه,35.294117647058826
-Deir El-Achayer,Rachiaya,دير العشائر,53.84615384615385
-Haouche El-Kannabé,Rachiaya,الخياره,33.33333333333333
-Héloua,Rachiaya,حلوه,40.0
-Kfar Dinès,Rachiaya,المنصوره,37.5
-Kfar Kouk,Rachiaya,كفرقوق,40.0
-litige,Rachiaya,سلساتا,40.0
-Mazraet el-Selasata,Rachiaya,سلساتا,34.78260869565217
-Mohaïdcé,Rachiaya,محيدثه,40.0
-Nabi Safa,Rachiaya,عين حرشا,35.294117647058826
-Rachaya El-Wadi,Rachiaya,راشيا حي الفوقا,44.44444444444444
-Al-Djeziré,West Bekaa,الدكوه,26.66666666666667
-Al-Istable,West Bekaa,سلساتا,42.857142857142854
-Al-Khiara,West Bekaa,الخياره,54.54545454545455
-"Ammik et ""Jouret Ammik""",West Bekaa,مشغره التحتا,17.647058823529406
-"Chouberkié ""Ammik""",West Bekaa,الخياره,26.086956521739125
-Dair Tahmiche,West Bekaa,محيدثه,40.0
-Dakoué,West Bekaa,الدكوه,40.0
-Deir-Aïn-el-Jaouzé,West Bekaa,دير العشائر,20.689655172413794
-Hamara,West Bekaa,المنارة,40.0
-Harime-el-Soughra,West Bekaa,دير العشائر,35.71428571428571
-Khiara-el-Atika,West Bekaa,الخياره,30.0
-Machghara,West Bekaa,مشغره التحتا,40.0
-Mansoura,West Bekaa,المنصوره,57.142857142857146
-n.a. (4),West Bekaa,عين التينه,23.529411764705884
-Soltan-Yacoub,West Bekaa,السلطان يعقوب التحتا,42.857142857142854
-Al-Ali-Nahri,Zahleh,علي النهري,47.61904761904762
-Al-Nabi Aïla,Zahleh,نبي ايلا,44.44444444444444
-Anjar,Zahleh,مجدل عنجر,42.857142857142854
-Chouberkié  Tabet,Zahleh,تل الاخضر,33.33333333333333
-Conflict,Zahleh,الفرزل التحتا,35.294117647058826
-Fourzol,Zahleh,الفرزل التحتا,50.0
-Haouche-al-Omara (Terres),Zahleh,زحلة الراسيه التحتا,30.0
-Haouche Kaissar,Zahleh,زحلة حوش الامراء,28.57142857142857
-Haouche Sayadi,Zahleh,زحلة حي السيدة,37.03703703703704
-Hochemoche,Zahleh,زحلة حوش الامراء,34.78260869565217
-Kab Elias,Zahleh,قب الياس التحتا,40.0
-Koussaya,Zahleh,كابوسية,42.857142857142854
-Ksara,Zahleh,الكرمة,44.44444444444444
-Maallaka (Terres),Zahleh,زحلة الراسيه التحتا,31.25
-Maazraat-el-Ramtanieh,Zahleh,زحلة مار انطونيوس,27.77777777777777
-Mandara,Zahleh,خضر بك,28.57142857142857
-Mejdel-Anjar,Zahleh,مجدل عنجر,38.095238095238095
-Nasriyat Rizk,Zahleh,زحلة الميدان الشرقي,40.0
-Saïd Neil,Zahleh,زحلة سيدة النجاة,34.78260869565217
-Tal-al-Amara,Zahleh,حي السلم,31.578947368421055
-Tal-el-Akhdar,Zahleh,تل الاخضر,47.61904761904762
-Tanaïl,Zahleh,تعنايل,54.54545454545455
-Tchiflik Eddé,Zahleh,تل الاخضر,38.095238095238095
-Tchiflik Kikano,Zahleh,زحلة كرك نوح,44.44444444444444
-Touaité,Zahleh,تويته,33.33333333333333
-Wadi-el-Arayeche,Zahleh,زحلة الراسيه الفوقا,32.25806451612904
-Zahlé (Terres),Zahleh,زحلة الراسيه التحتا,41.37931034482759
-Zahlé Al-Rassié,Zahleh,زحلة الراسيه التحتا,46.666666666666664
-Zahlé Haouche Al-Oumara,Zahleh,زحلة الراسيه التحتا,42.10526315789474
-Zahlé Haouche Al-Zaraané,Zahleh,زحلة حوش الزراعنه,45.0
-Zahlé Maallaka Kerek,Zahleh,زحلة كرك نوح,50.0
-Zahlé Mar Antonios,Zahleh,زحلة حوش الامراء,51.61290322580645
-Zahlé Mar Gérios,Zahleh,زحلة حوش الامراء,55.172413793103445
-Zahlé Midan,Zahleh,زحلة الميدان الغربي,51.851851851851855
-Zahlé Saidet Al-Najda,Zahleh,زحلة سيدة النجاة,57.142857142857146
-Zebdol,Zahleh,سعدنايل,33.33333333333333
-Aïn-Dara,Aley,عين داره,40.0
-Aïn-El-Jdeidé,Aley,عين الجديدة,43.47826086956522
-Aïn-Rommané,Aley,الرجمة,26.66666666666667
-Ain Saideh,Aley,عين داره,47.05882352941177
-Aïn Sofar,Aley,صوفر,46.15384615384615
-Aley,Aley,البساتين,40.0
-Baïssour,Aley,صوفر,33.33333333333333
-Baouarta,Aley,بعورته,42.857142857142854
-Bhamdoun (Gare),Aley,محطة بحمدون,38.46153846153846
-Bhouara,Aley,بحواره,50.0
-Bouzridé,Aley,بوزريده,53.333333333333336
-Btallaoun,Aley,البساتين,42.857142857142854
-Bteezanieh,Aley,البساتين,40.0
-Chouaifat Amroussyat,Aley,الشويفات حي العمروسية,42.10526315789474
-Chouaifat Oumara,Aley,الشويفات حي الامراء,27.58620689655173
-Chouaifat Qobbat,Aley,الشويفات حي القبة,33.33333333333333
-El-Fsaïkine,Aley,البساتين,35.294117647058826
-El-Kahalé,Aley,الكحالة,60.0
-El-Kamatiyeh,Aley,القماطية,44.44444444444444
-El-Mansouriyeh et Aïn-El-Marge,Aley,الشويفات حي الامراء,36.36363636363637
-El-Rejmeh,Aley,الرجمة,60.0
-Homs et Hama,Aley,عاليه شمالي,36.36363636363637
-Kfar-Aammay,Aley,كفر عميه,31.578947368421055
-litige,Aley,البساتين,33.33333333333333
-Mchakhté,Aley,كفر عميه,37.5
-Baalchemay,Baabda,بعلشميه,55.55555555555556
-Borge el Baragenat,Baabda,برج البراجنة حي السياد,38.888888888888886
-Boutchay,Baabda,بطشيه,57.142857142857146
-Bsaba Wadi Dlab,Baabda,برج البراجنة حي السياد,36.36363636363637
-Chiah,Baabda,بطشيه,36.36363636363637
-El-Chmeice,Baabda,بعلشميه,33.33333333333333
-El-Erbaniyeh,Baabda,سبنيه,57.142857142857146
-El-Kalaa,Baabda,القلعه,30.769230769230774
-El-Khreibé,Baabda,حارة البطم,40.0
-El-Kneissé,Baabda,الشياح حي الكنيسة,41.666666666666664
-El Halaliyeh,Baabda,الهلالية,57.142857142857146
-Forn El-Chobbek,Baabda,حارة حريك قرانوح,34.48275862068965
-Ghbayreh,Baabda,الغبيري حي الجامع,47.61904761904762
-Hadace,Baabda,الحدث قبلي,26.66666666666667
-Haret Horaïk,Baabda,حارة حريك قرانوح,46.15384615384615
-Hazmiyeh,Baabda,بعلشميه,50.0
-Louaizé,Baabda,القلعه,18.181818181818187
-Mardachat,Baabda,المرداشة,53.333333333333336
-Mazraet-el-Mzeiraa,Baabda,المريجه,25.0
-Zandouka,Baabda,زندوقه,42.857142857142854
-Aïn-el-Assad et Chmeicé,Chouf,عين الاسد والشميس,36.8421052631579
-Aïn Ouzaï,Chouf,عين وزين,35.294117647058826
-Anbal,Chouf,البطال,50.0
-Baakline,Chouf,الكحلونية,40.0
-Bkhchtaine,Chouf,الكحلونية,35.294117647058826
-Bkifa,Chouf,كفر قطره,30.769230769230774
-Brih et Mteilé,Chouf,مرج برجا,38.095238095238095
-Chehime,Chouf,شحيم حي الجامع,30.0
-Chemaarine,Chouf,حارة الناعمه,31.578947368421055
-Dardourite,Chouf,دير دوريت,42.10526315789474
-Debbiyeh,Chouf,الدبية,50.0
-Debbiyeh (Ain el Haour),Chouf,المحتقره دير المخلص,35.0
-Deir  El-Moukhalles Ech-Chouf,Chouf,المحتقره دير المخلص,52.17391304347826
-Douair Bsennaï,Chouf,حارة بعاصير,34.78260869565217
-El-Bkaya,Chouf,الدبية,46.15384615384615
-El-Fouara,Chouf,الفواره,42.857142857142854
-El-Freidice,Chouf,الفواره,37.5
-El-Jahliyeh,Chouf,الجاهلية,61.53846153846154
-El-Jdeidé,Chouf,جديدة الشوف,35.294117647058826
-El-Kahlouniyeh,Chouf,الكحلونية,55.55555555555556
-El-Khreibé,Chouf,الكحلونية,33.33333333333333
-El-Kneissé,Chouf,الكنيسة,50.0
-El-Moghaïré,Chouf,المغيريه,44.44444444444444
-El-Moghaïriyeh,Chouf,المغيريه,58.8235294117647
-El-Samkanieh,Chouf,السمقانية,42.10526315789474
-Ghabet Jaafar,Chouf,مرج برجا,30.0
-Jadra,Chouf,مرج برجا,33.33333333333333
-Jdael et Kfarhi,Chouf,الفواره,40.0
-Jebah,Chouf,جباع,50.0
-Kfar Haml,Chouf,الفواره,42.857142857142854
-Kfar Katra,Chouf,كفر قطره,44.44444444444444
-Kfar Matta (Klaliyé),Chouf,كفر قطره,35.71428571428571
-litige,Chouf,البطال,40.0
-Majdel Meouche,Chouf,المطله,33.33333333333333
-Mazmoura,Chouf,مزموره,57.142857142857146
-Mtoullé Bzina,Chouf,البطال,37.5
-Naamat,Chouf,المطله,40.0
-Wadi Abou Youssef,Chouf,عين الاسد والشميس,31.25
-Abou-Mizane,El Metn,ابو ميزان,44.44444444444444
-Aïn-El-Kach,El Metn,الدكوانه,35.294117647058826
-Aïn El-Kabou,El Metn,الغابه,25.0
-Aïroune,El Metn,العيرون,33.33333333333333
-Antoura,El Metn,عينطوره,42.857142857142854
-Baabdat et Sfaïlé,El Metn,بعبدات,36.36363636363637
-Baouchariat,El Metn,بحر صاف,35.294117647058826
-Baskinta,El Metn,الدكوانه,30.769230769230774
-Beit Chebab,El Metn,بيت شباب تحتاني,48.0
-Bsifrine et El-Zahriyé,El Metn,سد البوشريه,36.36363636363637
-Choueir,El Metn,الشوير,33.33333333333333
-Deir Tamiche,El Metn,المحيدثة,31.578947368421055
-Dekouanet,El Metn,الدكوانه,42.857142857142854
-Douar,El Metn,الدوار,50.0
-El-Khounchara,El Metn,الخنشاره,58.8235294117647
-El-Machera,El Metn,المشرع,50.0
-El-Mhaidcé,El Metn,المحيدثة,44.44444444444444
-El-Ouyoun,El Metn,العيرون,40.0
-Haret El-Belleni,El Metn,البوشريه,33.33333333333333
-Hebouss,El Metn,سد البوشريه,33.33333333333333
-Jodaidat,El Metn,الجديدة,46.15384615384615
-Kaakour,El Metn,عوكر,36.36363636363637
-Majdoub,El Metn,مزهر ومجدوب,44.44444444444444
-Mar Abda El-Mchammar,El Metn,بيت الشعار,34.48275862068965
-Mar Chaya et Mzakki,El Metn,مار شعيا والمزكه,36.36363636363637
-Mar Roukose et Dahr El-Hossain,El Metn,سن الفيل حي جسر الباشا,32.65306122448979
-Maska et El-Ghabeh,El Metn,الغابه,36.36363636363637
-Mazraet Beit Chaar,El Metn,بيت شباب تحتاني,37.5
-Mazraet Deir Aoukar,El Metn,زوق الخراب ومار يوسف,32.432432432432435
-Mazraet El-Hadira,El Metn,مزرعة بنابيل,35.71428571428571
-Mezher,El Metn,المشرع,54.54545454545455
-Mkallesse,El Metn,ساقية المسك,33.33333333333333
-Sakiet-El-Misk et Bhorsaf,El Metn,بحر صاف,32.25806451612904
-Senn el Fil,El Metn,سن الفيل حي البلده,51.851851851851855
-Zeghrine,El Metn,الغابه,36.36363636363637
-Zouk-Khrab,El Metn,مزهر ومجدوب,38.095238095238095
-Adonis et Sannour,Jubail,دير القطاره,30.769230769230774
-Afka,Jubail,افقا,33.33333333333333
-Aïn-El-Ghouaibé,Jubail,عين الغويبة,32.0
-Aïn Kfah,Jubail,عين كفاع,53.333333333333336
-Akoura,Jubail,الكفر,44.44444444444444
-Al Kattara,Jubail,الكفر,42.857142857142854
-Alita,Jubail,الغابات,44.44444444444444
-Almate El-Chemaliat,Jubail,علمات الشمالية,51.61290322580645
-Almate El-Jenoubiat,Jubail,علمات الجنوبية,51.61290322580645
-Arab El-Haibe,Jubail,دير القطاره,36.36363636363637
-Bakhaase,Jubail,بخعاز,46.15384615384615
-Belhos,Jubail,حصارات,40.0
-Berket Hejoula,Jubail,بخعاز,31.578947368421055
-Bintaél (Fdar-El-Soufla),Jubail,قرطبا الشمالية,27.77777777777777
-Breige,Jubail,الغابات,22.22222222222223
-Deir Mar Sarkis,Jubail,جنه ومار سركيس,35.71428571428571
-El-Jlaicé,Jubail,الجليسه,40.0
-El-Kafr et El-Harf,Jubail,الكفر,42.10526315789474
-El-Kfoune,Jubail,الكفر,46.15384615384615
+Aïha,Rachiaya,عيحا,75.0
+Aïn Arab,Rachiaya,عين حرشا,80.0
+Aïn Horché,Rachiaya,عين التينه,66.66666666666666
+Akabé,Rachiaya,العقبة,85.71428571428571
+Conflict,Rachiaya,كفرقوق,50.0
+Deir El-Achayer,Rachiaya,دير العشائر,76.19047619047619
+Haouche El-Kannabé,Rachiaya,راشيا حي الكواسبه,50.0
+Héloua,Rachiaya,حلوه,85.71428571428571
+Kfar Dinès,Rachiaya,دير العشائر,55.55555555555556
+Kfar Kouk,Rachiaya,كفرقوق,76.92307692307692
+litige,Rachiaya,عين التينه,53.333333333333336
+Mazraet el-Selasata,Rachiaya,سلساتا,100.0
+Mohaïdcé,Rachiaya,محيدثه,72.72727272727272
+Nabi Safa,Rachiaya,السلطان يعقوب الفوقا,52.17391304347826
+Rachaya El-Wadi,Rachiaya,راشيا حي الفوقا,76.92307692307692
+Al-Djeziré,West Bekaa,الخياره,46.15384615384615
+Al-Istable,West Bekaa,راشيا حي الكواسبه,47.61904761904762
+Al-Khiara,West Bekaa,الخياره,66.66666666666666
+"Ammik et ""Jouret Ammik""",West Bekaa,عين التينه,31.25
+"Chouberkié ""Ammik""",West Bekaa,الشبرقية,44.44444444444444
+Dair Tahmiche,West Bekaa,عين التينه,63.1578947368421
+Dakoué,West Bekaa,الدكوه,85.71428571428571
+Deir-Aïn-el-Jaouzé,West Bekaa,عين التينه,54.54545454545455
+Hamara,West Bekaa,المنارة,80.0
+Harime-el-Soughra,West Bekaa,المنصوره,50.0
+Khiara-el-Atika,West Bekaa,الخياره,55.55555555555556
+Machghara,West Bekaa,الشبرقية,57.142857142857146
+Mansoura,West Bekaa,المنصوره,90.9090909090909
+n.a. (4),West Bekaa,عين التينه,25.0
+Soltan-Yacoub,West Bekaa,السلطان يعقوب التحتا,100.0
+Al-Ali-Nahri,Zahleh,علي النهري,100.0
+Al-Nabi Aïla,Zahleh,نبي ايلا,100.0
+Anjar,Zahleh,مجدل عنجر,100.0
+Chouberkié  Tabet,Zahleh,شهابية الفاعور,54.54545454545455
+Conflict,Zahleh,الكرمة,50.0
+Fourzol,Zahleh,الفرزل التحتا,100.0
+Haouche-al-Omara (Terres),Zahleh,زحلة حوش الامراء,47.05882352941177
+Haouche Kaissar,Zahleh,زحلة حوش الامراء,54.54545454545455
+Haouche Sayadi,Zahleh,زحلة حي السيدة,62.5
+Hochemoche,Zahleh,زحلة المعلقه,40.0
+Kab Elias,Zahleh,قب الياس الفوقا,70.58823529411765
+Koussaya,Zahleh,قوسايا,80.0
+Ksara,Zahleh,الكرمة,75.0
+Maallaka (Terres),Zahleh,زحلة المعلقه,43.47826086956522
+Maazraat-el-Ramtanieh,Zahleh,زحلة الراسيه التحتا,50.0
+Mandara,Zahleh,الكرمة,44.44444444444444
+Mejdel-Anjar,Zahleh,تل الاخضر,60.0
+Nasriyat Rizk,Zahleh,حي الفيكاني,50.0
+Saïd Neil,Zahleh,سعدنايل,87.5
+Tal-al-Amara,Zahleh,تل الاخضر,60.0
+Tal-el-Akhdar,Zahleh,تل الاخضر,70.58823529411765
+Tanaïl,Zahleh,تعنايل,80.0
+Tchiflik Eddé,Zahleh,تل الاخضر,66.66666666666666
+Tchiflik Kikano,Zahleh,حي الفيكاني,58.8235294117647
+Touaité,Zahleh,تويته,88.88888888888889
+Wadi-el-Arayeche,Zahleh,زحلة وادي العرايش,76.92307692307692
+Zahlé (Terres),Zahleh,زحلة حي السيدة,36.36363636363637
+Zahlé Al-Rassié,Zahleh,زحلة الراسيه التحتا,74.07407407407408
+Zahlé Haouche Al-Oumara,Zahleh,زحلة حوش الامراء,80.0
+Zahlé Haouche Al-Zaraané,Zahleh,زحلة حوش الزراعنه,80.0
+Zahlé Maallaka Kerek,Zahleh,زحلة مار مخايل,74.07407407407408
+Zahlé Mar Antonios,Zahleh,زحلة مار انطونيوس,96.96969696969697
+Zahlé Mar Gérios,Zahleh,زحلة الميدان الغربي,74.07407407407408
+Zahlé Midan,Zahleh,زحلة الميدان الشرقي,80.0
+Zahlé Saidet Al-Najda,Zahleh,زحلة سيدة النجاة,80.0
+Zebdol,Zahleh,خضر بك,40.0
+Aïn-Dara,Aley,عين داره,93.33333333333333
+Aïn-El-Jdeidé,Aley,عين الجديدة,80.0
+Aïn-Rommané,Aley,عين المرج,71.42857142857143
+Ain Saideh,Aley,عين السيدة,87.5
+Aïn Sofar,Aley,صوفر,100.0
+Aley,Aley,عاليه شمالي,100.0
+Baïssour,Aley,بحواره,60.0
+Baouarta,Aley,بعورته,83.33333333333333
+Bhamdoun (Gare),Aley,محطة بحمدون,70.58823529411765
+Bhouara,Aley,بحواره,90.9090909090909
+Bouzridé,Aley,بوزريده,92.3076923076923
+Btallaoun,Aley,البساتين,54.54545454545455
+Bteezanieh,Aley,التعزانية,66.66666666666666
+Chouaifat Amroussyat,Aley,الشويفات حي العمروسية,100.0
+Chouaifat Oumara,Aley,الشويفات حي الامراء,91.66666666666667
+Chouaifat Qobbat,Aley,الشويفات حي القبة,100.0
+El-Fsaïkine,Aley,عاليه وسطاني,47.61904761904762
+El-Kahalé,Aley,الكحالة,66.66666666666666
+El-Kamatiyeh,Aley,القماطية,42.857142857142854
+El-Mansouriyeh et Aïn-El-Marge,Aley,عين المرج,100.0
+El-Rejmeh,Aley,الرجمة,54.54545454545455
+Homs et Hama,Aley,عاليه وسطاني,52.17391304347826
+Kfar-Aammay,Aley,كفر عميه,93.33333333333333
+litige,Aley,عاليه غربي,53.333333333333336
+Mchakhté,Aley,القماطية,66.66666666666666
+Baalchemay,Baabda,بعلشميه,92.3076923076923
+Borge el Baragenat,Baabda,برج البراجنة حي السنديان,86.95652173913044
+Boutchay,Baabda,بطشيه,88.88888888888889
+Bsaba Wadi Dlab,Baabda,برج البراجنة حي السياد,57.142857142857146
+Chiah,Baabda,الشياح بئر العبد,100.0
+El-Chmeice,Baabda,الحدث شمالي,58.8235294117647
+El-Erbaniyeh,Baabda,العربانية,58.8235294117647
+El-Kalaa,Baabda,القلعه,60.0
+El-Khreibé,Baabda,المريجه,46.15384615384615
+El-Kneissé,Baabda,الشياح حي الكنيسة,58.8235294117647
+El Halaliyeh,Baabda,الهلالية,66.66666666666666
+Forn El-Chobbek,Baabda,حارة حريك قرانوح,44.44444444444444
+Ghbayreh,Baabda,الغبيري حي الجامع,62.5
+Hadace,Baabda,الحدث قبلي,66.66666666666666
+Haret Horaïk,Baabda,حارة حريك حي الرويس,100.0
+Hazmiyeh,Baabda,المريجه,61.53846153846154
+Louaizé,Baabda,الهلالية,60.0
+Mardachat,Baabda,المرداشة,83.33333333333333
+Mazraet-el-Mzeiraa,Baabda,العربانية,45.45454545454545
+Zandouka,Baabda,زندوقه,83.33333333333333
+Aïn-el-Assad et Chmeicé,Chouf,عين الاسد والشميس,70.58823529411765
+Aïn Ouzaï,Chouf,عين وزين,87.5
+Anbal,Chouf,البطال,83.33333333333333
+Baakline,Chouf,بعقلين التحتا,100.0
+Bkhchtaine,Chouf,بقعاتا,46.15384615384615
+Bkifa,Chouf,الدبية,66.66666666666666
+Brih et Mteilé,Chouf,بريح,100.0
+Chehime,Chouf,شحيم حي البدوي,100.0
+Chemaarine,Chouf,السمقانية,61.53846153846154
+Dardourite,Chouf,دير دوريت,70.58823529411765
+Debbiyeh,Chouf,الدبية,75.0
+Debbiyeh (Ain el Haour),Chouf,جدرا - وادي الزينة,27.02702702702703
+Deir  El-Moukhalles Ech-Chouf,Chouf,المحتقره دير المخلص,69.56521739130434
+Douair Bsennaï,Chouf,المحتقره دير المخلص,60.0
+El-Bkaya,Chouf,بقعاتا,57.142857142857146
+El-Fouara,Chouf,الفواره,66.66666666666666
+El-Freidice,Chouf,دير دوريت,44.44444444444444
+El-Jahliyeh,Chouf,الجاهلية,66.66666666666666
+El-Jdeidé,Chouf,جديدة الشوف,55.55555555555556
+El-Kahlouniyeh,Chouf,الكحلونية,70.58823529411765
+El-Khreibé,Chouf,المغيريه,42.857142857142854
+El-Kneissé,Chouf,الكنيسة,66.66666666666666
+El-Moghaïré,Chouf,المغيريه,71.42857142857143
+El-Moghaïriyeh,Chouf,المغيريه,75.0
+El-Samkanieh,Chouf,السمقانية,58.8235294117647
+Ghabet Jaafar,Chouf,الفواره,58.8235294117647
+Jadra,Chouf,جدرا - وادي الزينة,100.0
+Jdael et Kfarhi,Chouf,الفواره,60.0
+Jebah,Chouf,جباع,75.0
+Kfar Haml,Chouf,كفر قطره,66.66666666666666
+Kfar Katra,Chouf,كفر قطره,93.33333333333333
+Kfar Matta (Klaliyé),Chouf,حارة بعاصير,34.48275862068965
+litige,Chouf,كليليه,54.54545454545455
+Majdel Meouche,Chouf,مجدل المعوش,94.11764705882354
+Mazmoura,Chouf,مزموره,90.9090909090909
+Mtoullé Bzina,Chouf,المطله,100.0
+Naamat,Chouf,الناعمه,66.66666666666666
+Wadi Abou Youssef,Chouf,وادي دير دوريت,61.53846153846154
+Abou-Mizane,El Metn,ابو ميزان,94.73684210526315
+Aïn-El-Kach,El Metn,عين القبو ودير مار سمعان,50.0
+Aïn El-Kabou,El Metn,عين القبو ودير مار سمعان,82.35294117647058
+Aïroune,El Metn,العيرون,100.0
+Antoura,El Metn,عينطوره,83.33333333333333
+Baabdat et Sfaïlé,El Metn,بعبدات,100.0
+Baouchariat,El Metn,البوشريه,83.33333333333333
+Baskinta,El Metn,الرابية,54.54545454545455
+Beit Chebab,El Metn,بيت شباب تحتاني,100.0
+Bsifrine et El-Zahriyé,El Metn,مزرعة بنابيل,55.172413793103445
+Choueir,El Metn,الشوير,100.0
+Deir Tamiche,El Metn,المشرع,54.54545454545455
+Dekouanet,El Metn,الدكوانه,83.33333333333333
+Douar,El Metn,الدوار,100.0
+El-Khounchara,El Metn,الخنشاره,66.66666666666666
+El-Machera,El Metn,المشرع,60.0
+El-Mhaidcé,El Metn,المحيدثة,53.333333333333336
+El-Ouyoun,El Metn,عوكر,36.36363636363637
+Haret El-Belleni,El Metn,مزرعة بنابيل,52.17391304347826
+Hebouss,El Metn,الغابه,50.0
+Jodaidat,El Metn,الجديدة,100.0
+Kaakour,El Metn,القعقور,100.0
+Majdoub,El Metn,مزهر ومجدوب,62.5
+Mar Abda El-Mchammar,El Metn,مار شعيا والمزكه,54.54545454545455
+Mar Chaya et Mzakki,El Metn,مار شعيا والمزكه,73.33333333333333
+Mar Roukose et Dahr El-Hossain,El Metn,زوق الخراب ومار يوسف,51.16279069767442
+Maska et El-Ghabeh,El Metn,الغابه,100.0
+Mazraet Beit Chaar,El Metn,بيت الشعار,100.0
+Mazraet Deir Aoukar,El Metn,عوكر,100.0
+Mazraet El-Hadira,El Metn,مزرعة بنابيل,58.8235294117647
+Mezher,El Metn,مزهر ومجدوب,100.0
+Mkallesse,El Metn,المسقى,50.0
+Sakiet-El-Misk et Bhorsaf,El Metn,ساقية المسك,100.0
+Senn el Fil,El Metn,سن الفيل حي البلده,80.0
+Zeghrine,El Metn,الرابية,40.0
+Zouk-Khrab,El Metn,زوق الخراب ومار يوسف,100.0
+Adonis et Sannour,Jubail,ادونيس,100.0
+Afka,Jubail,افقا,75.0
+Aïn-El-Ghouaibé,Jubail,عين الغويبة,76.19047619047619
+Aïn Kfah,Jubail,عين كفاع,87.5
+Akoura,Jubail,العاقورة - أ,66.66666666666666
+Al Kattara,Jubail,دير القطاره,62.5
+Alita,Jubail,الغابات,72.72727272727272
+Almate El-Chemaliat,Jubail,علمات الشمالية,84.61538461538461
+Almate El-Jenoubiat,Jubail,علمات الجنوبية,84.61538461538461
+Arab El-Haibe,Jubail,المزاريب,52.63157894736842
+Bakhaase,Jubail,بخعاز,66.66666666666666
+Belhos,Jubail,المنصف,54.54545454545455
+Berket Hejoula,Jubail,الريحانة,58.8235294117647
+Bintaél (Fdar-El-Soufla),Jubail,بنتاعل,35.71428571428571
+Breige,Jubail,فتري,50.0
+Deir Mar Sarkis,Jubail,جنه ومار سركيس,74.07407407407408
+El-Jlaicé,Jubail,الجليسه,61.53846153846154
+El-Kafr et El-Harf,Jubail,الكفر,100.0
+El-Kfoune,Jubail,كفر مسحون,50.0
 El-Mouncef,Jubail,المنصف,54.54545454545455
-El-Rihané,Jubail,الريحانة,54.54545454545455
-Fatré et Bir-el-Haït,Jubail,دير القطاره,27.58620689655173
-Ghabate,Jubail,الغابات,60.0
-Hboub,Jubail,الغابات,25.0
-Hedayné,Jubail,ادونيس,33.33333333333333
-Hsarate et Richkif,Jubail,حصارات,36.36363636363637
-Janné,Jubail,علمات الجنوبية,23.529411764705884
-Jouret-el-Kattine,Jubail,دير القطاره,23.07692307692308
-Kartaba,Jubail,الكفر,40.0
-Kartaboune,Jubail,كفر مسحون,31.578947368421055
-Kfar-Mashoune et Dmalsa,Jubail,كفر مسحون,43.75
-Kfar Kaouass,Jubail,الكفر,40.0
-Kfarbaal (Annaya),Jubail,عنايا وكفربعال,57.142857142857146
-litige,Jubail,الغابات,40.0
-Mastita,Jubail,المنصف,36.36363636363637
-Mechmech,Jubail,علمات الشمالية,30.0
-Mehrine,Jubail,كفر مسحون,37.5
+El-Rihané,Jubail,الريحانة,71.42857142857143
+Fatré et Bir-el-Haït,Jubail,فتري,100.0
+Ghabate,Jubail,الغابات,100.0
+Hboub,Jubail,عين الغويبة,30.769230769230774
+Hedayné,Jubail,الريحانة,54.54545454545455
+Hsarate et Richkif,Jubail,حصارات,100.0
+Janné,Jubail,جنه ومار سركيس,100.0
+Jouret-el-Kattine,Jubail,قرطبا الجنوبية,58.333333333333336
+Kartaba,Jubail,قرطبا الجنوبية,100.0
+Kartaboune,Jubail,كفر مسحون,53.333333333333336
+Kfar-Mashoune et Dmalsa,Jubail,كفر مسحون,61.53846153846154
+Kfar Kaouass,Jubail,كفر مسحون,62.5
+Kfarbaal (Annaya),Jubail,عنايا وكفربعال,53.333333333333336
+litige,Jubail,الجليسه,60.0
+Mastita,Jubail,سرعيتا,66.66666666666666
+Mechmech,Jubail,المزاريب,50.0
+Mehrine,Jubail,المزاريب,66.66666666666666
 n.a. (2),Jubail,كفر مسحون,23.529411764705884
-Sarhita,Jubail,حصارات,54.54545454545455
-Sirine,Jubail,حصارات,40.0
-Tedmor et Serghal,Jubail,جنه ومار سركيس,40.0
-Aïntoura,Kasrouane,عينطوره,40.0
-Bekaatouta,Kasrouane,بقعتوته,35.294117647058826
-Boukak El-Dine,Kasrouane,كفردبيان,28.57142857142857
-Chenanhir,Kasrouane,شننعير,50.0
-Deir Baklouche,Kasrouane,زوق مكايل,27.272727272727266
-Djounié Ghadir,Kasrouane,غادير,33.33333333333333
-Djounié Salel Alma,Kasrouane,ساحل علما,40.0
-Djounié Sarba,Kasrouane,النموره وكفر جريف,28.57142857142857
-El-Abri et Chouan,Kasrouane,شوان والعبره,42.857142857142854
-El-Ekaïbé,Kasrouane,كفردبيان,30.769230769230774
-El-Kleiyate,Kasrouane,القليعات,47.05882352941177
-El-Mghaer,Kasrouane,غادير,40.0
-Ghazir,Kasrouane,غادير,40.0
-Herhraya et Kattine,Kasrouane,هرهريا والقطين,51.61290322580645
-Jouret Mhad,Kasrouane,النموره وكفر جريف,38.46153846153846
-Kharayeb Nahr Ibrahim,Kasrouane,هرهريا والقطين,36.36363636363637
-litige,Kasrouane,القليعات,36.36363636363637
-Mazraet El-Ras,Kasrouane,غزير المعاملتين,29.629629629629633
-Mazraet Kfardebiane,Kasrouane,كفردبيان,46.15384615384615
-Mazraet Mrah el-Mir,Kasrouane,النموره وكفر جريف,35.294117647058826
-Mouchaa Kesrouan (Faraya),Kasrouane,النموره وكفر جريف,30.0
-Mouchaa Kesrouan (Kfardebian),Kasrouane,كفردبيان,33.33333333333333
-n.a. (3),Kasrouane,غزير القناة,23.529411764705884
-Nammoura et Kfar Jerif,Kasrouane,النموره وكفر جريف,37.83783783783784
-Souhailet El-Faouka,Kasrouane,ساحل علما,38.46153846153846
-Wata Salam,Kasrouane,ساحل علما,35.294117647058826
-Zaaitré,Kasrouane,زعيتره,46.15384615384615
-Zouk Mikaèl,Kasrouane,زوق مكايل,52.63157894736842
-Aïn-el-Katmoune,Bint Jbayl,السلطانيه,28.57142857142857
-Aïta-el-Zut,Bint Jbayl,السلطانيه,23.529411764705884
-El-Kouzah,Bint Jbayl,قوزح,40.0
-Ghandouriyé,Bint Jbayl,غندورية,55.55555555555556
-Haddacé,Bint Jbayl,حداثا,36.36363636363637
-Salhané,Bint Jbayl,السلطانيه,46.15384615384615
-Soultaniyé,Bint Jbayl,السلطانيه,62.5
-Abou Kamha,Hasbaya,ابو قمحه,47.05882352941177
-Al-Dellafé,Hasbaya,الدلافة,54.54545454545455
-El-Habbariyé,Hasbaya,الهبارية,57.142857142857146
-El-Kahlouat,Hasbaya,الخيام شمالي,36.36363636363637
-El-Khreibé,Hasbaya,كفرشوبا,42.857142857142854
-Marj Ez-Zouhour (Haouch El-Qinnaabé),Hasbaya,مرج الزهور,35.55555555555556
-Nkhailé,Hasbaya,الخيام جنوبي,35.294117647058826
-Slaïyeb,Hasbaya,الخيام شمالي,35.294117647058826
-Adchite El-Koussair,Marjaayoun,سرده والعمره,33.33333333333333
-Adeicé,Marjaayoun,الدلافة,20.0
-Deir Mimas Doumiat,Marjaayoun,ميس الجبل غربي,32.25806451612904
-Ebel-El-Saki,Marjaayoun,ابل السقي,42.10526315789474
-El-Amra,Marjaayoun,مرج الزهور,37.5
-El-Kleia,Marjaayoun,الخيام شمالي,31.578947368421055
-Houra,Marjaayoun,الهبارية,40.0
-Kantara,Marjaayoun,قنطره,50.0
-Mazraet-El-Jrein,Marjaayoun,رب ثلاثين,30.769230769230774
-Mazraet el-Sarada,Marjaayoun,سرده والعمره,42.857142857142854
-Meis El-Jabal,Marjaayoun,ميس الجبل غربي,53.84615384615385
-Rabb Salacine,Marjaayoun,رب ثلاثين,43.47826086956522
-Abba,Nabatiyeh,جباع,28.57142857142857
-Ali El-Taher,Nabatiyeh,زوطر الشرقية,33.33333333333333
-Bfarwé,Nabatiyeh,كفروة,54.54545454545455
-Braikeh,Nabatiyeh,بريقع,33.33333333333333
-El-Charkiyé,Nabatiyeh,الشرقية,44.44444444444444
+Sarhita,Jubail,سرعيتا,72.72727272727272
+Sirine,Jubail,الريحانة,60.0
+Tedmor et Serghal,Jubail,مزرعة السياد,66.66666666666666
+Aïntoura,Kasrouane,زعيتره,60.0
+Bekaatouta,Kasrouane,بقعتوته,85.71428571428571
+Boukak El-Dine,Kasrouane,كفردبيان,44.44444444444444
+Chenanhir,Kasrouane,شننعير,83.33333333333333
+Deir Baklouche,Kasrouane,القليعات,50.0
+Djounié Ghadir,Kasrouane,غادير,100.0
+Djounié Salel Alma,Kasrouane,ساحل علما,76.19047619047619
+Djounié Sarba,Kasrouane,كفردبيان,53.333333333333336
+El-Abri et Chouan,Kasrouane,شوان والعبره,69.23076923076923
+El-Ekaïbé,Kasrouane,العقيبه,100.0
+El-Kleiyate,Kasrouane,القليعات,61.53846153846154
+El-Mghaer,Kasrouane,غزير الجامع,50.0
+Ghazir,Kasrouane,غزير الجامع,100.0
+Herhraya et Kattine,Kasrouane,هرهريا والقطين,85.71428571428571
+Jouret Mhad,Kasrouane,النموره وكفر جريف,52.17391304347826
+Kharayeb Nahr Ibrahim,Kasrouane,النموره وكفر جريف,51.61290322580645
+litige,Kasrouane,القليعات,54.54545454545455
+Mazraet El-Ras,Kasrouane,غزير المعاملتين,40.0
+Mazraet Kfardebiane,Kasrouane,كفردبيان,100.0
+Mazraet Mrah el-Mir,Kasrouane,النموره وكفر جريف,51.61290322580645
+Mouchaa Kesrouan (Faraya),Kasrouane,شوان والعبره,37.5
+Mouchaa Kesrouan (Kfardebian),Kasrouane,شوان والعبره,33.33333333333333
+n.a. (3),Kasrouane,غزير القناة,25.0
+Nammoura et Kfar Jerif,Kasrouane,النموره وكفر جريف,62.5
+Souhailet El-Faouka,Kasrouane,السهيله,47.05882352941177
+Wata Salam,Kasrouane,ساحل علما,58.8235294117647
+Zaaitré,Kasrouane,زعيتره,90.9090909090909
+Zouk Mikaèl,Kasrouane,زوق مكايل,94.11764705882354
+Aïn-el-Katmoune,Bint Jbayl,تبنين حي التحتاني,50.0
+Aïta-el-Zut,Bint Jbayl,عيتا الجبل,66.66666666666666
+El-Kouzah,Bint Jbayl,قوزح,100.0
+Ghandouriyé,Bint Jbayl,غندورية,92.3076923076923
+Haddacé,Bint Jbayl,حداثا,66.66666666666666
+Salhané,Bint Jbayl,السلطانيه,76.92307692307692
+Soultaniyé,Bint Jbayl,السلطانيه,100.0
+Abou Kamha,Hasbaya,ابو قمحه,87.5
+Al-Dellafé,Hasbaya,الدلافة,66.66666666666666
+El-Habbariyé,Hasbaya,الهبارية,66.66666666666666
+El-Kahlouat,Hasbaya,الدلافة,42.857142857142854
+El-Khreibé,Hasbaya,الخيام غربي,47.05882352941177
+Marj Ez-Zouhour (Haouch El-Qinnaabé),Hasbaya,مرج الزهور,100.0
+Nkhailé,Hasbaya,عديسه,54.54545454545455
+Slaïyeb,Hasbaya,رب ثلاثين,57.142857142857146
+Adchite El-Koussair,Marjaayoun,الجديدة حي السراي,50.0
+Adeicé,Marjaayoun,عديسه,66.66666666666666
+Deir Mimas Doumiat,Marjaayoun,الجديدة حي المدارس,64.0
+Ebel-El-Saki,Marjaayoun,ابل السقي,100.0
+El-Amra,Marjaayoun,الهبارية,46.15384615384615
+El-Kleia,Marjaayoun,القليعه,54.54545454545455
+Houra,Marjaayoun,الهبارية,66.66666666666666
+Kantara,Marjaayoun,قنطره,88.88888888888889
+Mazraet-El-Jrein,Marjaayoun,الجديدة حي السراي,50.0
+Mazraet el-Sarada,Marjaayoun,الجديدة حي السراي,50.0
+Meis El-Jabal,Marjaayoun,ميس الجبل جنوبي,82.35294117647058
+Rabb Salacine,Marjaayoun,رب ثلاثين,77.77777777777777
+Abba,Nabatiyeh,جباع,57.142857142857146
+Ali El-Taher,Nabatiyeh,زوطر الشرقية,45.45454545454545
+Bfarwé,Nabatiyeh,كفروة,66.66666666666666
+Braikeh,Nabatiyeh,بريقع,80.0
+El-Charkiyé,Nabatiyeh,الشرقية,66.66666666666666
 El-Hamra,Nabatiyeh,الشرقية,40.0
-Hmaïla,Nabatiyeh,الشرقية,16.66666666666667
-Izzé,Nabatiyeh,زوطر الشرقية,12.5
-Kafr Dajjal,Nabatiyeh,كفروة,37.5
-Kafra-Jbah,Nabatiyeh,كفروة,40.0
-Kakiat El-Jisr,Nabatiyeh,قعقعية الجسر,40.0
-Ksaibé,Nabatiyeh,جباع,22.22222222222223
-Mazraat-el-Khreibé,Nabatiyeh,النميريه,25.0
-Mazraet Bsaffour,Nabatiyeh,زوطر الشرقية,35.71428571428571
-Mazraet Chaal Baal,Nabatiyeh,زوطر الشرقية,33.33333333333333
-Mazraet Dmoul,Nabatiyeh,زوطر الشرقية,32.0
-Mazraet El-Bayad,Nabatiyeh,زوطر الشرقية,35.71428571428571
-Mazraet Kalaat Meiss,Nabatiyeh,زوطر الشرقية,25.0
-Mazraet Kfar Jaouz,Nabatiyeh,زوطر الشرقية,26.66666666666667
-Mazraet Sinai,Nabatiyeh,سيني,23.529411764705884
-Nmériyé,Nabatiyeh,النميريه,61.53846153846154
-Zaoutar El-Charkiyé,Nabatiyeh,زوطر الشرقية,51.61290322580645
-Al-Boukaïa et Dahr Abi Yaghi,Batroun,ضهر ابو ياغي,45.714285714285715
-Basbina,Batroun,البترون,33.33333333333333
-Batroune,Batroun,البترون,61.53846153846154
-Bechtoudar-Aoura,Batroun,بشتودار,43.47826086956522
-Beit Ksab,Batroun,الفتاحات وحربونا,30.0
-Chouma,Batroun,غوما,22.22222222222223
-Deir Kfifane,Batroun,ضهر ابو ياغي,27.272727272727266
-Deir Mar Youhanna Douma,Batroun,ضهر ابو ياغي,30.303030303030297
-Deir Mar Youssef Jrabta,Batroun,ضهر ابو ياغي,30.303030303030297
-El-Ftahat,Batroun,الفتاحات وحربونا,47.61904761904762
-Harbouna,Batroun,الفتاحات وحربونا,42.10526315789474
-Karnaoun,Batroun,البترون,30.769230769230774
-Kfar Heloss,Batroun,مراح شديد ودير شواح,33.33333333333333
-Koubba,Batroun,البترون,18.181818181818187
-Masreh,Batroun,صغار,44.44444444444444
-Mrah Chdid,Batroun,راشكده,37.5
-Rachkida,Batroun,راشكده,57.142857142857146
-Sghar et Wata Sfarta,Batroun,الفتاحات وحربونا,38.70967741935484
-Sourate,Batroun,صورات,54.54545454545455
-Tannourine Foka,Batroun,تنورين الفوقا,46.15384615384615
-Bazoune,Bcharre,بزعون,50.0
-Bcharré,Bcharre,بشري حي مار سابا,38.095238095238095
-Bikaa kafra,Bcharre,بقاعكفرا,47.05882352941177
-Billa,Bcharre,المغر وبلا,33.33333333333333
-Mchaa Ej Jobbé,Bcharre,بشري حي مار يوحنا,26.66666666666667
-Mugher-el-Ahwel,Bcharre,المغر وبلا,45.45454545454545
-Al-Boukaia,Koura,البحصاص,26.66666666666667
-Al-Hraïché,Koura,ضهور الهوا,40.0
-Belmand,Koura,اجد عبرين,40.0
-Ejdabrine,Koura,اجد عبرين,35.294117647058826
-Majdel,Koura,اجد عبرين,28.57142857142857
-Aassaymout,Minieh-Danieh,المنية,14.285714285714292
-Al-Minieh,Minieh-Danieh,المنية,42.857142857142854
-Azka,Minieh-Danieh,الريحانية,0.0
-Bakhoune,Minieh-Danieh,الريحانية,28.57142857142857
-Bchnnata,Minieh-Danieh,الريحانية,28.57142857142857
-Bechhara,Minieh-Danieh,النبي يوشع,23.529411764705884
-Behweité,Minieh-Danieh,برج اليهودية,31.578947368421055
-Beit Zaoud,Minieh-Danieh,برج اليهودية,28.57142857142857
-Bkarsouna,Minieh-Danieh,الريحانية,26.66666666666667
-Borge-El-Yahoudié,Minieh-Danieh,برج اليهودية,42.857142857142854
-Btehline,Minieh-Danieh,المنية,30.769230769230774
-El-Watié et Harf Siad,Minieh-Danieh,برج اليهودية,20.689655172413794
-Jarjoura,Minieh-Danieh,برج اليهودية,21.05263157894737
-Jaroun,Minieh-Danieh,الريحانية,33.33333333333333
-Kattiné,Minieh-Danieh,المنية,18.181818181818187
-Kfar Bibnine,Minieh-Danieh,النبي يوشع,19.04761904761905
-Kharnoub,Minieh-Danieh,الريحانية,28.57142857142857
-litige,Minieh-Danieh,المنية,18.181818181818187
-Mazraat Ketrane,Minieh-Danieh,الريحانية,19.04761904761905
-Mazraet El-Krême,Minieh-Danieh,المنية,19.04761904761905
-Mrabine,Minieh-Danieh,المنية,36.36363636363637
-Mrah-El-Sfiré,Minieh-Danieh,الريحانية,21.05263157894737
-Nabi Youcheaa,Minieh-Danieh,النبي يوشع,45.45454545454545
-Nemrine et Bakoura,Minieh-Danieh,برج اليهودية,20.689655172413794
-Omar,Minieh-Danieh,المنية,25.0
-Qarhaiya,Minieh-Danieh,الريحانية,42.857142857142854
-Qemmamine,Minieh-Danieh,المنية,30.769230769230774
-Qraine,Minieh-Danieh,الريحانية,33.33333333333333
-Tourbol,Minieh-Danieh,برج اليهودية,22.22222222222223
-Zouk Bhanine,Minieh-Danieh,الريحانية,22.22222222222223
-Al-Mina Jardins,Tripoli,الرمانة,37.5
-Al-Mina No1,Tripoli,الميناء,40.0
-Al-Mina No2,Tripoli,الميناء,40.0
-Al-Mina No3,Tripoli,الميناء,40.0
-Tripoli Al-Hadid,Tripoli,الحديد,38.095238095238095
-Tripoli Al-Kobbé,Tripoli,المهاترة,27.272727272727266
-Tripoli Al-Mouhaitra,Tripoli,المهاترة,38.46153846153846
-Tripoli Al-Nouri,Tripoli,النوري,28.57142857142857
-Tripoli Al-Rmmanieh,Tripoli,المهاترة,40.0
-Tripoli Al-Souéka,Tripoli,المهاترة,26.086956521739125
-Tripoli Al-Tabbaneh,Tripoli,التبانة,33.33333333333333
-Tripoli Al-Tal,Tripoli,المهاترة,30.0
-Tripoli Al-Zehrieh,Tripoli,الزاهرية,33.33333333333333
-Tripoli Al Haddadin,Tripoli,الحدادين,40.0
-Tripoli Jardins,Tripoli,الرمانة,21.05263157894737
-Tripoli Zeitoun,Tripoli,التبانة,30.0
-Aadoua,Zgharta,القادريه,18.181818181818187
-Acheiche,Zgharta,عشاش,30.769230769230774
-Al-Harik,Zgharta,البحيرة,42.857142857142854
-Al-Khaldyé,Zgharta,القادريه,46.15384615384615
-Arbet Koshaya,Zgharta,عربة قزحيا,45.45454545454545
-Ardate,Zgharta,كفرحاتا,36.36363636363637
-Basloukite,Zgharta,بسلوقيط,47.05882352941177
-Benachée,Zgharta,بنشعي,42.857142857142854
-Bouhairet Toula,Zgharta,حارة الفوار,34.78260869565217
-Bsebhil,Zgharta,بنشعي,46.15384615384615
-Danhi,Zgharta,القادريه,40.0
-Ehden,Zgharta,رشعين,36.36363636363637
-Ejbeh,Zgharta,اجبع,50.0
-Iâl,Zgharta,ايعال,33.33333333333333
-Karabeiche,Zgharta,كفرحاتا,40.0
-Kfar Chakna,Zgharta,حارة الفوار,42.10526315789474
-Kfar hata,Zgharta,حارة الفوار,47.05882352941177
-Mazraat Ejbeh,Zgharta,زغرتا حي المعاصر,46.15384615384615
-Mazraat Jneide,Zgharta,زغرتا حي المعاصر,37.03703703703704
-Mazraet Hreikess,Zgharta,حرف مزيارة,48.0
-Merh Kfarsghabe,Zgharta,كفر شخنا,50.0
-Mériata,Zgharta,مرياطه,50.0
-n.a. (1),Zgharta,كفر شخنا,23.529411764705884
-Rachehine,Zgharta,كفر شخنا,44.44444444444444
-Sakhra,Zgharta,قره باش,46.15384615384615
-Zghorta,Zgharta,زغرتا حي المعاصر,40.0
-Aïchiyé,Jezzine,الحسانيه,33.33333333333333
-Akmata,Jezzine,ريمات وشقاديف,22.22222222222223
-Ariya,Jezzine,القطراني,40.0
-Arkoub (Mazraat),Jezzine,كفر جره,26.086956521739125
-Baba,Jezzine,لبعه,25.0
-Chabil,Jezzine,قطين وحيداب,25.0
-El-Demachkiyeh,Jezzine,الحسانيه,40.0
-El-Kabeh,Jezzine,لبعه,50.0
-El-Mahmoudiyeh,Jezzine,الحسانيه,40.0
-El-Rahbane,Jezzine,الحسانيه,37.5
-El-Rihane,Jezzine,الحسانيه,40.0
-El-Wadié,Jezzine,قطين وحيداب,26.66666666666667
-Haïdab,Jezzine,قطين وحيداب,37.5
-Haitoulé,Jezzine,قتالة,33.33333333333333
-Haïtoura,Jezzine,حيطوره,42.857142857142854
-Hassaniyé,Jezzine,الحسانيه,57.142857142857146
-Jabal Toura,Jezzine,القطراني,35.294117647058826
-Kafr-Jarra,Jezzine,كفر جره,35.294117647058826
-Katrani,Jezzine,القطراني,50.0
-Kattine,Jezzine,القطراني,33.33333333333333
-Khellet Khazen,Jezzine,بحنين - كفرتعلا,35.71428571428571
-Krouh,Jezzine,حيطوره,36.36363636363637
-litige,Jezzine,القطراني,33.33333333333333
-Mazraat Dahr el-Deir,Jezzine,بحنين - كفرتعلا,23.529411764705884
-Mazraat Daraya,Jezzine,ريمات وشقاديف,30.769230769230774
-Mazraat El Ouazaaiyé,Jezzine,حيتوله - وادي الليمون,25.641025641025635
-Mazraat Louzid (Louayziyé),Jezzine,بحنين - كفرتعلا,20.0
-Rimate,Jezzine,ريمات وشقاديف,33.33333333333333
-Sfarai,Jezzine,صفارية,54.54545454545455
-Tamra,Jezzine,القطراني,40.0
-Wadi Laimoune,Jezzine,حيتوله - وادي الليمون,37.5
-Addoussiat,Saida,صيدا حي مكسر العبد,23.07692307692308
-Aïn-el-Dib,Saida,صيدا حي مار نقولا,25.0
-Arab Soukar,Saida,صيدا حي مكسر العبد,29.629629629629633
-Arab Tabbaya,Saida,صيدا حي رجال الاربعين,27.58620689655173
-Bissariat,Saida,صيدا حي مكسر العبد,24.0
-Daoudiyé,Saida,صيدا حي مكسر العبد,16.66666666666667
-Darbessim,Saida,صيدا حي مكسر العبد,24.0
-Deir Takla,Saida,صيدا حي مار نقولا,25.0
-El-Hajjé,Saida,صيدا حي الشارع,20.0
-El-Mhammariyé,Saida,صيدا حي مار نقولا,33.33333333333333
-El Hartiyé,Saida,صيدا حي الشارع,36.36363636363637
-Jaziré,Saida,صيدا حي السراي,11.764705882352942
-Kaakiet El-Senaoubar,Saida,صيدا حي السراي,25.80645161290323
-Kaoutarite El-Riz,Saida,صيدا حي مكسر العبد,24.24242424242425
-Kaoutarite El-Siyad,Saida,صيدا حي مكسر العبد,28.57142857142857
-Kfar Badda,Saida,صيدا حي مكسر العبد,38.46153846153846
-Kherbet Bassal,Saida,صيدا حي المسالخية,27.58620689655173
-Kherbet El-Douair,Saida,صيدا حي مكسر العبد,30.303030303030297
-Loubié,Saida,صيدا حي السبيل,22.22222222222223
-Matriet El-Choumar,Saida,صيدا حي الشارع,26.66666666666667
-Mazraat El-Wasta,Saida,صيدا حي الزويتيني,25.80645161290323
-Mazraat Jimjim,Saida,صيدا حي مار نقولا,21.42857142857143
-Mazraet Matarite Jebah,Saida,صيدا حي مار نقولا,27.77777777777777
-Miemié,Saida,صيدا حي مار نقولا,10.0
-Mohaidalé,Saida,صيدا حي المسالخية,25.0
-Msaileh,Saida,صيدا حي المسالخية,36.36363636363637
-Nadjariat,Saida,صيدا حي الكنان,20.0
-Saksakiat,Saida,صيدا حي الكشك,28.57142857142857
-Samiate,Saida,صيدا حي السراي,11.111111111111114
-Sfenté,Saida,صيدا حي السراي,11.764705882352942
-Snaiber,Saida,صيدا حي السراي,22.22222222222223
-Tibna,Saida,صيدا حي الزويتيني,20.0
-Yahoudiat,Saida,صيدا حي الشارع,28.57142857142857
-Aaiyé,Sour,البساتين,20.0
-Abou Chech,Sour,باريش,26.66666666666667
-Aïn Abou Abdallah,Sour,عين ابو عبدالله,46.666666666666664
-Bazouriat,Sour,البازوريه,40.0
-Beiriche,Sour,باريش,46.15384615384615
-Bestiace,Sour,البساتين,46.15384615384615
-Btaychiyé,Sour,بثتيات,53.333333333333336
-Chameh,Sour,شمع,40.0
-Cheïetiyé,Sour,بثتيات,40.0
-Debhalé,Sour,باريش,33.33333333333333
-El-Héloussiyé,Sour,الحلوسية,50.0
-El-Kleilé,Sour,قليله,36.36363636363637
-Eskandaroun,Sour,البساتين,25.0
-Hamoul,Sour,شمع,40.0
-Hanawé,Sour,حناويه,54.54545454545455
-Jejime,Sour,صور حي الجامع,23.529411764705884
-Kneissé,Sour,البص  قسم 1,26.66666666666667
-Mahaïlib,Sour,المالكية,30.769230769230774
-Mahroub,Sour,معروب,50.0
-Mazraat Dhaira,Sour,صور حي الجامع,32.0
-Mazraat Ez-Zalloutieh,Sour,الحميري,29.629629629629633
-Mazraat Torsemhat,Sour,صور حي المنارة,27.58620689655173
-Neffahiyé,Sour,نفاخيه,53.333333333333336
-Ouadi Djilou,Sour,وادي جيلو,40.0
-Rafid-el-Mernaba,Sour,معروب,28.57142857142857
-Salha,Sour,سلعا,50.0
-Tairzibna,Sour,البساتين,28.57142857142857
-Touaire,Sour,طير فلسيه,25.0
-Trafelsiyé,Sour,طير فلسيه,42.10526315789474
-Aidamoun shikhlar,Akkar,بني صخر,48.0
-Akkar El-Atika,Akkar,عكار العتيقه,41.666666666666664
-Al-Amara,Akkar,العماير,46.15384615384615
-Al-Hissa,Akkar,الحيصه,46.15384615384615
-Al-Jédidé,Akkar,جديدة القيطع,35.294117647058826
-Al-Khraibé (Kousha),Akkar,الشيخ طابا,41.666666666666664
-Al-Kleiat,Akkar,خط البترول,37.5
-Al-Massoudié,Akkar,المسعوديه,40.0
-Al-Moukaiteh,Akkar,الحميره,33.33333333333333
-Al-Mouzeihmé,Akkar,الحميره,33.33333333333333
-Al-Roumoul,Akkar,جرمنايا,33.33333333333333
-Al-Semmakli,Akkar,السهلة,37.5
-Al-Souaissé,Akkar,السويسه,35.294117647058826
-Al-Zoureiribe,Akkar,الزواريب,42.10526315789474
-Al Moghrak,Akkar,العماير,40.0
-Barcha,Akkar,الدوره,40.0
-Chakdouf,Akkar,الشقدوف,42.857142857142854
-Cheikh Taba Montagne,Akkar,الشيخ طابا,42.857142857142854
-Cheikh Taba Plaine,Akkar,الشيخ طابا,46.15384615384615
-Cheikh Zennad Tal Bibé,Akkar,الشيخ زناد,45.16129032258065
-Cheir Homeirine,Akkar,النهرية وبستان الحرش,37.5
-Dabbabiyé Charkié,Akkar,القبيات الضهر,38.46153846153846
-Dahr-Leyciné,Akkar,ضهر ليسينه,54.54545454545455
-Dahr el-Kneissé,Akkar,ضهر القنبر,50.0
-Dahr Haddara,Akkar,ضهر القنبر,47.61904761904762
-Danbou,Akkar,دارين,40.0
-Daoucé et Baghdadi,Akkar,القبيات القطلبه,27.58620689655173
-Daoura,Akkar,الدوره,40.0
-Dayret Nahr El-Kébir,Akkar,ضهر القنبر,41.37931034482759
-Deirine,Akkar,دارين,54.54545454545455
-Denké et El-Amriyeh,Akkar,حكر الشيخ طابا,43.75
-El-Armeh,Akkar,الدوره,46.15384615384615
-El-Bardé,Akkar,الفرض,50.0
-El-Ghozaili,Akkar,غزيله,46.15384615384615
-El-Haouchab,Akkar,حوشب,46.15384615384615
-El-Kantara,Akkar,القنطره,50.0
-El-Kneissé,Akkar,الكنيسة,50.0
-El-Korné,Akkar,القرنة,46.15384615384615
-El-Kouachra,Akkar,الكواشره,44.44444444444444
-El-Msallé,Akkar,السهلة,42.857142857142854
-El-Nfeicé,Akkar,النفيسه,40.0
-Fseikine et Aïn Achma,Akkar,النهرية وبستان الحرش,31.578947368421055
-Homeira,Akkar,الحميره,50.0
-Iate,Akkar,عيات,28.57142857142857
-Janine,Akkar,جرمنايا,36.36363636363637
-Jedeidet-El-Kayteh,Akkar,جديدة القيطع,41.37931034482759
-Jouret Srar,Akkar,جبل المنصورة,36.36363636363637
-Kaabarine,Akkar,كرم زبدين,33.33333333333333
-Kafr Malka,Akkar,حكر الشيخ طابا,43.47826086956522
-Katté,Akkar,خط البترول,40.0
-Khalsa,Akkar,الحيصه,40.0
-Khirbet Er Remmane,Akkar,خربة الجرد,42.857142857142854
-Khreibet Aakkar,Akkar,حكر الشيخ طابا,42.857142857142854
-litige,Akkar,قليعات,36.36363636363637
-Majdel,Akkar,جديدة القيطع,35.294117647058826
-Mazraet-El-Nahrieh,Akkar,الحميره,33.33333333333333
-Mechaïlha Hakour,Akkar,مشيلحة حاكوره,55.172413793103445
-Merlayet Melhem,Akkar,القبيات الضهر,48.0
-Noura El-Faouka et Tahta,Akkar,القبيات مرتموره,32.432432432432435
-Qarha,Akkar,القنطره,60.0
-Sadaka,Akkar,السنديانة,33.33333333333333
-Safiné-El-Kayteh,Akkar,الشيخ عياش,29.629629629629633
-Saïdnaya,Akkar,السنديانة,42.857142857142854
-Sindianet Zeidan,Akkar,السنديانة,36.36363636363637
-Tal Kerri,Akkar,خربة الجرد,42.10526315789474
-Tal Sibhel,Akkar,الشيخ طابا,44.44444444444444
-Zouk-El-Hosmieh et Dahr Ayasse,Akkar,ضهر ليسينه,35.0
-Addous,Baalbeck,كفردبش,30.769230769230774
-Aïn El-Beniyé,Baalbeck,الجوبانية,40.0
-Aïn El-Jaouzé,Baalbeck,حي الزهراء,30.0
-Aïn Séa et Chadourah,Baalbeck,الخضر حي الاشعل,36.36363636363637
-Al-Aïne,Baalbeck,الانصار,36.36363636363637
-Al-Fakiat,Baalbeck,الكواخ,28.57142857142857
-Al-Khodré,Baalbeck,الخضر الغربي,50.0
-Al-Nabi Chite,Baalbeck,النبي رشاده,43.47826086956522
-Al-Qa Bayoun,Baalbeck,القرينة,44.44444444444444
-Al-Qa El-Benjakie,Baalbeck,راس بعلبك,36.36363636363637
-Al-Qa Jouar Mekie,Baalbeck,الفاكهة حي مار جرجس,33.33333333333333
-Al-Qa Wadi El-Khanzir,Baalbeck,مزرعة آل سويدان,45.714285714285715
-Al-Saïdat,Baalbeck,السعيده,40.0
-Al-Taybat,Baalbeck,التوفيقيه,35.294117647058826
-Baalbek,Baalbeck,راس بعلبك,53.333333333333336
-Barka,Baalbeck,برقه,44.44444444444444
-Chaat,Baalbeck,حي الست,36.36363636363637
-Chaïbé,Baalbeck,الشربين,33.33333333333333
-Conflict,Baalbeck,فلاوي,33.33333333333333
-Couvent St Maron,Baalbeck,النبي شيت حي الجامع,37.5
-Dar El-Ouassia,Baalbeck,دار الواسعة,45.45454545454545
-Haddet,Baalbeck,الحدث الغربي,37.5
-Jabba,Baalbeck,جبعا,50.0
-Jaboulé et Al-Bijage,Baalbeck,النبي شيت حي طبشار,31.578947368421055
-Jenta,Baalbeck,الجوبانية,36.36363636363637
-Kfar Dabache,Baalbeck,الحدث الغربي,36.36363636363637
-Khreibé,Baalbeck,الخضر الغربي,47.05882352941177
-Knaissat,Baalbeck,الانصار,36.36363636363637
-litige,Baalbeck,الشواغير التحتا,35.294117647058826
-Mazraet Beit Mcheik,Baalbeck,مزرعة بيت مطر,43.75
-Misraya,Baalbeck,المعاصر,54.54545454545455
-Oummouchki,Baalbeck,بيت مشيك,31.578947368421055
-Ras Baalbek El-Charki,Baalbeck,راس بعلبك,48.275862068965516
-Ras Baalbek El-Sahl,Baalbeck,راس بعلبك,51.851851851851855
-Slouky,Baalbeck,فلاوي,40.0
-Yamouné,Baalbeck,اليمونه,50.0
-Conflict,Hermel,فلاوي,33.33333333333333
-El-Méaisseri,Hermel,المعاصر,47.05882352941177
-Hermel,Hermel,الهرمل حي الحارة,44.44444444444444
-Hermel Charbine,Hermel,الهرمل حي الحارة,50.0
-Hermel Djebab,Hermel,الهرمل حي بديتا,48.0
-Hermel Zighrine,Hermel,الهرمل حي الحارة,51.851851851851855
-Michaa Mrajhiné,Hermel,مراح العين,34.78260869565217
-Ouadi El-Osse,Hermel,وادي العس,40.0
-Ouadi Faara,Hermel,وادي فعرة,42.10526315789474
-Ras-Baalbek - Wadi Faara,Hermel,مزرعة ابو صليبي,31.578947368421055
-Ras Baalbek El-Gharbi,Hermel,راس بعلبك,48.275862068965516
-Beirut Central District,Beirut,,0
-Aïha,Rachiaya,عيحا,28.57142857142857
-Aïn Arab,Rachiaya,كفردنيس,26.66666666666667
-Aïn Horché,Rachiaya,عين حرشا,55.55555555555556
-Akabé,Rachiaya,الدكوه,22.22222222222223
-Conflict,Rachiaya,عين التينه,35.294117647058826
-Deir El-Achayer,Rachiaya,دير العشائر,53.84615384615385
-Haouche El-Kannabé,Rachiaya,الخياره,33.33333333333333
-Héloua,Rachiaya,حلوه,40.0
-Kfar Dinès,Rachiaya,المنصوره,37.5
-Kfar Kouk,Rachiaya,كفرقوق,40.0
-litige,Rachiaya,سلساتا,40.0
-Mazraet el-Selasata,Rachiaya,سلساتا,34.78260869565217
-Mohaïdcé,Rachiaya,محيدثه,40.0
-Nabi Safa,Rachiaya,عين حرشا,35.294117647058826
-Rachaya El-Wadi,Rachiaya,راشيا حي الفوقا,44.44444444444444
-Al-Djeziré,West Bekaa,الدكوه,26.66666666666667
-Al-Istable,West Bekaa,سلساتا,42.857142857142854
-Al-Khiara,West Bekaa,الخياره,54.54545454545455
-"Ammik et ""Jouret Ammik""",West Bekaa,مشغره التحتا,17.647058823529406
-"Chouberkié ""Ammik""",West Bekaa,الخياره,26.086956521739125
-Dair Tahmiche,West Bekaa,محيدثه,40.0
-Dakoué,West Bekaa,الدكوه,40.0
-Deir-Aïn-el-Jaouzé,West Bekaa,دير العشائر,20.689655172413794
-Hamara,West Bekaa,المنارة,40.0
-Harime-el-Soughra,West Bekaa,دير العشائر,35.71428571428571
-Khiara-el-Atika,West Bekaa,الخياره,30.0
-Machghara,West Bekaa,مشغره التحتا,40.0
-Mansoura,West Bekaa,المنصوره,57.142857142857146
-n.a. (4),West Bekaa,عين التينه,23.529411764705884
-Soltan-Yacoub,West Bekaa,السلطان يعقوب التحتا,42.857142857142854
-Al-Ali-Nahri,Zahleh,علي النهري,47.61904761904762
-Al-Nabi Aïla,Zahleh,نبي ايلا,44.44444444444444
-Anjar,Zahleh,مجدل عنجر,42.857142857142854
-Chouberkié  Tabet,Zahleh,تل الاخضر,33.33333333333333
-Conflict,Zahleh,الفرزل التحتا,35.294117647058826
-Fourzol,Zahleh,الفرزل التحتا,50.0
-Haouche-al-Omara (Terres),Zahleh,زحلة الراسيه التحتا,30.0
-Haouche Kaissar,Zahleh,زحلة حوش الامراء,28.57142857142857
-Haouche Sayadi,Zahleh,زحلة حي السيدة,37.03703703703704
-Hochemoche,Zahleh,زحلة حوش الامراء,34.78260869565217
-Kab Elias,Zahleh,قب الياس التحتا,40.0
-Koussaya,Zahleh,كابوسية,42.857142857142854
-Ksara,Zahleh,الكرمة,44.44444444444444
-Maallaka (Terres),Zahleh,زحلة الراسيه التحتا,31.25
-Maazraat-el-Ramtanieh,Zahleh,زحلة مار انطونيوس,27.77777777777777
-Mandara,Zahleh,خضر بك,28.57142857142857
-Mejdel-Anjar,Zahleh,مجدل عنجر,38.095238095238095
-Nasriyat Rizk,Zahleh,زحلة الميدان الشرقي,40.0
-Saïd Neil,Zahleh,زحلة سيدة النجاة,34.78260869565217
-Tal-al-Amara,Zahleh,حي السلم,31.578947368421055
-Tal-el-Akhdar,Zahleh,تل الاخضر,47.61904761904762
-Tanaïl,Zahleh,تعنايل,54.54545454545455
-Tchiflik Eddé,Zahleh,تل الاخضر,38.095238095238095
-Tchiflik Kikano,Zahleh,زحلة كرك نوح,44.44444444444444
-Touaité,Zahleh,تويته,33.33333333333333
-Wadi-el-Arayeche,Zahleh,زحلة الراسيه الفوقا,32.25806451612904
-Zahlé (Terres),Zahleh,زحلة الراسيه التحتا,41.37931034482759
-Zahlé Al-Rassié,Zahleh,زحلة الراسيه التحتا,46.666666666666664
-Zahlé Haouche Al-Oumara,Zahleh,زحلة الراسيه التحتا,42.10526315789474
-Zahlé Haouche Al-Zaraané,Zahleh,زحلة حوش الزراعنه,45.0
-Zahlé Maallaka Kerek,Zahleh,زحلة كرك نوح,50.0
-Zahlé Mar Antonios,Zahleh,زحلة حوش الامراء,51.61290322580645
-Zahlé Mar Gérios,Zahleh,زحلة حوش الامراء,55.172413793103445
-Zahlé Midan,Zahleh,زحلة الميدان الغربي,51.851851851851855
-Zahlé Saidet Al-Najda,Zahleh,زحلة سيدة النجاة,57.142857142857146
-Zebdol,Zahleh,سعدنايل,33.33333333333333
-Aïn-Dara,Aley,عين داره,40.0
-Aïn-El-Jdeidé,Aley,عين الجديدة,43.47826086956522
-Aïn-Rommané,Aley,الرجمة,26.66666666666667
-Ain Saideh,Aley,عين داره,47.05882352941177
-Aïn Sofar,Aley,صوفر,46.15384615384615
-Aley,Aley,البساتين,40.0
-Baïssour,Aley,صوفر,33.33333333333333
-Baouarta,Aley,بعورته,42.857142857142854
-Bhamdoun (Gare),Aley,محطة بحمدون,38.46153846153846
-Bhouara,Aley,بحواره,50.0
-Bouzridé,Aley,بوزريده,53.333333333333336
-Btallaoun,Aley,البساتين,42.857142857142854
-Bteezanieh,Aley,البساتين,40.0
-Chouaifat Amroussyat,Aley,الشويفات حي العمروسية,42.10526315789474
-Chouaifat Oumara,Aley,الشويفات حي الامراء,27.58620689655173
-Chouaifat Qobbat,Aley,الشويفات حي القبة,33.33333333333333
-El-Fsaïkine,Aley,البساتين,35.294117647058826
-El-Kahalé,Aley,الكحالة,60.0
-El-Kamatiyeh,Aley,القماطية,44.44444444444444
-El-Mansouriyeh et Aïn-El-Marge,Aley,الشويفات حي الامراء,36.36363636363637
-El-Rejmeh,Aley,الرجمة,60.0
-Homs et Hama,Aley,عاليه شمالي,36.36363636363637
-Kfar-Aammay,Aley,كفر عميه,31.578947368421055
-litige,Aley,البساتين,33.33333333333333
-Mchakhté,Aley,كفر عميه,37.5
-Baalchemay,Baabda,بعلشميه,55.55555555555556
-Borge el Baragenat,Baabda,برج البراجنة حي السياد,38.888888888888886
-Boutchay,Baabda,بطشيه,57.142857142857146
-Bsaba Wadi Dlab,Baabda,برج البراجنة حي السياد,36.36363636363637
-Chiah,Baabda,بطشيه,36.36363636363637
-El-Chmeice,Baabda,بعلشميه,33.33333333333333
-El-Erbaniyeh,Baabda,سبنيه,57.142857142857146
-El-Kalaa,Baabda,القلعه,30.769230769230774
-El-Khreibé,Baabda,حارة البطم,40.0
-El-Kneissé,Baabda,الشياح حي الكنيسة,41.666666666666664
-El Halaliyeh,Baabda,الهلالية,57.142857142857146
-Forn El-Chobbek,Baabda,حارة حريك قرانوح,34.48275862068965
-Ghbayreh,Baabda,الغبيري حي الجامع,47.61904761904762
-Hadace,Baabda,الحدث قبلي,26.66666666666667
-Haret Horaïk,Baabda,حارة حريك قرانوح,46.15384615384615
-Hazmiyeh,Baabda,بعلشميه,50.0
-Louaizé,Baabda,القلعه,18.181818181818187
-Mardachat,Baabda,المرداشة,53.333333333333336
-Mazraet-el-Mzeiraa,Baabda,المريجه,25.0
-Zandouka,Baabda,زندوقه,42.857142857142854
-Aïn-el-Assad et Chmeicé,Chouf,عين الاسد والشميس,36.8421052631579
-Aïn Ouzaï,Chouf,عين وزين,35.294117647058826
-Anbal,Chouf,البطال,50.0
-Baakline,Chouf,الكحلونية,40.0
-Bkhchtaine,Chouf,الكحلونية,35.294117647058826
-Bkifa,Chouf,كفر قطره,30.769230769230774
-Brih et Mteilé,Chouf,مرج برجا,38.095238095238095
-Chehime,Chouf,شحيم حي الجامع,30.0
-Chemaarine,Chouf,حارة الناعمه,31.578947368421055
-Dardourite,Chouf,دير دوريت,42.10526315789474
-Debbiyeh,Chouf,الدبية,50.0
-Debbiyeh (Ain el Haour),Chouf,المحتقره دير المخلص,35.0
-Deir  El-Moukhalles Ech-Chouf,Chouf,المحتقره دير المخلص,52.17391304347826
-Douair Bsennaï,Chouf,حارة بعاصير,34.78260869565217
-El-Bkaya,Chouf,الدبية,46.15384615384615
-El-Fouara,Chouf,الفواره,42.857142857142854
-El-Freidice,Chouf,الفواره,37.5
-El-Jahliyeh,Chouf,الجاهلية,61.53846153846154
-El-Jdeidé,Chouf,جديدة الشوف,35.294117647058826
-El-Kahlouniyeh,Chouf,الكحلونية,55.55555555555556
-El-Khreibé,Chouf,الكحلونية,33.33333333333333
-El-Kneissé,Chouf,الكنيسة,50.0
-El-Moghaïré,Chouf,المغيريه,44.44444444444444
-El-Moghaïriyeh,Chouf,المغيريه,58.8235294117647
-El-Samkanieh,Chouf,السمقانية,42.10526315789474
-Ghabet Jaafar,Chouf,مرج برجا,30.0
-Jadra,Chouf,مرج برجا,33.33333333333333
-Jdael et Kfarhi,Chouf,الفواره,40.0
-Jebah,Chouf,جباع,50.0
-Kfar Haml,Chouf,الفواره,42.857142857142854
-Kfar Katra,Chouf,كفر قطره,44.44444444444444
-Kfar Matta (Klaliyé),Chouf,كفر قطره,35.71428571428571
-litige,Chouf,البطال,40.0
-Majdel Meouche,Chouf,المطله,33.33333333333333
-Mazmoura,Chouf,مزموره,57.142857142857146
-Mtoullé Bzina,Chouf,البطال,37.5
-Naamat,Chouf,المطله,40.0
-Wadi Abou Youssef,Chouf,عين الاسد والشميس,31.25
-Abou-Mizane,El Metn,ابو ميزان,44.44444444444444
-Aïn-El-Kach,El Metn,الدكوانه,35.294117647058826
-Aïn El-Kabou,El Metn,الغابه,25.0
-Aïroune,El Metn,العيرون,33.33333333333333
-Antoura,El Metn,عينطوره,42.857142857142854
-Baabdat et Sfaïlé,El Metn,بعبدات,36.36363636363637
-Baouchariat,El Metn,بحر صاف,35.294117647058826
-Baskinta,El Metn,الدكوانه,30.769230769230774
-Beit Chebab,El Metn,بيت شباب تحتاني,48.0
-Bsifrine et El-Zahriyé,El Metn,سد البوشريه,36.36363636363637
-Choueir,El Metn,الشوير,33.33333333333333
-Deir Tamiche,El Metn,المحيدثة,31.578947368421055
-Dekouanet,El Metn,الدكوانه,42.857142857142854
-Douar,El Metn,الدوار,50.0
-El-Khounchara,El Metn,الخنشاره,58.8235294117647
-El-Machera,El Metn,المشرع,50.0
-El-Mhaidcé,El Metn,المحيدثة,44.44444444444444
-El-Ouyoun,El Metn,العيرون,40.0
-Haret El-Belleni,El Metn,البوشريه,33.33333333333333
-Hebouss,El Metn,سد البوشريه,33.33333333333333
-Jodaidat,El Metn,الجديدة,46.15384615384615
-Kaakour,El Metn,عوكر,36.36363636363637
-Majdoub,El Metn,مزهر ومجدوب,44.44444444444444
-Mar Abda El-Mchammar,El Metn,بيت الشعار,34.48275862068965
-Mar Chaya et Mzakki,El Metn,مار شعيا والمزكه,36.36363636363637
-Mar Roukose et Dahr El-Hossain,El Metn,سن الفيل حي جسر الباشا,32.65306122448979
-Maska et El-Ghabeh,El Metn,الغابه,36.36363636363637
-Mazraet Beit Chaar,El Metn,بيت شباب تحتاني,37.5
-Mazraet Deir Aoukar,El Metn,زوق الخراب ومار يوسف,32.432432432432435
-Mazraet El-Hadira,El Metn,مزرعة بنابيل,35.71428571428571
-Mezher,El Metn,المشرع,54.54545454545455
-Mkallesse,El Metn,ساقية المسك,33.33333333333333
-Sakiet-El-Misk et Bhorsaf,El Metn,بحر صاف,32.25806451612904
-Senn el Fil,El Metn,سن الفيل حي البلده,51.851851851851855
-Zeghrine,El Metn,الغابه,36.36363636363637
-Zouk-Khrab,El Metn,مزهر ومجدوب,38.095238095238095
-Adonis et Sannour,Jubail,دير القطاره,30.769230769230774
-Afka,Jubail,افقا,33.33333333333333
-Aïn-El-Ghouaibé,Jubail,عين الغويبة,32.0
-Aïn Kfah,Jubail,عين كفاع,53.333333333333336
-Akoura,Jubail,الكفر,44.44444444444444
-Al Kattara,Jubail,الكفر,42.857142857142854
-Alita,Jubail,الغابات,44.44444444444444
-Almate El-Chemaliat,Jubail,علمات الشمالية,51.61290322580645
-Almate El-Jenoubiat,Jubail,علمات الجنوبية,51.61290322580645
-Arab El-Haibe,Jubail,دير القطاره,36.36363636363637
-Bakhaase,Jubail,بخعاز,46.15384615384615
-Belhos,Jubail,حصارات,40.0
-Berket Hejoula,Jubail,بخعاز,31.578947368421055
-Bintaél (Fdar-El-Soufla),Jubail,قرطبا الشمالية,27.77777777777777
-Breige,Jubail,الغابات,22.22222222222223
-Deir Mar Sarkis,Jubail,جنه ومار سركيس,35.71428571428571
-El-Jlaicé,Jubail,الجليسه,40.0
-El-Kafr et El-Harf,Jubail,الكفر,42.10526315789474
-El-Kfoune,Jubail,الكفر,46.15384615384615
-El-Mouncef,Jubail,المنصف,54.54545454545455
-El-Rihané,Jubail,الريحانة,54.54545454545455
-Fatré et Bir-el-Haït,Jubail,دير القطاره,27.58620689655173
-Ghabate,Jubail,الغابات,60.0
-Hboub,Jubail,الغابات,25.0
-Hedayné,Jubail,ادونيس,33.33333333333333
-Hsarate et Richkif,Jubail,حصارات,36.36363636363637
-Janné,Jubail,علمات الجنوبية,23.529411764705884
-Jouret-el-Kattine,Jubail,دير القطاره,23.07692307692308
-Kartaba,Jubail,الكفر,40.0
-Kartaboune,Jubail,كفر مسحون,31.578947368421055
-Kfar-Mashoune et Dmalsa,Jubail,كفر مسحون,43.75
-Kfar Kaouass,Jubail,الكفر,40.0
-Kfarbaal (Annaya),Jubail,عنايا وكفربعال,57.142857142857146
-litige,Jubail,الغابات,40.0
-Mastita,Jubail,المنصف,36.36363636363637
-Mechmech,Jubail,علمات الشمالية,30.0
-Mehrine,Jubail,كفر مسحون,37.5
-n.a. (2),Jubail,كفر مسحون,23.529411764705884
-Sarhita,Jubail,حصارات,54.54545454545455
-Sirine,Jubail,حصارات,40.0
-Tedmor et Serghal,Jubail,جنه ومار سركيس,40.0
-Aïntoura,Kasrouane,عينطوره,40.0
-Bekaatouta,Kasrouane,بقعتوته,35.294117647058826
-Boukak El-Dine,Kasrouane,كفردبيان,28.57142857142857
-Chenanhir,Kasrouane,شننعير,50.0
-Deir Baklouche,Kasrouane,زوق مكايل,27.272727272727266
-Djounié Ghadir,Kasrouane,غادير,33.33333333333333
-Djounié Salel Alma,Kasrouane,ساحل علما,40.0
-Djounié Sarba,Kasrouane,النموره وكفر جريف,28.57142857142857
-El-Abri et Chouan,Kasrouane,شوان والعبره,42.857142857142854
-El-Ekaïbé,Kasrouane,كفردبيان,30.769230769230774
-El-Kleiyate,Kasrouane,القليعات,47.05882352941177
-El-Mghaer,Kasrouane,غادير,40.0
-Ghazir,Kasrouane,غادير,40.0
-Herhraya et Kattine,Kasrouane,هرهريا والقطين,51.61290322580645
-Jouret Mhad,Kasrouane,النموره وكفر جريف,38.46153846153846
-Kharayeb Nahr Ibrahim,Kasrouane,هرهريا والقطين,36.36363636363637
-litige,Kasrouane,القليعات,36.36363636363637
-Mazraet El-Ras,Kasrouane,غزير المعاملتين,29.629629629629633
-Mazraet Kfardebiane,Kasrouane,كفردبيان,46.15384615384615
-Mazraet Mrah el-Mir,Kasrouane,النموره وكفر جريف,35.294117647058826
-Mouchaa Kesrouan (Faraya),Kasrouane,النموره وكفر جريف,30.0
-Mouchaa Kesrouan (Kfardebian),Kasrouane,كفردبيان,33.33333333333333
-n.a. (3),Kasrouane,غزير القناة,23.529411764705884
-Nammoura et Kfar Jerif,Kasrouane,النموره وكفر جريف,37.83783783783784
-Souhailet El-Faouka,Kasrouane,ساحل علما,38.46153846153846
-Wata Salam,Kasrouane,ساحل علما,35.294117647058826
-Zaaitré,Kasrouane,زعيتره,46.15384615384615
-Zouk Mikaèl,Kasrouane,زوق مكايل,52.63157894736842
-Aïn-el-Katmoune,Bint Jbayl,السلطانيه,28.57142857142857
-Aïta-el-Zut,Bint Jbayl,السلطانيه,23.529411764705884
-El-Kouzah,Bint Jbayl,قوزح,40.0
-Ghandouriyé,Bint Jbayl,غندورية,55.55555555555556
-Haddacé,Bint Jbayl,حداثا,36.36363636363637
-Salhané,Bint Jbayl,السلطانيه,46.15384615384615
-Soultaniyé,Bint Jbayl,السلطانيه,62.5
-Abou Kamha,Hasbaya,ابو قمحه,47.05882352941177
-Al-Dellafé,Hasbaya,الدلافة,54.54545454545455
-El-Habbariyé,Hasbaya,الهبارية,57.142857142857146
-El-Kahlouat,Hasbaya,الخيام شمالي,36.36363636363637
-El-Khreibé,Hasbaya,كفرشوبا,42.857142857142854
-Marj Ez-Zouhour (Haouch El-Qinnaabé),Hasbaya,مرج الزهور,35.55555555555556
-Nkhailé,Hasbaya,الخيام جنوبي,35.294117647058826
-Slaïyeb,Hasbaya,الخيام شمالي,35.294117647058826
-Adchite El-Koussair,Marjaayoun,سرده والعمره,33.33333333333333
-Adeicé,Marjaayoun,الدلافة,20.0
-Deir Mimas Doumiat,Marjaayoun,ميس الجبل غربي,32.25806451612904
-Ebel-El-Saki,Marjaayoun,ابل السقي,42.10526315789474
-El-Amra,Marjaayoun,مرج الزهور,37.5
-El-Kleia,Marjaayoun,الخيام شمالي,31.578947368421055
-Houra,Marjaayoun,الهبارية,40.0
-Kantara,Marjaayoun,قنطره,50.0
-Mazraet-El-Jrein,Marjaayoun,رب ثلاثين,30.769230769230774
-Mazraet el-Sarada,Marjaayoun,سرده والعمره,42.857142857142854
-Meis El-Jabal,Marjaayoun,ميس الجبل غربي,53.84615384615385
-Rabb Salacine,Marjaayoun,رب ثلاثين,43.47826086956522
-Abba,Nabatiyeh,جباع,28.57142857142857
-Ali El-Taher,Nabatiyeh,زوطر الشرقية,33.33333333333333
-Bfarwé,Nabatiyeh,كفروة,54.54545454545455
-Braikeh,Nabatiyeh,بريقع,33.33333333333333
-El-Charkiyé,Nabatiyeh,الشرقية,44.44444444444444
-El-Hamra,Nabatiyeh,الشرقية,40.0
-Hmaïla,Nabatiyeh,الشرقية,16.66666666666667
-Izzé,Nabatiyeh,زوطر الشرقية,12.5
-Kafr Dajjal,Nabatiyeh,كفروة,37.5
-Kafra-Jbah,Nabatiyeh,كفروة,40.0
-Kakiat El-Jisr,Nabatiyeh,قعقعية الجسر,40.0
-Ksaibé,Nabatiyeh,جباع,22.22222222222223
-Mazraat-el-Khreibé,Nabatiyeh,النميريه,25.0
-Mazraet Bsaffour,Nabatiyeh,زوطر الشرقية,35.71428571428571
-Mazraet Chaal Baal,Nabatiyeh,زوطر الشرقية,33.33333333333333
-Mazraet Dmoul,Nabatiyeh,زوطر الشرقية,32.0
-Mazraet El-Bayad,Nabatiyeh,زوطر الشرقية,35.71428571428571
-Mazraet Kalaat Meiss,Nabatiyeh,زوطر الشرقية,25.0
-Mazraet Kfar Jaouz,Nabatiyeh,زوطر الشرقية,26.66666666666667
-Mazraet Sinai,Nabatiyeh,سيني,23.529411764705884
-Nmériyé,Nabatiyeh,النميريه,61.53846153846154
-Zaoutar El-Charkiyé,Nabatiyeh,زوطر الشرقية,51.61290322580645
-Al-Boukaïa et Dahr Abi Yaghi,Batroun,ضهر ابو ياغي,45.714285714285715
-Basbina,Batroun,البترون,33.33333333333333
-Batroune,Batroun,البترون,61.53846153846154
-Bechtoudar-Aoura,Batroun,بشتودار,43.47826086956522
-Beit Ksab,Batroun,الفتاحات وحربونا,30.0
-Chouma,Batroun,غوما,22.22222222222223
-Deir Kfifane,Batroun,ضهر ابو ياغي,27.272727272727266
-Deir Mar Youhanna Douma,Batroun,ضهر ابو ياغي,30.303030303030297
-Deir Mar Youssef Jrabta,Batroun,ضهر ابو ياغي,30.303030303030297
-El-Ftahat,Batroun,الفتاحات وحربونا,47.61904761904762
-Harbouna,Batroun,الفتاحات وحربونا,42.10526315789474
-Karnaoun,Batroun,البترون,30.769230769230774
-Kfar Heloss,Batroun,مراح شديد ودير شواح,33.33333333333333
-Koubba,Batroun,البترون,18.181818181818187
-Masreh,Batroun,صغار,44.44444444444444
-Mrah Chdid,Batroun,راشكده,37.5
-Rachkida,Batroun,راشكده,57.142857142857146
-Sghar et Wata Sfarta,Batroun,الفتاحات وحربونا,38.70967741935484
-Sourate,Batroun,صورات,54.54545454545455
-Tannourine Foka,Batroun,تنورين الفوقا,46.15384615384615
-Bazoune,Bcharre,بزعون,50.0
-Bcharré,Bcharre,بشري حي مار سابا,38.095238095238095
-Bikaa kafra,Bcharre,بقاعكفرا,47.05882352941177
-Billa,Bcharre,المغر وبلا,33.33333333333333
-Mchaa Ej Jobbé,Bcharre,بشري حي مار يوحنا,26.66666666666667
-Mugher-el-Ahwel,Bcharre,المغر وبلا,45.45454545454545
-Al-Boukaia,Koura,البحصاص,26.66666666666667
-Al-Hraïché,Koura,ضهور الهوا,40.0
-Belmand,Koura,اجد عبرين,40.0
-Ejdabrine,Koura,اجد عبرين,35.294117647058826
-Majdel,Koura,اجد عبرين,28.57142857142857
-Aassaymout,Minieh-Danieh,المنية,14.285714285714292
-Al-Minieh,Minieh-Danieh,المنية,42.857142857142854
-Azka,Minieh-Danieh,الريحانية,0.0
-Bakhoune,Minieh-Danieh,الريحانية,28.57142857142857
-Bchnnata,Minieh-Danieh,الريحانية,28.57142857142857
-Bechhara,Minieh-Danieh,النبي يوشع,23.529411764705884
-Behweité,Minieh-Danieh,برج اليهودية,31.578947368421055
-Beit Zaoud,Minieh-Danieh,برج اليهودية,28.57142857142857
-Bkarsouna,Minieh-Danieh,الريحانية,26.66666666666667
-Borge-El-Yahoudié,Minieh-Danieh,برج اليهودية,42.857142857142854
-Btehline,Minieh-Danieh,المنية,30.769230769230774
-El-Watié et Harf Siad,Minieh-Danieh,برج اليهودية,20.689655172413794
-Jarjoura,Minieh-Danieh,برج اليهودية,21.05263157894737
-Jaroun,Minieh-Danieh,الريحانية,33.33333333333333
-Kattiné,Minieh-Danieh,المنية,18.181818181818187
-Kfar Bibnine,Minieh-Danieh,النبي يوشع,19.04761904761905
-Kharnoub,Minieh-Danieh,الريحانية,28.57142857142857
-litige,Minieh-Danieh,المنية,18.181818181818187
-Mazraat Ketrane,Minieh-Danieh,الريحانية,19.04761904761905
-Mazraet El-Krême,Minieh-Danieh,المنية,19.04761904761905
-Mrabine,Minieh-Danieh,المنية,36.36363636363637
-Mrah-El-Sfiré,Minieh-Danieh,الريحانية,21.05263157894737
-Nabi Youcheaa,Minieh-Danieh,النبي يوشع,45.45454545454545
-Nemrine et Bakoura,Minieh-Danieh,برج اليهودية,20.689655172413794
-Omar,Minieh-Danieh,المنية,25.0
-Qarhaiya,Minieh-Danieh,الريحانية,42.857142857142854
-Qemmamine,Minieh-Danieh,المنية,30.769230769230774
-Qraine,Minieh-Danieh,الريحانية,33.33333333333333
-Tourbol,Minieh-Danieh,برج اليهودية,22.22222222222223
-Zouk Bhanine,Minieh-Danieh,الريحانية,22.22222222222223
-Al-Mina Jardins,Tripoli,الرمانة,37.5
-Al-Mina No1,Tripoli,الميناء,40.0
-Al-Mina No2,Tripoli,الميناء,40.0
-Al-Mina No3,Tripoli,الميناء,40.0
-Tripoli Al-Hadid,Tripoli,الحديد,38.095238095238095
-Tripoli Al-Kobbé,Tripoli,المهاترة,27.272727272727266
-Tripoli Al-Mouhaitra,Tripoli,المهاترة,38.46153846153846
-Tripoli Al-Nouri,Tripoli,النوري,28.57142857142857
-Tripoli Al-Rmmanieh,Tripoli,المهاترة,40.0
-Tripoli Al-Souéka,Tripoli,المهاترة,26.086956521739125
-Tripoli Al-Tabbaneh,Tripoli,التبانة,33.33333333333333
-Tripoli Al-Tal,Tripoli,المهاترة,30.0
-Tripoli Al-Zehrieh,Tripoli,الزاهرية,33.33333333333333
-Tripoli Al Haddadin,Tripoli,الحدادين,40.0
-Tripoli Jardins,Tripoli,الرمانة,21.05263157894737
-Tripoli Zeitoun,Tripoli,التبانة,30.0
-Aadoua,Zgharta,القادريه,18.181818181818187
-Acheiche,Zgharta,عشاش,30.769230769230774
-Al-Harik,Zgharta,البحيرة,42.857142857142854
-Al-Khaldyé,Zgharta,القادريه,46.15384615384615
-Arbet Koshaya,Zgharta,عربة قزحيا,45.45454545454545
-Ardate,Zgharta,كفرحاتا,36.36363636363637
-Basloukite,Zgharta,بسلوقيط,47.05882352941177
-Benachée,Zgharta,بنشعي,42.857142857142854
-Bouhairet Toula,Zgharta,حارة الفوار,34.78260869565217
-Bsebhil,Zgharta,بنشعي,46.15384615384615
-Danhi,Zgharta,القادريه,40.0
-Ehden,Zgharta,رشعين,36.36363636363637
-Ejbeh,Zgharta,اجبع,50.0
-Iâl,Zgharta,ايعال,33.33333333333333
-Karabeiche,Zgharta,كفرحاتا,40.0
-Kfar Chakna,Zgharta,حارة الفوار,42.10526315789474
-Kfar hata,Zgharta,حارة الفوار,47.05882352941177
-Mazraat Ejbeh,Zgharta,زغرتا حي المعاصر,46.15384615384615
-Mazraat Jneide,Zgharta,زغرتا حي المعاصر,37.03703703703704
-Mazraet Hreikess,Zgharta,حرف مزيارة,48.0
-Merh Kfarsghabe,Zgharta,كفر شخنا,50.0
-Mériata,Zgharta,مرياطه,50.0
-n.a. (1),Zgharta,كفر شخنا,23.529411764705884
-Rachehine,Zgharta,كفر شخنا,44.44444444444444
-Sakhra,Zgharta,قره باش,46.15384615384615
-Zghorta,Zgharta,زغرتا حي المعاصر,40.0
-Aïchiyé,Jezzine,الحسانيه,33.33333333333333
-Akmata,Jezzine,ريمات وشقاديف,22.22222222222223
-Ariya,Jezzine,القطراني,40.0
-Arkoub (Mazraat),Jezzine,كفر جره,26.086956521739125
-Baba,Jezzine,لبعه,25.0
-Chabil,Jezzine,قطين وحيداب,25.0
-El-Demachkiyeh,Jezzine,الحسانيه,40.0
-El-Kabeh,Jezzine,لبعه,50.0
-El-Mahmoudiyeh,Jezzine,الحسانيه,40.0
-El-Rahbane,Jezzine,الحسانيه,37.5
-El-Rihane,Jezzine,الحسانيه,40.0
-El-Wadié,Jezzine,قطين وحيداب,26.66666666666667
-Haïdab,Jezzine,قطين وحيداب,37.5
-Haitoulé,Jezzine,قتالة,33.33333333333333
-Haïtoura,Jezzine,حيطوره,42.857142857142854
-Hassaniyé,Jezzine,الحسانيه,57.142857142857146
-Jabal Toura,Jezzine,القطراني,35.294117647058826
-Kafr-Jarra,Jezzine,كفر جره,35.294117647058826
-Katrani,Jezzine,القطراني,50.0
-Kattine,Jezzine,القطراني,33.33333333333333
-Khellet Khazen,Jezzine,بحنين - كفرتعلا,35.71428571428571
-Krouh,Jezzine,حيطوره,36.36363636363637
-litige,Jezzine,القطراني,33.33333333333333
-Mazraat Dahr el-Deir,Jezzine,بحنين - كفرتعلا,23.529411764705884
-Mazraat Daraya,Jezzine,ريمات وشقاديف,30.769230769230774
-Mazraat El Ouazaaiyé,Jezzine,حيتوله - وادي الليمون,25.641025641025635
-Mazraat Louzid (Louayziyé),Jezzine,بحنين - كفرتعلا,20.0
-Rimate,Jezzine,ريمات وشقاديف,33.33333333333333
-Sfarai,Jezzine,صفارية,54.54545454545455
-Tamra,Jezzine,القطراني,40.0
-Wadi Laimoune,Jezzine,حيتوله - وادي الليمون,37.5
-Addoussiat,Saida,صيدا حي مكسر العبد,23.07692307692308
-Aïn-el-Dib,Saida,صيدا حي مار نقولا,25.0
-Arab Soukar,Saida,صيدا حي مكسر العبد,29.629629629629633
-Arab Tabbaya,Saida,صيدا حي رجال الاربعين,27.58620689655173
-Bissariat,Saida,صيدا حي مكسر العبد,24.0
-Daoudiyé,Saida,صيدا حي مكسر العبد,16.66666666666667
-Darbessim,Saida,صيدا حي مكسر العبد,24.0
-Deir Takla,Saida,صيدا حي مار نقولا,25.0
-El-Hajjé,Saida,صيدا حي الشارع,20.0
-El-Mhammariyé,Saida,صيدا حي مار نقولا,33.33333333333333
-El Hartiyé,Saida,صيدا حي الشارع,36.36363636363637
-Jaziré,Saida,صيدا حي السراي,11.764705882352942
-Kaakiet El-Senaoubar,Saida,صيدا حي السراي,25.80645161290323
-Kaoutarite El-Riz,Saida,صيدا حي مكسر العبد,24.24242424242425
-Kaoutarite El-Siyad,Saida,صيدا حي مكسر العبد,28.57142857142857
-Kfar Badda,Saida,صيدا حي مكسر العبد,38.46153846153846
-Kherbet Bassal,Saida,صيدا حي المسالخية,27.58620689655173
-Kherbet El-Douair,Saida,صيدا حي مكسر العبد,30.303030303030297
-Loubié,Saida,صيدا حي السبيل,22.22222222222223
-Matriet El-Choumar,Saida,صيدا حي الشارع,26.66666666666667
-Mazraat El-Wasta,Saida,صيدا حي الزويتيني,25.80645161290323
-Mazraat Jimjim,Saida,صيدا حي مار نقولا,21.42857142857143
-Mazraet Matarite Jebah,Saida,صيدا حي مار نقولا,27.77777777777777
-Miemié,Saida,صيدا حي مار نقولا,10.0
-Mohaidalé,Saida,صيدا حي المسالخية,25.0
-Msaileh,Saida,صيدا حي المسالخية,36.36363636363637
-Nadjariat,Saida,صيدا حي الكنان,20.0
-Saksakiat,Saida,صيدا حي الكشك,28.57142857142857
-Samiate,Saida,صيدا حي السراي,11.111111111111114
-Sfenté,Saida,صيدا حي السراي,11.764705882352942
-Snaiber,Saida,صيدا حي السراي,22.22222222222223
-Tibna,Saida,صيدا حي الزويتيني,20.0
-Yahoudiat,Saida,صيدا حي الشارع,28.57142857142857
-Aaiyé,Sour,البساتين,20.0
-Abou Chech,Sour,باريش,26.66666666666667
-Aïn Abou Abdallah,Sour,عين ابو عبدالله,46.666666666666664
-Bazouriat,Sour,البازوريه,40.0
-Beiriche,Sour,باريش,46.15384615384615
-Bestiace,Sour,البساتين,46.15384615384615
-Btaychiyé,Sour,بثتيات,53.333333333333336
-Chameh,Sour,شمع,40.0
-Cheïetiyé,Sour,بثتيات,40.0
-Debhalé,Sour,باريش,33.33333333333333
-El-Héloussiyé,Sour,الحلوسية,50.0
-El-Kleilé,Sour,قليله,36.36363636363637
-Eskandaroun,Sour,البساتين,25.0
-Hamoul,Sour,شمع,40.0
-Hanawé,Sour,حناويه,54.54545454545455
-Jejime,Sour,صور حي الجامع,23.529411764705884
-Kneissé,Sour,البص  قسم 1,26.66666666666667
-Mahaïlib,Sour,المالكية,30.769230769230774
-Mahroub,Sour,معروب,50.0
-Mazraat Dhaira,Sour,صور حي الجامع,32.0
-Mazraat Ez-Zalloutieh,Sour,الحميري,29.629629629629633
-Mazraat Torsemhat,Sour,صور حي المنارة,27.58620689655173
-Neffahiyé,Sour,نفاخيه,53.333333333333336
-Ouadi Djilou,Sour,وادي جيلو,40.0
-Rafid-el-Mernaba,Sour,معروب,28.57142857142857
-Salha,Sour,سلعا,50.0
-Tairzibna,Sour,البساتين,28.57142857142857
-Touaire,Sour,طير فلسيه,25.0
-Trafelsiyé,Sour,طير فلسيه,42.10526315789474
-Aidamoun shikhlar,Akkar,بني صخر,48.0
-Akkar El-Atika,Akkar,عكار العتيقه,41.666666666666664
-Al-Amara,Akkar,العماير,46.15384615384615
-Al-Hissa,Akkar,الحيصه,46.15384615384615
-Al-Jédidé,Akkar,جديدة القيطع,35.294117647058826
-Al-Khraibé (Kousha),Akkar,الشيخ طابا,41.666666666666664
-Al-Kleiat,Akkar,خط البترول,37.5
-Al-Massoudié,Akkar,المسعوديه,40.0
-Al-Moukaiteh,Akkar,الحميره,33.33333333333333
-Al-Mouzeihmé,Akkar,الحميره,33.33333333333333
-Al-Roumoul,Akkar,جرمنايا,33.33333333333333
-Al-Semmakli,Akkar,السهلة,37.5
-Al-Souaissé,Akkar,السويسه,35.294117647058826
-Al-Zoureiribe,Akkar,الزواريب,42.10526315789474
-Al Moghrak,Akkar,العماير,40.0
-Barcha,Akkar,الدوره,40.0
-Chakdouf,Akkar,الشقدوف,42.857142857142854
-Cheikh Taba Montagne,Akkar,الشيخ طابا,42.857142857142854
-Cheikh Taba Plaine,Akkar,الشيخ طابا,46.15384615384615
-Cheikh Zennad Tal Bibé,Akkar,الشيخ زناد,45.16129032258065
-Cheir Homeirine,Akkar,النهرية وبستان الحرش,37.5
-Dabbabiyé Charkié,Akkar,القبيات الضهر,38.46153846153846
-Dahr-Leyciné,Akkar,ضهر ليسينه,54.54545454545455
-Dahr el-Kneissé,Akkar,ضهر القنبر,50.0
-Dahr Haddara,Akkar,ضهر القنبر,47.61904761904762
-Danbou,Akkar,دارين,40.0
-Daoucé et Baghdadi,Akkar,القبيات القطلبه,27.58620689655173
-Daoura,Akkar,الدوره,40.0
-Dayret Nahr El-Kébir,Akkar,ضهر القنبر,41.37931034482759
-Deirine,Akkar,دارين,54.54545454545455
-Denké et El-Amriyeh,Akkar,حكر الشيخ طابا,43.75
-El-Armeh,Akkar,الدوره,46.15384615384615
-El-Bardé,Akkar,الفرض,50.0
-El-Ghozaili,Akkar,غزيله,46.15384615384615
-El-Haouchab,Akkar,حوشب,46.15384615384615
-El-Kantara,Akkar,القنطره,50.0
-El-Kneissé,Akkar,الكنيسة,50.0
-El-Korné,Akkar,القرنة,46.15384615384615
-El-Kouachra,Akkar,الكواشره,44.44444444444444
-El-Msallé,Akkar,السهلة,42.857142857142854
-El-Nfeicé,Akkar,النفيسه,40.0
-Fseikine et Aïn Achma,Akkar,النهرية وبستان الحرش,31.578947368421055
-Homeira,Akkar,الحميره,50.0
-Iate,Akkar,عيات,28.57142857142857
-Janine,Akkar,جرمنايا,36.36363636363637
-Jedeidet-El-Kayteh,Akkar,جديدة القيطع,41.37931034482759
-Jouret Srar,Akkar,جبل المنصورة,36.36363636363637
-Kaabarine,Akkar,كرم زبدين,33.33333333333333
-Kafr Malka,Akkar,حكر الشيخ طابا,43.47826086956522
-Katté,Akkar,خط البترول,40.0
-Khalsa,Akkar,الحيصه,40.0
-Khirbet Er Remmane,Akkar,خربة الجرد,42.857142857142854
-Khreibet Aakkar,Akkar,حكر الشيخ طابا,42.857142857142854
-litige,Akkar,قليعات,36.36363636363637
-Majdel,Akkar,جديدة القيطع,35.294117647058826
-Mazraet-El-Nahrieh,Akkar,الحميره,33.33333333333333
-Mechaïlha Hakour,Akkar,مشيلحة حاكوره,55.172413793103445
-Merlayet Melhem,Akkar,القبيات الضهر,48.0
-Noura El-Faouka et Tahta,Akkar,القبيات مرتموره,32.432432432432435
-Qarha,Akkar,القنطره,60.0
-Sadaka,Akkar,السنديانة,33.33333333333333
-Safiné-El-Kayteh,Akkar,الشيخ عياش,29.629629629629633
-Saïdnaya,Akkar,السنديانة,42.857142857142854
-Sindianet Zeidan,Akkar,السنديانة,36.36363636363637
-Tal Kerri,Akkar,خربة الجرد,42.10526315789474
-Tal Sibhel,Akkar,الشيخ طابا,44.44444444444444
-Zouk-El-Hosmieh et Dahr Ayasse,Akkar,ضهر ليسينه,35.0
-Addous,Baalbeck,كفردبش,30.769230769230774
-Aïn El-Beniyé,Baalbeck,الجوبانية,40.0
-Aïn El-Jaouzé,Baalbeck,حي الزهراء,30.0
-Aïn Séa et Chadourah,Baalbeck,الخضر حي الاشعل,36.36363636363637
-Al-Aïne,Baalbeck,الانصار,36.36363636363637
-Al-Fakiat,Baalbeck,الكواخ,28.57142857142857
-Al-Khodré,Baalbeck,الخضر الغربي,50.0
-Al-Nabi Chite,Baalbeck,النبي رشاده,43.47826086956522
-Al-Qa Bayoun,Baalbeck,القرينة,44.44444444444444
-Al-Qa El-Benjakie,Baalbeck,راس بعلبك,36.36363636363637
-Al-Qa Jouar Mekie,Baalbeck,الفاكهة حي مار جرجس,33.33333333333333
-Al-Qa Wadi El-Khanzir,Baalbeck,مزرعة آل سويدان,45.714285714285715
-Al-Saïdat,Baalbeck,السعيده,40.0
-Al-Taybat,Baalbeck,التوفيقيه,35.294117647058826
-Baalbek,Baalbeck,راس بعلبك,53.333333333333336
-Barka,Baalbeck,برقه,44.44444444444444
-Chaat,Baalbeck,حي الست,36.36363636363637
-Chaïbé,Baalbeck,الشربين,33.33333333333333
-Conflict,Baalbeck,فلاوي,33.33333333333333
-Couvent St Maron,Baalbeck,النبي شيت حي الجامع,37.5
-Dar El-Ouassia,Baalbeck,دار الواسعة,45.45454545454545
-Haddet,Baalbeck,الحدث الغربي,37.5
-Jabba,Baalbeck,جبعا,50.0
-Jaboulé et Al-Bijage,Baalbeck,النبي شيت حي طبشار,31.578947368421055
-Jenta,Baalbeck,الجوبانية,36.36363636363637
-Kfar Dabache,Baalbeck,الحدث الغربي,36.36363636363637
-Khreibé,Baalbeck,الخضر الغربي,47.05882352941177
-Knaissat,Baalbeck,الانصار,36.36363636363637
-litige,Baalbeck,الشواغير التحتا,35.294117647058826
-Mazraet Beit Mcheik,Baalbeck,مزرعة بيت مطر,43.75
-Misraya,Baalbeck,المعاصر,54.54545454545455
-Oummouchki,Baalbeck,بيت مشيك,31.578947368421055
-Ras Baalbek El-Charki,Baalbeck,راس بعلبك,48.275862068965516
-Ras Baalbek El-Sahl,Baalbeck,راس بعلبك,51.851851851851855
-Slouky,Baalbeck,فلاوي,40.0
-Yamouné,Baalbeck,اليمونه,50.0
-Conflict,Hermel,فلاوي,33.33333333333333
-El-Méaisseri,Hermel,المعاصر,47.05882352941177
-Hermel,Hermel,الهرمل حي الحارة,44.44444444444444
-Hermel Charbine,Hermel,الهرمل حي الحارة,50.0
-Hermel Djebab,Hermel,الهرمل حي بديتا,48.0
-Hermel Zighrine,Hermel,الهرمل حي الحارة,51.851851851851855
-Michaa Mrajhiné,Hermel,مراح العين,34.78260869565217
-Ouadi El-Osse,Hermel,وادي العس,40.0
-Ouadi Faara,Hermel,وادي فعرة,42.10526315789474
-Ras-Baalbek - Wadi Faara,Hermel,مزرعة ابو صليبي,31.578947368421055
-Ras Baalbek El-Gharbi,Hermel,راس بعلبك,48.275862068965516
-Beirut Central District,Beirut,,0
-Aïha,Rachiaya,عيحا,28.57142857142857
-Aïn Arab,Rachiaya,كفردنيس,26.66666666666667
-Aïn Horché,Rachiaya,عين حرشا,55.55555555555556
-Akabé,Rachiaya,الدكوه,22.22222222222223
-Conflict,Rachiaya,عين التينه,35.294117647058826
-Deir El-Achayer,Rachiaya,دير العشائر,53.84615384615385
-Haouche El-Kannabé,Rachiaya,الخياره,33.33333333333333
-Héloua,Rachiaya,حلوه,40.0
-Kfar Dinès,Rachiaya,المنصوره,37.5
-Kfar Kouk,Rachiaya,كفرقوق,40.0
-litige,Rachiaya,سلساتا,40.0
-Mazraet el-Selasata,Rachiaya,سلساتا,34.78260869565217
-Mohaïdcé,Rachiaya,محيدثه,40.0
-Nabi Safa,Rachiaya,عين حرشا,35.294117647058826
-Rachaya El-Wadi,Rachiaya,راشيا حي الفوقا,44.44444444444444
-Al-Djeziré,West Bekaa,الدكوه,26.66666666666667
-Al-Istable,West Bekaa,سلساتا,42.857142857142854
-Al-Khiara,West Bekaa,الخياره,54.54545454545455
-"Ammik et ""Jouret Ammik""",West Bekaa,مشغره التحتا,17.647058823529406
-"Chouberkié ""Ammik""",West Bekaa,الخياره,26.086956521739125
-Dair Tahmiche,West Bekaa,محيدثه,40.0
-Dakoué,West Bekaa,الدكوه,40.0
-Deir-Aïn-el-Jaouzé,West Bekaa,دير العشائر,20.689655172413794
-Hamara,West Bekaa,المنارة,40.0
-Harime-el-Soughra,West Bekaa,دير العشائر,35.71428571428571
-Khiara-el-Atika,West Bekaa,الخياره,30.0
-Machghara,West Bekaa,مشغره التحتا,40.0
-Mansoura,West Bekaa,المنصوره,57.142857142857146
-n.a. (4),West Bekaa,عين التينه,23.529411764705884
-Soltan-Yacoub,West Bekaa,السلطان يعقوب التحتا,42.857142857142854
-Al-Ali-Nahri,Zahleh,علي النهري,47.61904761904762
-Al-Nabi Aïla,Zahleh,نبي ايلا,44.44444444444444
-Anjar,Zahleh,مجدل عنجر,42.857142857142854
-Chouberkié  Tabet,Zahleh,تل الاخضر,33.33333333333333
-Conflict,Zahleh,الفرزل التحتا,35.294117647058826
-Fourzol,Zahleh,الفرزل التحتا,50.0
-Haouche-al-Omara (Terres),Zahleh,زحلة الراسيه التحتا,30.0
-Haouche Kaissar,Zahleh,زحلة حوش الامراء,28.57142857142857
-Haouche Sayadi,Zahleh,زحلة حي السيدة,37.03703703703704
-Hochemoche,Zahleh,زحلة حوش الامراء,34.78260869565217
-Kab Elias,Zahleh,قب الياس التحتا,40.0
-Koussaya,Zahleh,كابوسية,42.857142857142854
-Ksara,Zahleh,الكرمة,44.44444444444444
-Maallaka (Terres),Zahleh,زحلة الراسيه التحتا,31.25
-Maazraat-el-Ramtanieh,Zahleh,زحلة مار انطونيوس,27.77777777777777
-Mandara,Zahleh,خضر بك,28.57142857142857
-Mejdel-Anjar,Zahleh,مجدل عنجر,38.095238095238095
-Nasriyat Rizk,Zahleh,زحلة الميدان الشرقي,40.0
-Saïd Neil,Zahleh,زحلة سيدة النجاة,34.78260869565217
-Tal-al-Amara,Zahleh,حي السلم,31.578947368421055
-Tal-el-Akhdar,Zahleh,تل الاخضر,47.61904761904762
-Tanaïl,Zahleh,تعنايل,54.54545454545455
-Tchiflik Eddé,Zahleh,تل الاخضر,38.095238095238095
-Tchiflik Kikano,Zahleh,زحلة كرك نوح,44.44444444444444
-Touaité,Zahleh,تويته,33.33333333333333
-Wadi-el-Arayeche,Zahleh,زحلة الراسيه الفوقا,32.25806451612904
-Zahlé (Terres),Zahleh,زحلة الراسيه التحتا,41.37931034482759
-Zahlé Al-Rassié,Zahleh,زحلة الراسيه التحتا,46.666666666666664
-Zahlé Haouche Al-Oumara,Zahleh,زحلة الراسيه التحتا,42.10526315789474
-Zahlé Haouche Al-Zaraané,Zahleh,زحلة حوش الزراعنه,45.0
-Zahlé Maallaka Kerek,Zahleh,زحلة كرك نوح,50.0
-Zahlé Mar Antonios,Zahleh,زحلة حوش الامراء,51.61290322580645
-Zahlé Mar Gérios,Zahleh,زحلة حوش الامراء,55.172413793103445
-Zahlé Midan,Zahleh,زحلة الميدان الغربي,51.851851851851855
-Zahlé Saidet Al-Najda,Zahleh,زحلة سيدة النجاة,57.142857142857146
-Zebdol,Zahleh,سعدنايل,33.33333333333333
-Aïn-Dara,Aley,عين داره,40.0
-Aïn-El-Jdeidé,Aley,عين الجديدة,43.47826086956522
-Aïn-Rommané,Aley,الرجمة,26.66666666666667
-Ain Saideh,Aley,عين داره,47.05882352941177
-Aïn Sofar,Aley,صوفر,46.15384615384615
-Aley,Aley,البساتين,40.0
-Baïssour,Aley,صوفر,33.33333333333333
-Baouarta,Aley,بعورته,42.857142857142854
-Bhamdoun (Gare),Aley,محطة بحمدون,38.46153846153846
-Bhouara,Aley,بحواره,50.0
-Bouzridé,Aley,بوزريده,53.333333333333336
-Btallaoun,Aley,البساتين,42.857142857142854
-Bteezanieh,Aley,البساتين,40.0
-Chouaifat Amroussyat,Aley,الشويفات حي العمروسية,42.10526315789474
-Chouaifat Oumara,Aley,الشويفات حي الامراء,27.58620689655173
-Chouaifat Qobbat,Aley,الشويفات حي القبة,33.33333333333333
-El-Fsaïkine,Aley,البساتين,35.294117647058826
-El-Kahalé,Aley,الكحالة,60.0
-El-Kamatiyeh,Aley,القماطية,44.44444444444444
-El-Mansouriyeh et Aïn-El-Marge,Aley,الشويفات حي الامراء,36.36363636363637
-El-Rejmeh,Aley,الرجمة,60.0
-Homs et Hama,Aley,عاليه شمالي,36.36363636363637
-Kfar-Aammay,Aley,كفر عميه,31.578947368421055
-litige,Aley,البساتين,33.33333333333333
-Mchakhté,Aley,كفر عميه,37.5
-Baalchemay,Baabda,بعلشميه,55.55555555555556
-Borge el Baragenat,Baabda,برج البراجنة حي السياد,38.888888888888886
-Boutchay,Baabda,بطشيه,57.142857142857146
-Bsaba Wadi Dlab,Baabda,برج البراجنة حي السياد,36.36363636363637
-Chiah,Baabda,بطشيه,36.36363636363637
-El-Chmeice,Baabda,بعلشميه,33.33333333333333
-El-Erbaniyeh,Baabda,سبنيه,57.142857142857146
-El-Kalaa,Baabda,القلعه,30.769230769230774
-El-Khreibé,Baabda,حارة البطم,40.0
-El-Kneissé,Baabda,الشياح حي الكنيسة,41.666666666666664
-El Halaliyeh,Baabda,الهلالية,57.142857142857146
-Forn El-Chobbek,Baabda,حارة حريك قرانوح,34.48275862068965
-Ghbayreh,Baabda,الغبيري حي الجامع,47.61904761904762
-Hadace,Baabda,الحدث قبلي,26.66666666666667
-Haret Horaïk,Baabda,حارة حريك قرانوح,46.15384615384615
-Hazmiyeh,Baabda,بعلشميه,50.0
-Louaizé,Baabda,القلعه,18.181818181818187
-Mardachat,Baabda,المرداشة,53.333333333333336
-Mazraet-el-Mzeiraa,Baabda,المريجه,25.0
-Zandouka,Baabda,زندوقه,42.857142857142854
-Aïn-el-Assad et Chmeicé,Chouf,عين الاسد والشميس,36.8421052631579
-Aïn Ouzaï,Chouf,عين وزين,35.294117647058826
-Anbal,Chouf,البطال,50.0
-Baakline,Chouf,الكحلونية,40.0
-Bkhchtaine,Chouf,الكحلونية,35.294117647058826
-Bkifa,Chouf,كفر قطره,30.769230769230774
-Brih et Mteilé,Chouf,مرج برجا,38.095238095238095
-Chehime,Chouf,شحيم حي الجامع,30.0
-Chemaarine,Chouf,حارة الناعمه,31.578947368421055
-Dardourite,Chouf,دير دوريت,42.10526315789474
-Debbiyeh,Chouf,الدبية,50.0
-Debbiyeh (Ain el Haour),Chouf,المحتقره دير المخلص,35.0
-Deir  El-Moukhalles Ech-Chouf,Chouf,المحتقره دير المخلص,52.17391304347826
-Douair Bsennaï,Chouf,حارة بعاصير,34.78260869565217
-El-Bkaya,Chouf,الدبية,46.15384615384615
-El-Fouara,Chouf,الفواره,42.857142857142854
-El-Freidice,Chouf,الفواره,37.5
-El-Jahliyeh,Chouf,الجاهلية,61.53846153846154
-El-Jdeidé,Chouf,جديدة الشوف,35.294117647058826
-El-Kahlouniyeh,Chouf,الكحلونية,55.55555555555556
-El-Khreibé,Chouf,الكحلونية,33.33333333333333
-El-Kneissé,Chouf,الكنيسة,50.0
-El-Moghaïré,Chouf,المغيريه,44.44444444444444
-El-Moghaïriyeh,Chouf,المغيريه,58.8235294117647
-El-Samkanieh,Chouf,السمقانية,42.10526315789474
-Ghabet Jaafar,Chouf,مرج برجا,30.0
-Jadra,Chouf,مرج برجا,33.33333333333333
-Jdael et Kfarhi,Chouf,الفواره,40.0
-Jebah,Chouf,جباع,50.0
-Kfar Haml,Chouf,الفواره,42.857142857142854
-Kfar Katra,Chouf,كفر قطره,44.44444444444444
-Kfar Matta (Klaliyé),Chouf,كفر قطره,35.71428571428571
-litige,Chouf,البطال,40.0
-Majdel Meouche,Chouf,المطله,33.33333333333333
-Mazmoura,Chouf,مزموره,57.142857142857146
-Mtoullé Bzina,Chouf,البطال,37.5
-Naamat,Chouf,المطله,40.0
-Wadi Abou Youssef,Chouf,عين الاسد والشميس,31.25
-Abou-Mizane,El Metn,ابو ميزان,44.44444444444444
-Aïn-El-Kach,El Metn,الدكوانه,35.294117647058826
-Aïn El-Kabou,El Metn,الغابه,25.0
-Aïroune,El Metn,العيرون,33.33333333333333
-Antoura,El Metn,عينطوره,42.857142857142854
-Baabdat et Sfaïlé,El Metn,بعبدات,36.36363636363637
-Baouchariat,El Metn,بحر صاف,35.294117647058826
-Baskinta,El Metn,الدكوانه,30.769230769230774
-Beit Chebab,El Metn,بيت شباب تحتاني,48.0
-Bsifrine et El-Zahriyé,El Metn,سد البوشريه,36.36363636363637
-Choueir,El Metn,الشوير,33.33333333333333
-Deir Tamiche,El Metn,المحيدثة,31.578947368421055
-Dekouanet,El Metn,الدكوانه,42.857142857142854
-Douar,El Metn,الدوار,50.0
-El-Khounchara,El Metn,الخنشاره,58.8235294117647
-El-Machera,El Metn,المشرع,50.0
-El-Mhaidcé,El Metn,المحيدثة,44.44444444444444
-El-Ouyoun,El Metn,العيرون,40.0
-Haret El-Belleni,El Metn,البوشريه,33.33333333333333
-Hebouss,El Metn,سد البوشريه,33.33333333333333
-Jodaidat,El Metn,الجديدة,46.15384615384615
-Kaakour,El Metn,عوكر,36.36363636363637
-Majdoub,El Metn,مزهر ومجدوب,44.44444444444444
-Mar Abda El-Mchammar,El Metn,بيت الشعار,34.48275862068965
-Mar Chaya et Mzakki,El Metn,مار شعيا والمزكه,36.36363636363637
-Mar Roukose et Dahr El-Hossain,El Metn,سن الفيل حي جسر الباشا,32.65306122448979
-Maska et El-Ghabeh,El Metn,الغابه,36.36363636363637
-Mazraet Beit Chaar,El Metn,بيت شباب تحتاني,37.5
-Mazraet Deir Aoukar,El Metn,زوق الخراب ومار يوسف,32.432432432432435
-Mazraet El-Hadira,El Metn,مزرعة بنابيل,35.71428571428571
-Mezher,El Metn,المشرع,54.54545454545455
-Mkallesse,El Metn,ساقية المسك,33.33333333333333
-Sakiet-El-Misk et Bhorsaf,El Metn,بحر صاف,32.25806451612904
-Senn el Fil,El Metn,سن الفيل حي البلده,51.851851851851855
-Zeghrine,El Metn,الغابه,36.36363636363637
-Zouk-Khrab,El Metn,مزهر ومجدوب,38.095238095238095
-Adonis et Sannour,Jubail,دير القطاره,30.769230769230774
-Afka,Jubail,افقا,33.33333333333333
-Aïn-El-Ghouaibé,Jubail,عين الغويبة,32.0
-Aïn Kfah,Jubail,عين كفاع,53.333333333333336
-Akoura,Jubail,الكفر,44.44444444444444
-Al Kattara,Jubail,الكفر,42.857142857142854
-Alita,Jubail,الغابات,44.44444444444444
-Almate El-Chemaliat,Jubail,علمات الشمالية,51.61290322580645
-Almate El-Jenoubiat,Jubail,علمات الجنوبية,51.61290322580645
-Arab El-Haibe,Jubail,دير القطاره,36.36363636363637
-Bakhaase,Jubail,بخعاز,46.15384615384615
-Belhos,Jubail,حصارات,40.0
-Berket Hejoula,Jubail,بخعاز,31.578947368421055
-Bintaél (Fdar-El-Soufla),Jubail,قرطبا الشمالية,27.77777777777777
-Breige,Jubail,الغابات,22.22222222222223
-Deir Mar Sarkis,Jubail,جنه ومار سركيس,35.71428571428571
-El-Jlaicé,Jubail,الجليسه,40.0
-El-Kafr et El-Harf,Jubail,الكفر,42.10526315789474
-El-Kfoune,Jubail,الكفر,46.15384615384615
-El-Mouncef,Jubail,المنصف,54.54545454545455
-El-Rihané,Jubail,الريحانة,54.54545454545455
-Fatré et Bir-el-Haït,Jubail,دير القطاره,27.58620689655173
-Ghabate,Jubail,الغابات,60.0
-Hboub,Jubail,الغابات,25.0
-Hedayné,Jubail,ادونيس,33.33333333333333
-Hsarate et Richkif,Jubail,حصارات,36.36363636363637
-Janné,Jubail,علمات الجنوبية,23.529411764705884
-Jouret-el-Kattine,Jubail,دير القطاره,23.07692307692308
-Kartaba,Jubail,الكفر,40.0
-Kartaboune,Jubail,كفر مسحون,31.578947368421055
-Kfar-Mashoune et Dmalsa,Jubail,كفر مسحون,43.75
-Kfar Kaouass,Jubail,الكفر,40.0
-Kfarbaal (Annaya),Jubail,عنايا وكفربعال,57.142857142857146
-litige,Jubail,الغابات,40.0
-Mastita,Jubail,المنصف,36.36363636363637
-Mechmech,Jubail,علمات الشمالية,30.0
-Mehrine,Jubail,كفر مسحون,37.5
-n.a. (2),Jubail,كفر مسحون,23.529411764705884
-Sarhita,Jubail,حصارات,54.54545454545455
-Sirine,Jubail,حصارات,40.0
-Tedmor et Serghal,Jubail,جنه ومار سركيس,40.0
-Aïntoura,Kasrouane,عينطوره,40.0
-Bekaatouta,Kasrouane,بقعتوته,35.294117647058826
-Boukak El-Dine,Kasrouane,كفردبيان,28.57142857142857
-Chenanhir,Kasrouane,شننعير,50.0
-Deir Baklouche,Kasrouane,زوق مكايل,27.272727272727266
-Djounié Ghadir,Kasrouane,غادير,33.33333333333333
-Djounié Salel Alma,Kasrouane,ساحل علما,40.0
-Djounié Sarba,Kasrouane,النموره وكفر جريف,28.57142857142857
-El-Abri et Chouan,Kasrouane,شوان والعبره,42.857142857142854
-El-Ekaïbé,Kasrouane,كفردبيان,30.769230769230774
-El-Kleiyate,Kasrouane,القليعات,47.05882352941177
-El-Mghaer,Kasrouane,غادير,40.0
-Ghazir,Kasrouane,غادير,40.0
-Herhraya et Kattine,Kasrouane,هرهريا والقطين,51.61290322580645
-Jouret Mhad,Kasrouane,النموره وكفر جريف,38.46153846153846
-Kharayeb Nahr Ibrahim,Kasrouane,هرهريا والقطين,36.36363636363637
-litige,Kasrouane,القليعات,36.36363636363637
-Mazraet El-Ras,Kasrouane,غزير المعاملتين,29.629629629629633
-Mazraet Kfardebiane,Kasrouane,كفردبيان,46.15384615384615
-Mazraet Mrah el-Mir,Kasrouane,النموره وكفر جريف,35.294117647058826
-Mouchaa Kesrouan (Faraya),Kasrouane,النموره وكفر جريف,30.0
-Mouchaa Kesrouan (Kfardebian),Kasrouane,كفردبيان,33.33333333333333
-n.a. (3),Kasrouane,غزير القناة,23.529411764705884
-Nammoura et Kfar Jerif,Kasrouane,النموره وكفر جريف,37.83783783783784
-Souhailet El-Faouka,Kasrouane,ساحل علما,38.46153846153846
-Wata Salam,Kasrouane,ساحل علما,35.294117647058826
-Zaaitré,Kasrouane,زعيتره,46.15384615384615
-Zouk Mikaèl,Kasrouane,زوق مكايل,52.63157894736842
-Aïn-el-Katmoune,Bint Jbayl,السلطانيه,28.57142857142857
-Aïta-el-Zut,Bint Jbayl,السلطانيه,23.529411764705884
-El-Kouzah,Bint Jbayl,قوزح,40.0
-Ghandouriyé,Bint Jbayl,غندورية,55.55555555555556
-Haddacé,Bint Jbayl,حداثا,36.36363636363637
-Salhané,Bint Jbayl,السلطانيه,46.15384615384615
-Soultaniyé,Bint Jbayl,السلطانيه,62.5
-Abou Kamha,Hasbaya,ابو قمحه,47.05882352941177
-Al-Dellafé,Hasbaya,الدلافة,54.54545454545455
-El-Habbariyé,Hasbaya,الهبارية,57.142857142857146
-El-Kahlouat,Hasbaya,الخيام شمالي,36.36363636363637
-El-Khreibé,Hasbaya,كفرشوبا,42.857142857142854
-Marj Ez-Zouhour (Haouch El-Qinnaabé),Hasbaya,مرج الزهور,35.55555555555556
-Nkhailé,Hasbaya,الخيام جنوبي,35.294117647058826
-Slaïyeb,Hasbaya,الخيام شمالي,35.294117647058826
-Adchite El-Koussair,Marjaayoun,سرده والعمره,33.33333333333333
-Adeicé,Marjaayoun,الدلافة,20.0
-Deir Mimas Doumiat,Marjaayoun,ميس الجبل غربي,32.25806451612904
-Ebel-El-Saki,Marjaayoun,ابل السقي,42.10526315789474
-El-Amra,Marjaayoun,مرج الزهور,37.5
-El-Kleia,Marjaayoun,الخيام شمالي,31.578947368421055
-Houra,Marjaayoun,الهبارية,40.0
-Kantara,Marjaayoun,قنطره,50.0
-Mazraet-El-Jrein,Marjaayoun,رب ثلاثين,30.769230769230774
-Mazraet el-Sarada,Marjaayoun,سرده والعمره,42.857142857142854
-Meis El-Jabal,Marjaayoun,ميس الجبل غربي,53.84615384615385
-Rabb Salacine,Marjaayoun,رب ثلاثين,43.47826086956522
-Abba,Nabatiyeh,جباع,28.57142857142857
-Ali El-Taher,Nabatiyeh,زوطر الشرقية,33.33333333333333
-Bfarwé,Nabatiyeh,كفروة,54.54545454545455
-Braikeh,Nabatiyeh,بريقع,33.33333333333333
-El-Charkiyé,Nabatiyeh,الشرقية,44.44444444444444
-El-Hamra,Nabatiyeh,الشرقية,40.0
-Hmaïla,Nabatiyeh,الشرقية,16.66666666666667
-Izzé,Nabatiyeh,زوطر الشرقية,12.5
-Kafr Dajjal,Nabatiyeh,كفروة,37.5
-Kafra-Jbah,Nabatiyeh,كفروة,40.0
-Kakiat El-Jisr,Nabatiyeh,قعقعية الجسر,40.0
-Ksaibé,Nabatiyeh,جباع,22.22222222222223
-Mazraat-el-Khreibé,Nabatiyeh,النميريه,25.0
-Mazraet Bsaffour,Nabatiyeh,زوطر الشرقية,35.71428571428571
-Mazraet Chaal Baal,Nabatiyeh,زوطر الشرقية,33.33333333333333
-Mazraet Dmoul,Nabatiyeh,زوطر الشرقية,32.0
-Mazraet El-Bayad,Nabatiyeh,زوطر الشرقية,35.71428571428571
-Mazraet Kalaat Meiss,Nabatiyeh,زوطر الشرقية,25.0
-Mazraet Kfar Jaouz,Nabatiyeh,زوطر الشرقية,26.66666666666667
-Mazraet Sinai,Nabatiyeh,سيني,23.529411764705884
-Nmériyé,Nabatiyeh,النميريه,61.53846153846154
-Zaoutar El-Charkiyé,Nabatiyeh,زوطر الشرقية,51.61290322580645
-Al-Boukaïa et Dahr Abi Yaghi,Batroun,ضهر ابو ياغي,45.714285714285715
-Basbina,Batroun,البترون,33.33333333333333
-Batroune,Batroun,البترون,61.53846153846154
-Bechtoudar-Aoura,Batroun,بشتودار,43.47826086956522
-Beit Ksab,Batroun,الفتاحات وحربونا,30.0
-Chouma,Batroun,غوما,22.22222222222223
-Deir Kfifane,Batroun,ضهر ابو ياغي,27.272727272727266
-Deir Mar Youhanna Douma,Batroun,ضهر ابو ياغي,30.303030303030297
-Deir Mar Youssef Jrabta,Batroun,ضهر ابو ياغي,30.303030303030297
-El-Ftahat,Batroun,الفتاحات وحربونا,47.61904761904762
-Harbouna,Batroun,الفتاحات وحربونا,42.10526315789474
-Karnaoun,Batroun,البترون,30.769230769230774
-Kfar Heloss,Batroun,مراح شديد ودير شواح,33.33333333333333
-Koubba,Batroun,البترون,18.181818181818187
-Masreh,Batroun,صغار,44.44444444444444
-Mrah Chdid,Batroun,راشكده,37.5
-Rachkida,Batroun,راشكده,57.142857142857146
-Sghar et Wata Sfarta,Batroun,الفتاحات وحربونا,38.70967741935484
-Sourate,Batroun,صورات,54.54545454545455
-Tannourine Foka,Batroun,تنورين الفوقا,46.15384615384615
-Bazoune,Bcharre,بزعون,50.0
-Bcharré,Bcharre,بشري حي مار سابا,38.095238095238095
-Bikaa kafra,Bcharre,بقاعكفرا,47.05882352941177
-Billa,Bcharre,المغر وبلا,33.33333333333333
-Mchaa Ej Jobbé,Bcharre,بشري حي مار يوحنا,26.66666666666667
-Mugher-el-Ahwel,Bcharre,المغر وبلا,45.45454545454545
-Al-Boukaia,Koura,البحصاص,26.66666666666667
-Al-Hraïché,Koura,ضهور الهوا,40.0
-Belmand,Koura,اجد عبرين,40.0
-Ejdabrine,Koura,اجد عبرين,35.294117647058826
-Majdel,Koura,اجد عبرين,28.57142857142857
-Aassaymout,Minieh-Danieh,المنية,14.285714285714292
-Al-Minieh,Minieh-Danieh,المنية,42.857142857142854
-Azka,Minieh-Danieh,الريحانية,0.0
-Bakhoune,Minieh-Danieh,الريحانية,28.57142857142857
-Bchnnata,Minieh-Danieh,الريحانية,28.57142857142857
-Bechhara,Minieh-Danieh,النبي يوشع,23.529411764705884
-Behweité,Minieh-Danieh,برج اليهودية,31.578947368421055
-Beit Zaoud,Minieh-Danieh,برج اليهودية,28.57142857142857
-Bkarsouna,Minieh-Danieh,الريحانية,26.66666666666667
-Borge-El-Yahoudié,Minieh-Danieh,برج اليهودية,42.857142857142854
-Btehline,Minieh-Danieh,المنية,30.769230769230774
-El-Watié et Harf Siad,Minieh-Danieh,برج اليهودية,20.689655172413794
-Jarjoura,Minieh-Danieh,برج اليهودية,21.05263157894737
-Jaroun,Minieh-Danieh,الريحانية,33.33333333333333
-Kattiné,Minieh-Danieh,المنية,18.181818181818187
-Kfar Bibnine,Minieh-Danieh,النبي يوشع,19.04761904761905
-Kharnoub,Minieh-Danieh,الريحانية,28.57142857142857
-litige,Minieh-Danieh,المنية,18.181818181818187
-Mazraat Ketrane,Minieh-Danieh,الريحانية,19.04761904761905
-Mazraet El-Krême,Minieh-Danieh,المنية,19.04761904761905
-Mrabine,Minieh-Danieh,المنية,36.36363636363637
-Mrah-El-Sfiré,Minieh-Danieh,الريحانية,21.05263157894737
-Nabi Youcheaa,Minieh-Danieh,النبي يوشع,45.45454545454545
-Nemrine et Bakoura,Minieh-Danieh,برج اليهودية,20.689655172413794
-Omar,Minieh-Danieh,المنية,25.0
-Qarhaiya,Minieh-Danieh,الريحانية,42.857142857142854
-Qemmamine,Minieh-Danieh,المنية,30.769230769230774
-Qraine,Minieh-Danieh,الريحانية,33.33333333333333
-Tourbol,Minieh-Danieh,برج اليهودية,22.22222222222223
-Zouk Bhanine,Minieh-Danieh,الريحانية,22.22222222222223
-Al-Mina Jardins,Tripoli,الرمانة,37.5
-Al-Mina No1,Tripoli,الميناء,40.0
-Al-Mina No2,Tripoli,الميناء,40.0
-Al-Mina No3,Tripoli,الميناء,40.0
-Tripoli Al-Hadid,Tripoli,الحديد,38.095238095238095
-Tripoli Al-Kobbé,Tripoli,المهاترة,27.272727272727266
-Tripoli Al-Mouhaitra,Tripoli,المهاترة,38.46153846153846
-Tripoli Al-Nouri,Tripoli,النوري,28.57142857142857
-Tripoli Al-Rmmanieh,Tripoli,المهاترة,40.0
-Tripoli Al-Souéka,Tripoli,المهاترة,26.086956521739125
-Tripoli Al-Tabbaneh,Tripoli,التبانة,33.33333333333333
-Tripoli Al-Tal,Tripoli,المهاترة,30.0
-Tripoli Al-Zehrieh,Tripoli,الزاهرية,33.33333333333333
-Tripoli Al Haddadin,Tripoli,الحدادين,40.0
-Tripoli Jardins,Tripoli,الرمانة,21.05263157894737
-Tripoli Zeitoun,Tripoli,التبانة,30.0
-Aadoua,Zgharta,القادريه,18.181818181818187
-Acheiche,Zgharta,عشاش,30.769230769230774
-Al-Harik,Zgharta,البحيرة,42.857142857142854
-Al-Khaldyé,Zgharta,القادريه,46.15384615384615
-Arbet Koshaya,Zgharta,عربة قزحيا,45.45454545454545
-Ardate,Zgharta,كفرحاتا,36.36363636363637
-Basloukite,Zgharta,بسلوقيط,47.05882352941177
-Benachée,Zgharta,بنشعي,42.857142857142854
-Bouhairet Toula,Zgharta,حارة الفوار,34.78260869565217
-Bsebhil,Zgharta,بنشعي,46.15384615384615
-Danhi,Zgharta,القادريه,40.0
-Ehden,Zgharta,رشعين,36.36363636363637
-Ejbeh,Zgharta,اجبع,50.0
-Iâl,Zgharta,ايعال,33.33333333333333
-Karabeiche,Zgharta,كفرحاتا,40.0
-Kfar Chakna,Zgharta,حارة الفوار,42.10526315789474
-Kfar hata,Zgharta,حارة الفوار,47.05882352941177
-Mazraat Ejbeh,Zgharta,زغرتا حي المعاصر,46.15384615384615
-Mazraat Jneide,Zgharta,زغرتا حي المعاصر,37.03703703703704
-Mazraet Hreikess,Zgharta,حرف مزيارة,48.0
-Merh Kfarsghabe,Zgharta,كفر شخنا,50.0
-Mériata,Zgharta,مرياطه,50.0
-n.a. (1),Zgharta,كفر شخنا,23.529411764705884
-Rachehine,Zgharta,كفر شخنا,44.44444444444444
-Sakhra,Zgharta,قره باش,46.15384615384615
-Zghorta,Zgharta,زغرتا حي المعاصر,40.0
-Aïchiyé,Jezzine,الحسانيه,33.33333333333333
-Akmata,Jezzine,ريمات وشقاديف,22.22222222222223
-Ariya,Jezzine,القطراني,40.0
-Arkoub (Mazraat),Jezzine,كفر جره,26.086956521739125
-Baba,Jezzine,لبعه,25.0
-Chabil,Jezzine,قطين وحيداب,25.0
-El-Demachkiyeh,Jezzine,الحسانيه,40.0
-El-Kabeh,Jezzine,لبعه,50.0
-El-Mahmoudiyeh,Jezzine,الحسانيه,40.0
-El-Rahbane,Jezzine,الحسانيه,37.5
-El-Rihane,Jezzine,الحسانيه,40.0
-El-Wadié,Jezzine,قطين وحيداب,26.66666666666667
-Haïdab,Jezzine,قطين وحيداب,37.5
-Haitoulé,Jezzine,قتالة,33.33333333333333
-Haïtoura,Jezzine,حيطوره,42.857142857142854
-Hassaniyé,Jezzine,الحسانيه,57.142857142857146
-Jabal Toura,Jezzine,القطراني,35.294117647058826
-Kafr-Jarra,Jezzine,كفر جره,35.294117647058826
-Katrani,Jezzine,القطراني,50.0
-Kattine,Jezzine,القطراني,33.33333333333333
-Khellet Khazen,Jezzine,بحنين - كفرتعلا,35.71428571428571
-Krouh,Jezzine,حيطوره,36.36363636363637
-litige,Jezzine,القطراني,33.33333333333333
-Mazraat Dahr el-Deir,Jezzine,بحنين - كفرتعلا,23.529411764705884
-Mazraat Daraya,Jezzine,ريمات وشقاديف,30.769230769230774
-Mazraat El Ouazaaiyé,Jezzine,حيتوله - وادي الليمون,25.641025641025635
-Mazraat Louzid (Louayziyé),Jezzine,بحنين - كفرتعلا,20.0
-Rimate,Jezzine,ريمات وشقاديف,33.33333333333333
-Sfarai,Jezzine,صفارية,54.54545454545455
-Tamra,Jezzine,القطراني,40.0
-Wadi Laimoune,Jezzine,حيتوله - وادي الليمون,37.5
-Addoussiat,Saida,صيدا حي مكسر العبد,23.07692307692308
-Aïn-el-Dib,Saida,صيدا حي مار نقولا,25.0
-Arab Soukar,Saida,صيدا حي مكسر العبد,29.629629629629633
-Arab Tabbaya,Saida,صيدا حي رجال الاربعين,27.58620689655173
-Bissariat,Saida,صيدا حي مكسر العبد,24.0
-Daoudiyé,Saida,صيدا حي مكسر العبد,16.66666666666667
-Darbessim,Saida,صيدا حي مكسر العبد,24.0
-Deir Takla,Saida,صيدا حي مار نقولا,25.0
-El-Hajjé,Saida,صيدا حي الشارع,20.0
-El-Mhammariyé,Saida,صيدا حي مار نقولا,33.33333333333333
-El Hartiyé,Saida,صيدا حي الشارع,36.36363636363637
-Jaziré,Saida,صيدا حي السراي,11.764705882352942
-Kaakiet El-Senaoubar,Saida,صيدا حي السراي,25.80645161290323
-Kaoutarite El-Riz,Saida,صيدا حي مكسر العبد,24.24242424242425
-Kaoutarite El-Siyad,Saida,صيدا حي مكسر العبد,28.57142857142857
-Kfar Badda,Saida,صيدا حي مكسر العبد,38.46153846153846
-Kherbet Bassal,Saida,صيدا حي المسالخية,27.58620689655173
-Kherbet El-Douair,Saida,صيدا حي مكسر العبد,30.303030303030297
-Loubié,Saida,صيدا حي السبيل,22.22222222222223
-Matriet El-Choumar,Saida,صيدا حي الشارع,26.66666666666667
-Mazraat El-Wasta,Saida,صيدا حي الزويتيني,25.80645161290323
-Mazraat Jimjim,Saida,صيدا حي مار نقولا,21.42857142857143
-Mazraet Matarite Jebah,Saida,صيدا حي مار نقولا,27.77777777777777
-Miemié,Saida,صيدا حي مار نقولا,10.0
-Mohaidalé,Saida,صيدا حي المسالخية,25.0
-Msaileh,Saida,صيدا حي المسالخية,36.36363636363637
-Nadjariat,Saida,صيدا حي الكنان,20.0
-Saksakiat,Saida,صيدا حي الكشك,28.57142857142857
-Samiate,Saida,صيدا حي السراي,11.111111111111114
-Sfenté,Saida,صيدا حي السراي,11.764705882352942
-Snaiber,Saida,صيدا حي السراي,22.22222222222223
-Tibna,Saida,صيدا حي الزويتيني,20.0
-Yahoudiat,Saida,صيدا حي الشارع,28.57142857142857
-Aaiyé,Sour,البساتين,20.0
-Abou Chech,Sour,باريش,26.66666666666667
-Aïn Abou Abdallah,Sour,عين ابو عبدالله,46.666666666666664
-Bazouriat,Sour,البازوريه,40.0
-Beiriche,Sour,باريش,46.15384615384615
-Bestiace,Sour,البساتين,46.15384615384615
-Btaychiyé,Sour,بثتيات,53.333333333333336
-Chameh,Sour,شمع,40.0
-Cheïetiyé,Sour,بثتيات,40.0
-Debhalé,Sour,باريش,33.33333333333333
-El-Héloussiyé,Sour,الحلوسية,50.0
-El-Kleilé,Sour,قليله,36.36363636363637
-Eskandaroun,Sour,البساتين,25.0
-Hamoul,Sour,شمع,40.0
-Hanawé,Sour,حناويه,54.54545454545455
-Jejime,Sour,صور حي الجامع,23.529411764705884
-Kneissé,Sour,البص  قسم 1,26.66666666666667
-Mahaïlib,Sour,المالكية,30.769230769230774
-Mahroub,Sour,معروب,50.0
-Mazraat Dhaira,Sour,صور حي الجامع,32.0
-Mazraat Ez-Zalloutieh,Sour,الحميري,29.629629629629633
-Mazraat Torsemhat,Sour,صور حي المنارة,27.58620689655173
-Neffahiyé,Sour,نفاخيه,53.333333333333336
-Ouadi Djilou,Sour,وادي جيلو,40.0
-Rafid-el-Mernaba,Sour,معروب,28.57142857142857
-Salha,Sour,سلعا,50.0
-Tairzibna,Sour,البساتين,28.57142857142857
-Touaire,Sour,طير فلسيه,25.0
-Trafelsiyé,Sour,طير فلسيه,42.10526315789474
+Hmaïla,Nabatiyeh,الشرقية,50.0
+Izzé,Nabatiyeh,النميريه,50.0
+Kafr Dajjal,Nabatiyeh,كفروة,50.0
+Kafra-Jbah,Nabatiyeh,كفروة,61.53846153846154
+Kakiat El-Jisr,Nabatiyeh,قعقعية الجسر,57.142857142857146
+Ksaibé,Nabatiyeh,سيني,66.66666666666666
+Mazraat-el-Khreibé,Nabatiyeh,زوطر الشرقية,40.0
+Mazraet Bsaffour,Nabatiyeh,زوطر الشرقية,57.142857142857146
+Mazraet Chaal Baal,Nabatiyeh,الشرقية,60.0
+Mazraet Dmoul,Nabatiyeh,الشرقية,50.0
+Mazraet El-Bayad,Nabatiyeh,الشرقية,40.0
+Mazraet Kalaat Meiss,Nabatiyeh,النميريه,50.0
+Mazraet Kfar Jaouz,Nabatiyeh,زوطر الشرقية,52.17391304347826
+Mazraet Sinai,Nabatiyeh,سيني,100.0
+Nmériyé,Nabatiyeh,النميريه,100.0
+Zaoutar El-Charkiyé,Nabatiyeh,زوطر الشرقية,81.81818181818181
+Al-Boukaïa et Dahr Abi Yaghi,Batroun,ضهر ابو ياغي,80.0
+Basbina,Batroun,البترون,46.15384615384615
+Batroune,Batroun,البترون,100.0
+Bechtoudar-Aoura,Batroun,بشتودار,100.0
+Beit Ksab,Batroun,تنورين الفوقا,42.10526315789474
+Chouma,Batroun,غوما,75.0
+Deir Kfifane,Batroun,راشكيده,47.05882352941177
+Deir Mar Youhanna Douma,Batroun,مراح شديد ودير شواح,57.142857142857146
+Deir Mar Youssef Jrabta,Batroun,مراح شديد ودير شواح,44.44444444444444
+El-Ftahat,Batroun,الفتاحات وحربونا,80.0
+Harbouna,Batroun,صغار,44.44444444444444
+Karnaoun,Batroun,قندولا,54.54545454545455
+Kfar Heloss,Batroun,تنورين الفوقا,45.45454545454545
+Koubba,Batroun,قندولا,60.0
+Masreh,Batroun,مسرح والبقيعة,100.0
+Mrah Chdid,Batroun,مراح شديد ودير شواح,100.0
+Rachkida,Batroun,راشكيده,85.71428571428571
+Sghar et Wata Sfarta,Batroun,صغار,100.0
+Sourate,Batroun,صورات,88.88888888888889
+Tannourine Foka,Batroun,تنورين الفوقا,100.0
+Bazoune,Bcharre,بزعون,88.88888888888889
+Bcharré,Bcharre,بشري حي السيدة,100.0
+Bikaa kafra,Bcharre,بقاعكفرا,94.11764705882354
+Billa,Bcharre,المغر وبلا,54.54545454545455
+Mchaa Ej Jobbé,Bcharre,بشري حي مار سابا,52.17391304347826
+Mugher-el-Ahwel,Bcharre,المغر وبلا,63.1578947368421
+Al-Boukaia,Koura,اجد عبرين,40.0
+Al-Hraïché,Koura,ضهر العين,42.857142857142854
+Belmand,Koura,ضهر العين,53.333333333333336
+Ejdabrine,Koura,اجد عبرين,75.0
+Majdel,Koura,اجد عبرين,53.333333333333336
+Aassaymout,Minieh-Danieh,النبي يوشع,35.294117647058826
+Al-Minieh,Minieh-Danieh,المنية,54.54545454545455
+Azka,Minieh-Danieh,المنية,25.0
+Bakhoune,Minieh-Danieh,المنية,50.0
+Bchnnata,Minieh-Danieh,المنية,44.44444444444444
+Bechhara,Minieh-Danieh,الريحانية,46.15384615384615
+Behweité,Minieh-Danieh,برج اليهودية,66.66666666666666
+Beit Zaoud,Minieh-Danieh,النبي يوشع,53.333333333333336
+Bkarsouna,Minieh-Danieh,برج اليهودية,47.05882352941177
+Borge-El-Yahoudié,Minieh-Danieh,برج اليهودية,81.81818181818181
+Btehline,Minieh-Danieh,الريحانية,50.0
+El-Watié et Harf Siad,Minieh-Danieh,الريحانية,37.03703703703704
+Jarjoura,Minieh-Danieh,الريحانية,40.0
+Jaroun,Minieh-Danieh,الريحانية,46.15384615384615
+Kattiné,Minieh-Danieh,المنية,54.54545454545455
+Kfar Bibnine,Minieh-Danieh,الريحانية,35.294117647058826
+Kharnoub,Minieh-Danieh,الريحانية,42.857142857142854
+litige,Minieh-Danieh,الريحانية,42.857142857142854
+Mazraat Ketrane,Minieh-Danieh,الريحانية,52.63157894736842
+Mazraet El-Krême,Minieh-Danieh,الريحانية,47.61904761904762
+Mrabine,Minieh-Danieh,المنية,66.66666666666666
+Mrah-El-Sfiré,Minieh-Danieh,الريحانية,33.33333333333333
+Nabi Youcheaa,Minieh-Danieh,النبي يوشع,87.5
+Nemrine et Bakoura,Minieh-Danieh,الريحانية,45.45454545454545
+Omar,Minieh-Danieh,المنية,40.0
+Qarhaiya,Minieh-Danieh,الريحانية,66.66666666666666
+Qemmamine,Minieh-Danieh,المنية,66.66666666666666
+Qraine,Minieh-Danieh,الريحانية,66.66666666666666
+Tourbol,Minieh-Danieh,المنية,20.0
+Zouk Bhanine,Minieh-Danieh,الريحانية,40.0
+Al-Mina Jardins,Tripoli,الرمانة,50.0
+Al-Mina No1,Tripoli,الميناء,50.0
+Al-Mina No2,Tripoli,الميناء,66.66666666666666
+Al-Mina No3,Tripoli,الميناء,53.333333333333336
+Tripoli Al-Hadid,Tripoli,الحديد,100.0
+Tripoli Al-Kobbé,Tripoli,السويقه,44.44444444444444
+Tripoli Al-Mouhaitra,Tripoli,المهاترة,60.869565217391305
+Tripoli Al-Nouri,Tripoli,النوري,100.0
+Tripoli Al-Rmmanieh,Tripoli,الرمانة,47.61904761904762
+Tripoli Al-Souéka,Tripoli,السويقه,50.0
+Tripoli Al-Tabbaneh,Tripoli,التبانة,44.44444444444444
+Tripoli Al-Tal,Tripoli,التبانة,44.44444444444444
+Tripoli Al-Zehrieh,Tripoli,الزاهرية,47.61904761904762
+Tripoli Al Haddadin,Tripoli,الحدادين,100.0
+Tripoli Jardins,Tripoli,التبانة,50.0
+Tripoli Zeitoun,Tripoli,الزاهرية,55.55555555555556
+Aadoua,Zgharta,ايعال,66.66666666666666
+Acheiche,Zgharta,عشاش,75.0
+Al-Harik,Zgharta,حريقص,66.66666666666666
+Al-Khaldyé,Zgharta,القادريه,58.8235294117647
+Arbet Koshaya,Zgharta,عربة قزحيا,77.77777777777777
+Ardate,Zgharta,حرف ارده,57.142857142857146
+Basloukite,Zgharta,بسلوقيط,85.71428571428571
+Benachée,Zgharta,بنشعي,88.88888888888889
+Bouhairet Toula,Zgharta,البحيرة,100.0
+Bsebhil,Zgharta,بيت عبيد,42.857142857142854
+Danhi,Zgharta,القادريه,44.44444444444444
+Ehden,Zgharta,رشعين,60.0
+Ejbeh,Zgharta,اجبع,75.0
+Iâl,Zgharta,ايعال,88.88888888888889
+Karabeiche,Zgharta,القادريه,61.53846153846154
+Kfar Chakna,Zgharta,كفر شخنا,87.5
+Kfar hata,Zgharta,كفرحاتا,80.0
+Mazraat Ejbeh,Zgharta,مزرعة حوقا,70.0
+Mazraat Jneide,Zgharta,مزرعة الفريديس,78.26086956521739
+Mazraet Hreikess,Zgharta,حريقص,100.0
+Merh Kfarsghabe,Zgharta,مزرعة الفريديس,54.54545454545455
+Mériata,Zgharta,مرياطه,83.33333333333333
+n.a. (1),Zgharta,رشعين,14.285714285714292
+Rachehine,Zgharta,رشعين,80.0
+Sakhra,Zgharta,حارة الفوار,42.857142857142854
+Zghorta,Zgharta,زغرتا حي السيدة الشرقي,100.0
+Aïchiyé,Jezzine,العيشية,88.88888888888889
+Akmata,Jezzine,قتالة,54.54545454545455
+Ariya,Jezzine,صفارية,80.0
+Arkoub (Mazraat),Jezzine,القطراني,26.086956521739125
+Baba,Jezzine,قتالة,44.44444444444444
+Chabil,Jezzine,قتالة,44.44444444444444
+El-Demachkiyeh,Jezzine,ريمات وشقاديف,36.36363636363637
+El-Kabeh,Jezzine,الحسانيه,42.857142857142854
+El-Mahmoudiyeh,Jezzine,عين مجدلين,42.10526315789474
+El-Rahbane,Jezzine,الحسانيه,53.333333333333336
+El-Rihane,Jezzine,القطراني,57.142857142857146
+El-Wadié,Jezzine,حيتوله - وادي الليمون,72.72727272727272
+Haïdab,Jezzine,قطين وحيداب,62.5
+Haitoulé,Jezzine,حيتوله - وادي الليمون,100.0
+Haïtoura,Jezzine,حيطوره,83.33333333333333
+Hassaniyé,Jezzine,الحسانيه,100.0
+Jabal Toura,Jezzine,القطراني,62.5
+Kafr-Jarra,Jezzine,كفر جره,92.3076923076923
+Katrani,Jezzine,القطراني,100.0
+Kattine,Jezzine,قطين وحيداب,100.0
+Khellet Khazen,Jezzine,عين مجدلين,52.63157894736842
+Krouh,Jezzine,لبعه,28.57142857142857
+litige,Jezzine,لبعه,50.0
+Mazraat Dahr el-Deir,Jezzine,بحنين - كفرتعلا,38.70967741935484
+Mazraat Daraya,Jezzine,ريمات وشقاديف,45.45454545454545
+Mazraat El Ouazaaiyé,Jezzine,بحنين - كفرتعلا,34.48275862068965
+Mazraat Louzid (Louayziyé),Jezzine,بحنين - كفرتعلا,27.02702702702703
+Rimate,Jezzine,ريمات وشقاديف,100.0
+Sfarai,Jezzine,بحنين - كفرتعلا,33.33333333333333
+Tamra,Jezzine,قتالة,60.0
+Wadi Laimoune,Jezzine,عين مجدلين,55.55555555555556
+Addoussiat,Saida,صيدا حي المسالخية,47.05882352941177
+Aïn-el-Dib,Saida,صيدا حي الكنان,44.44444444444444
+Arab Soukar,Saida,صيدا حي السراي,58.8235294117647
+Arab Tabbaya,Saida,صيدا حي السراي,58.8235294117647
+Bissariat,Saida,صيدا حي السبيل,53.333333333333336
+Daoudiyé,Saida,صيدا حي القناية,40.0
+Darbessim,Saida,صيدا حي السبيل,40.0
+Deir Takla,Saida,صيدا حي القناية,52.63157894736842
+El-Hajjé,Saida,صيدا حي القناية,35.294117647058826
+El-Mhammariyé,Saida,صيدا حي الكشك,36.36363636363637
+El Hartiyé,Saida,صيدا حي الكشك,38.095238095238095
+Jaziré,Saida,صيدا حي الزويتيني,35.294117647058826
+Kaakiet El-Senaoubar,Saida,صيدا حي القناية,48.0
+Kaoutarite El-Riz,Saida,صيدا حي الزويتيني,38.46153846153846
+Kaoutarite El-Siyad,Saida,صيدا حي مكسر العبد,53.84615384615385
+Kfar Badda,Saida,صيدا حي الكنان,58.8235294117647
+Kherbet Bassal,Saida,صيدا حي المسالخية,54.54545454545455
+Kherbet El-Douair,Saida,صيدا حي مكسر العبد,46.15384615384615
+Loubié,Saida,صيدا حي السبيل,46.15384615384615
+Matriet El-Choumar,Saida,صيدا حي الشارع,52.17391304347826
+Mazraat El-Wasta,Saida,صيدا حي الشارع,52.17391304347826
+Mazraat Jimjim,Saida,صيدا حي مار نقولا,46.666666666666664
+Mazraet Matarite Jebah,Saida,صيدا حي مار نقولا,50.0
+Miemié,Saida,صيدا حي المسالخية,47.05882352941177
+Mohaidalé,Saida,صيدا حي المسالخية,52.63157894736842
+Msaileh,Saida,صيدا حي المسالخية,44.44444444444444
+Nadjariat,Saida,صيدا حي السراي,37.5
+Saksakiat,Saida,صيدا حي القناية,47.05882352941177
+Samiate,Saida,صيدا حي السراي,53.333333333333336
+Sfenté,Saida,صيدا حي القناية,53.333333333333336
+Snaiber,Saida,صيدا حي القناية,50.0
+Tibna,Saida,صيدا حي الكنان,42.857142857142854
+Yahoudiat,Saida,صيدا حي القناية,50.0
+Aaiyé,Sour,الرشيديه,66.66666666666666
+Abou Chech,Sour,باريش,61.53846153846154
+Aïn Abou Abdallah,Sour,عين ابو عبدالله,96.7741935483871
+Bazouriat,Sour,البازوريه,76.92307692307692
+Beiriche,Sour,باريش,90.9090909090909
+Bestiace,Sour,البساتين,72.72727272727272
+Btaychiyé,Sour,البازوريه,57.142857142857146
+Chameh,Sour,شمع,66.66666666666666
+Cheïetiyé,Sour,الشعيتية,80.0
+Debhalé,Sour,البرغليه,54.54545454545455
+El-Héloussiyé,Sour,الحلوسية,66.66666666666666
+El-Kleilé,Sour,قليله,100.0
+Eskandaroun,Sour,صور حي الموارنة,44.44444444444444
+Hamoul,Sour,حناويه,54.54545454545455
+Hanawé,Sour,حناويه,90.9090909090909
+Jejime,Sour,الحميري,50.0
+Kneissé,Sour,نفاخيه,54.54545454545455
+Mahaïlib,Sour,السماعية,61.53846153846154
+Mahroub,Sour,معروب,80.0
+Mazraat Dhaira,Sour,الظهيرة,53.333333333333336
+Mazraat Ez-Zalloutieh,Sour,الزلوطية,60.869565217391305
+Mazraat Torsemhat,Sour,السماعية,52.63157894736842
+Neffahiyé,Sour,نفاخيه,83.33333333333333
+Ouadi Djilou,Sour,وادي جيلو,100.0
+Rafid-el-Mernaba,Sour,صور حي الموارنة,60.869565217391305
+Salha,Sour,سلعا,75.0
+Tairzibna,Sour,الظهيرة,53.333333333333336
+Touaire,Sour,طير فلسيه,100.0
+Trafelsiyé,Sour,البرغليه,61.53846153846154
