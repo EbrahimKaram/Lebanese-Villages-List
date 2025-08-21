@@ -9,9 +9,10 @@ import os
 
 if __name__ == "__main__":
 
-    OUT_DIR = os.path.dirname(__file__)
-
-    names_of_excel = glob("English List*.xlsx")
+    OUT_DIR = os.path.dirname(os.path.abspath(__file__))
+    print(f"Output directory: {OUT_DIR}")
+    names_of_excel = glob(os.path.join(OUT_DIR, "matched_output(60).xlsx"))
+    print(names_of_excel)
     # if excel list is empty return
     if not names_of_excel:
         print("No Excel files found.")
@@ -67,7 +68,7 @@ if __name__ == "__main__":
         # find possible Arabic village names where the District Name is in the matched arabic districts
         possible_arabic_names = missing_info_arabic[missing_info_arabic['District Name'].isin(arabic_districts)]['Village Name'].tolist()
 
-        THRESHOLD = 60
+        THRESHOLD = 61
 
         if not possible_arabic_names:
             # no candidates
@@ -83,16 +84,20 @@ if __name__ == "__main__":
             scored = []
             for cand in candidates:
                 try:
-                    cand_lat = unidecode(str(cand)).strip()
+                    cand_str = str(cand).strip()
+                    # Remove Arabic definite article "ال" if present at start
+                    cand_stripped = re.sub(r'^\s*ال[\s\-_:]*', '', cand_str)
+                    cand_lat = unidecode(cand_str)
+                    cand_lat_stripped = unidecode(cand_stripped)
                 except Exception:
-                    cand_lat = str(cand).strip()
-                # score both original and stripped variants, keep the best
+                    cand_lat = cand_str
+                    cand_lat_stripped = cand_str
+                # Score all combinations: original, stripped Arabic, stripped English
                 s_orig = fuzz.token_set_ratio(english_name.lower(), cand_lat.lower())
-                if english_name_stripped and english_name_stripped.lower() != english_name.lower():
-                    s_stripped = fuzz.token_set_ratio(english_name_stripped.lower(), cand_lat.lower())
-                    s = max(s_orig, s_stripped)
-                else:
-                    s = s_orig
+                s_arabic_stripped = fuzz.token_set_ratio(english_name.lower(), cand_lat_stripped.lower()) if cand_lat_stripped != cand_lat else s_orig
+                s_english_stripped = fuzz.token_set_ratio(english_name_stripped.lower(), cand_lat.lower()) if english_name_stripped.lower() != english_name.lower() else s_orig
+                s_both_stripped = fuzz.token_set_ratio(english_name_stripped.lower(), cand_lat_stripped.lower()) if (cand_lat_stripped != cand_lat and english_name_stripped.lower() != english_name.lower()) else s_orig
+                s = max(s_orig, s_arabic_stripped, s_english_stripped, s_both_stripped)
                 scored.append((cand, cand_lat, s))
 
             # pick best candidate
@@ -123,7 +128,7 @@ if __name__ == "__main__":
             writer.writerow(out_row)
 
         # if confident, write to accepted CSV
-        if (best_match is not None) and (best_match is not low_conf):
+        if (best_match is not None) and (not low_conf):
             # write accepted match back into the original dataframes
             try:
                 # update the English dataframe row (index is from the original englishDataframe)
