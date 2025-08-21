@@ -22,7 +22,7 @@ if __name__ == "__main__":
     print(f"Output directory: {OUT_DIR}")
     # Set to True to see Yamli usage and other verbose debug prints
     VERBOSE = True
-    names_of_excel = glob(os.path.join(OUT_DIR, "matched_output(60).xlsx"))
+    names_of_excel = glob(os.path.join(OUT_DIR, "matched_output(178).xlsx"))
     print(names_of_excel)
     # if excel list is empty return
     if not names_of_excel:

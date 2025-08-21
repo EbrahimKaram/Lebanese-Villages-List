@@ -1,0 +1,53 @@
+District,EngCount,CandCount,SquareSize,Method,ElapsedSeconds
+Akkar,67,70,70,hungarian,0.409
+Baalbeck,36,82,82,hungarian,0.001
+Hermel,11,36,36,hungarian,0.0
+Beirut,1,0,1,hungarian,0.0
+Rachiaya,15,22,22,hungarian,0.0
+West Bekaa,15,22,22,hungarian,0.0
+Zahleh,36,34,36,hungarian,0.0
+Aley,25,24,25,hungarian,0.0
+Baabda,20,27,27,hungarian,0.0
+Chouf,38,37,38,hungarian,0.001
+El Metn,36,32,36,hungarian,0.0
+Jubail,41,30,41,hungarian,0.0
+Kasrouane,28,17,28,hungarian,0.0
+Bint Jbayl,7,9,9,hungarian,0.0
+Hasbaya,8,22,22,hungarian,0.0
+Marjaayoun,12,26,26,hungarian,0.0
+Nabatiyeh,22,8,22,hungarian,0.0
+Batroun,20,14,20,hungarian,0.0
+Bcharre,6,7,7,hungarian,0.0
+Koura,5,5,5,hungarian,0.0
+Minieh-Danieh,30,4,30,hungarian,0.001
+Tripoli,16,11,16,hungarian,0.0
+Zgharta,26,27,27,hungarian,0.0
+Jezzine,31,13,31,hungarian,0.0
+Saida,33,11,33,hungarian,0.0
+Sour,29,33,33,hungarian,0.0
+Akkar,50,51,51,hungarian,0.426
+Baalbeck,25,57,57,hungarian,0.001
+Hermel,8,32,32,hungarian,0.0
+Beirut,1,0,1,hungarian,0.0
+Rachiaya,11,15,15,hungarian,0.0
+West Bekaa,11,13,13,hungarian,0.0
+Zahleh,23,23,23,hungarian,0.001
+Aley,12,11,12,hungarian,0.0
+Baabda,13,18,18,hungarian,0.0
+Chouf,28,25,28,hungarian,0.001
+El Metn,17,13,17,hungarian,0.0
+Jubail,31,20,31,hungarian,0.0
+Kasrouane,19,7,19,hungarian,0.001
+Bint Jbayl,4,6,6,hungarian,0.0
+Hasbaya,6,17,17,hungarian,0.0
+Marjaayoun,9,22,22,hungarian,0.0
+Nabatiyeh,18,4,18,hungarian,0.0
+Batroun,10,4,10,hungarian,0.0
+Bcharre,3,4,4,hungarian,0.0
+Koura,5,5,5,hungarian,0.0
+Minieh-Danieh,28,2,28,hungarian,0.0
+Tripoli,13,8,13,hungarian,0.0
+Zgharta,16,17,17,hungarian,0.0
+Jezzine,22,4,22,hungarian,0.0
+Saida,33,11,33,hungarian,0.0
+Sour,20,25,25,hungarian,0.0
