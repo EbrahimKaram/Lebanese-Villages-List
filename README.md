@@ -40,6 +40,9 @@ Probably perform a transliteration
 Look into the following
 https://www.geonames.org/export/ws-overview.html
 
+## Fuzzy Match
+This was the latest attempt using ChatGPT in August 25. It still uses the YAMLI api and caches some answers. I should remove the parenthesis before checking with yamli
+
 # How to Contribute
 
 If you are eager to help. Just download the repo and make a merge request. 
