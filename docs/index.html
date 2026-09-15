@@ -167,12 +167,10 @@ function buildIndexes(){
 /* ---------- district helpers ---------- */
 function districtLabel(dkey){ const d=DB.districts.find(x=>x.key===dkey); return d||null; }
 function sameDistrictUnmatched(v){
-  // v: {dkey, mkey} plus side info; returns {ar:[], en:[]} of the OPPOSITE side
-  const arD=DB.unmatched_ar.filter(u=>v.dkey&&u.dkey===v.dkey);
-  const arM=DB.unmatched_ar.filter(u=>v.mkey&&u.mkey===v.mkey&&u.dkey!==v.dkey);
-  const enD=DB.unmatched_en.filter(u=>v.dkey&&u.dkey===v.dkey);
-  const enM=DB.unmatched_en.filter(u=>v.mkey&&u.mkey===v.mkey&&u.dkey!==v.dkey);
-  return {arD,arM,enD,enM};
+  // unmatched villages in the SAME district AND region (mohafaza) as v
+  const ar=DB.unmatched_ar.filter(u=>v.dkey&&v.mkey&&u.dkey===v.dkey&&u.mkey===v.mkey);
+  const en=DB.unmatched_en.filter(u=>v.dkey&&v.mkey&&u.dkey===v.dkey&&u.mkey===v.mkey);
+  return {ar,en};
 }
 function placeLine(district,mohafaza,district_ar,mohafaza_ar){
   let s=`${district||"?"} · ${mohafaza||"?"}`;
@@ -220,28 +218,25 @@ function renderHit(h,arabic){
       <p class="muted">${placeLine(m.district,m.mohafaza,m.district_ar,m.mohafaza_ar)}</p>`;
   }else{
     const u=h.kind==="un_en"?DB.unmatched_en[h.i]:DB.unmatched_ar[h.i];
-    const {arD,arM,enD,enM}=sameDistrictUnmatched(u);
-    const d=districtLabel(u.dkey);
-    const dName=d?`${d.label_en}${d.label_ar?` / ${d.label_ar}`:""}`:"(district unknown)";
+    const {ar,en}=sameDistrictUnmatched(u);
+    const where=`${esc(u.district||"?")} · ${esc(u.mohafaza||"?")}`;
     let inner=`<span class="pill warn">No definite match yet</span>
       <p style="font-size:1.25rem;margin:8px 0"><span dir="auto">${esc(h.kind==="un_en"?u.en:u.ar)}</span></p>
-      <p class="muted">${esc(u.district||"?")} · ${esc(u.mohafaza||"?")}</p>
-      <p>Potential candidates — still-unmatched villages in the same district and region:</p>`;
+      <p class="muted">${where}</p>
+      <p>Potential candidates — unmatched villages in the same district and region:</p>`;
     const sec=(title,items,nameFn,extraFn)=>{
       if(!items.length)return "";
       return `<h2 class="sec">${title} (${items.length})</h2><ul class="vlist">`+
         items.map(x=>`<li data-q="${esc(nameFn(x))}"><span dir="auto">${esc(nameFn(x))}</span><br><span class="muted">${esc(extraFn(x))}</span></li>`).join("")+`</ul>`;};
     if(h.kind==="un_en"){
-      inner+=sec(`Unmatched Arabic villages — same district ${esc(dName)}`,arD,x=>x.ar,x=>x.district||"");
-      inner+=sec(`Unmatched Arabic villages — rest of region ${esc(u.mohafaza||"")}`,arM,x=>x.ar,x=>x.district||"");
-      inner+=sec(`Other unmatched English villages — same district`,enD,x=>x.en,x=>x.district||"");
+      inner+=sec(`Unmatched Arabic villages — same district & region (${where})`,ar,x=>x.ar,x=>x.district||"");
+      inner+=sec(`Other unmatched English villages — same district & region`,en.filter(x=>x.en!==u.en),x=>x.en,x=>x.district||"");
     }else{
-      inner+=sec(`Unmatched English villages — same district ${esc(dName)}`,enD,x=>x.en,x=>x.district||"");
-      inner+=sec(`Unmatched English villages — rest of region ${esc(u.mohafaza||"")}`,enM,x=>x.en,x=>x.district||"");
-      inner+=sec(`Other unmatched Arabic villages — same district`,arD,x=>x.ar,x=>x.district||"");
+      inner+=sec(`Unmatched English villages — same district & region (${where})`,en,x=>x.en,x=>x.district||"");
+      inner+=sec(`Other unmatched Arabic villages — same district & region`,ar.filter(x=>x.ar!==u.ar),x=>x.ar,x=>x.district||"");
     }
-    if(!arD.length&&!arM.length&&!enD.length&&!enM.length)
-      inner+=`<p class="muted">No unmatched villages share this district/region.</p>`;
+    if(!ar.length&&!en.length)
+      inner+=`<p class="muted">No unmatched villages share this district and region.</p>`;
     el.innerHTML=inner;
   }
   return el;
