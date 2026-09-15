@@ -63,6 +63,8 @@ ul.vlist li:hover{border-color:var(--accent);background:var(--accent-soft)}
 .btn:hover{filter:brightness(.92)}
 .tinput{padding:10px 12px;border:1px solid var(--line);border-radius:10px;
   font-size:.95rem;background:#fff;color:var(--ink);min-width:200px}
+.votebar{margin-top:10px;font-size:.88rem;background:var(--accent-soft);
+  border-radius:8px;padding:7px 11px}
 .matchpair{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:1.2rem}
 .matchpair .arrow{color:var(--accent);font-weight:700}
 .cand{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--line)}
@@ -134,6 +136,17 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <b>Contents: read and write</b> on <span class="mono">EbrahimKaram/Lebanese-Villages-List</span>).
     The token is used only inside your browser to call <span class="mono">api.github.com</span> —
     it is never sent anywhere else.</p>
+    <details style="margin:8px 0">
+      <summary style="cursor:pointer;color:var(--accent);font-weight:600">How to create a token (takes ~1 minute)</summary>
+      <ol class="muted" style="font-size:.9rem;line-height:1.8">
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (fine-grained token)</li>
+        <li>Token name: <span class="mono">village-votes</span>; set an expiration (e.g. 30 days)</li>
+        <li>Resource owner: <b>EbrahimKaram</b></li>
+        <li>Repository access → <b>Only select repositories</b> → pick <span class="mono">Lebanese-Villages-List</span></li>
+        <li>Under <b>Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b></li>
+        <li>Click <b>Generate token</b>, copy it, and paste it below</li>
+      </ol>
+    </details>
     <div class="toolbar">
       <input id="ghUser" class="tinput" placeholder="GitHub username" autocomplete="username">
       <input id="ghToken" class="tinput" type="password" placeholder="Personal access token" autocomplete="off">
@@ -141,6 +154,7 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <label class="muted" style="font-size:.85rem"><input type="checkbox" id="ghRemember"> remember on this device</label>
     <div class="toolbar"><button id="voteBtn" class="btn">Submit votes as pull request</button></div>
     <div id="voteStatus" class="muted"></div>
+    <p class="muted" style="font-size:.85rem">After vote PRs are merged, their tallies show up on the review rows above.</p>
   </div>
 </section>
 
@@ -347,6 +361,10 @@ function renderReview(){
           ${c.ar_district?`<span class="muted ar" style="font-size:.85em">(${esc(c.ar_district)})</span>`:""}
           <span class="bar"><i style="width:${Math.min(100,c.score)}%"></i></span>
           <span class="score">${c.score}</span></div>`).join("")}</div>
+      ${(()=>{const vt=VOTES[r.en];
+        return vt?`<div class="votebar">🗳️ Community: <b>${vt.confirm}</b> ✓ · <b>${vt.reject}</b> ✗`+
+          (vt.cand?` <span class="muted">for “${esc(vt.cand)}”</span>`:"")+
+          `<span class="muted"> · ${vt.nvoters} voter${vt.nvoters===1?"":"s"} (merged vote PRs)</span></div>`:"";})()}
       <div class="decide">
         <button class="yes ${dec==="yes"?"on":""}">✓ Looks right</button>
         <button class="no ${dec==="no"?"on":""}">✗ Looks wrong</button>
@@ -365,6 +383,50 @@ function copyCsv(){
   });
   const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
   navigator.clipboard.writeText(csv).then(()=>{$("copyCsv").textContent="✓ Copied!";setTimeout(()=>$("copyCsv").textContent="⧉ Copy decisions as CSV",2000);});
+}
+
+/* ---------- community votes (read back votes.csv) ---------- */
+const VOTES_RAW="https://raw.githubusercontent.com/EbrahimKaram/Lebanese-Villages-List/master/FuzzyMatch/votes.csv";
+let VOTES={};
+function parseCSV(txt){
+  const rows=[]; let row=[], f="", q=false;
+  for(let i=0;i<txt.length;i++){
+    const c=txt[i];
+    if(q){
+      if(c==='"'){ if(txt[i+1]==='"'){f+='"';i++;} else q=false; }
+      else f+=c;
+    }else if(c==='"')q=true;
+    else if(c==="," ){row.push(f);f="";}
+    else if(c==="\n"||c==="\r"){
+      if(c==="\r"&&txt[i+1]==="\n")i++;
+      row.push(f);rows.push(row);row=[];f="";
+    }
+    else f+=c;
+  }
+  if(f!==""||row.length){row.push(f);rows.push(row);}
+  return rows.filter(r=>r.length>1||(r[0]&&r[0].trim()!==""));
+}
+function tallyVotes(rows){
+  const t={};
+  for(let i=1;i<rows.length;i++){
+    const r=rows[i], en=(r[0]||"").trim();
+    if(!en)continue;
+    if(!t[en])t[en]={confirm:0,reject:0,voters:{},cand:""};
+    if(r[5]==="confirm")t[en].confirm++;
+    else if(r[5]==="reject")t[en].reject++;
+    if(r[6])t[en].voters[r[6].trim()]=1;
+    if(r[3])t[en].cand=r[3].trim();
+  }
+  for(const k in t)t[k].nvoters=Object.keys(t[k].voters).length;
+  return t;
+}
+async function loadVotes(){
+  try{
+    const r=await fetch(VOTES_RAW,{cache:"no-store"});
+    if(!r.ok)return;                       // no votes merged yet
+    VOTES=tallyVotes(parseCSV(await r.text()));
+    if($("reviewList"))renderReview();
+  }catch(e){/* offline or not published yet — stay silent */}
 }
 
 /* ---------- vote-to-PR workflow ---------- */
@@ -494,7 +556,7 @@ fetch("data.json").then(r=>r.json()).then(db=>{
     `<span class="badge"><b>${DB.counts.unmatched_en+DB.counts.unmatched_ar}</b> still unmatched</span>`;
   $("reviewCount").textContent=`(${DB.counts.review})`;
   $("srcFile").textContent=DB.generated_from;
-  renderReview(); renderUnmatched();
+  renderReview(); renderUnmatched(); loadVotes();
   document.querySelector('[data-tab="search"]').click();
 }).catch(err=>{
   document.body.insertAdjacentHTML("beforeend",
