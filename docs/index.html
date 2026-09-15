@@ -65,6 +65,16 @@ ul.vlist li:hover{border-color:var(--accent);background:var(--accent-soft)}
   font-size:.95rem;background:#fff;color:var(--ink);min-width:200px}
 .votebar{margin-top:10px;font-size:.88rem;background:var(--accent-soft);
   border-radius:8px;padding:7px 11px}
+.pickbtn{margin-top:6px;font-size:.8rem;padding:5px 10px;border-radius:8px;
+  border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--accent);font-weight:600}
+.pickbtn.armed{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pickbtn.done{opacity:.55;cursor:default}
+.cand .pickbtn{margin-top:0;margin-left:auto;white-space:nowrap}
+.sugtag{font-size:.78rem;background:var(--accent-soft);border-radius:6px;
+  padding:2px 8px;margin-left:6px;white-space:nowrap}
+.pickrow{display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:8px 4px;border-bottom:1px dashed var(--line)}
+.pickrow button{border:none;background:none;color:#a00;cursor:pointer;font-size:1rem}
 .matchpair{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:1.2rem}
 .matchpair .arrow{color:var(--accent);font-weight:700}
 .cand{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--line)}
@@ -117,8 +127,9 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
   <div class="card">
     <p style="margin-top:0">These English names have <b>no definite match yet</b>. Each has up to three
     Arabic candidates with a similarity score — all from the <b>same district and region</b>.
-    The ✓ / ✗ buttons record your verdict on the <b>#1 candidate</b>; decisions are kept in
-    this browser and can be submitted to the repo as a pull request below.</p>
+    The ✓ / ✗ buttons record your verdict on the <b>#1 candidate</b>; or tap
+    <b>✓ Select as match</b> on any candidate to suggest that exact pairing.
+    Decisions and picks are kept in this browser and can be submitted to the repo as pull requests below.</p>
     <div class="toolbar">
       <label class="muted">District
         <select id="reviewFilter" class="filter"><option value="">All districts</option></select>
@@ -155,6 +166,15 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <div class="toolbar"><button id="voteBtn" class="btn">Submit votes as pull request</button></div>
     <div id="voteStatus" class="muted"></div>
     <p class="muted" style="font-size:.85rem">After vote PRs are merged, their tallies show up on the review rows above.</p>
+    <h2 class="sec" style="margin-top:18px">Suggest matches</h2>
+    <p class="muted">Spotted the right pair in a search result or review row? Tap
+    <b>✓ Select as match</b> on any candidate — your picks are staged here, then sent to
+    <span class="mono">FuzzyMatch/suggested_matches.csv</span> through a pull request
+    (same token as above).</p>
+    <div id="pickList"></div>
+    <div class="toolbar"><button id="pickBtn" class="btn">Submit suggestions as pull request</button></div>
+    <div id="pickStatus" class="muted"></div>
+    <p class="muted" style="font-size:.85rem">After suggestion PRs are merged, they show up as 🤝 on the matching rows.</p>
   </div>
 </section>
 
@@ -248,6 +268,9 @@ function recName(h,arabic){
 }
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
+function pickBtn(en,ar,d,m){
+  return `<button class="pickbtn" data-en="${esc(en)}" data-ar="${esc(ar)}" data-d="${esc(d||"")}" data-m="${esc(m||"")}">✓ Select as match</button>`;
+}
 function renderHit(h,arabic){
   const el=document.createElement("div"); el.className="card";
   if(h.kind==="match"){
@@ -265,20 +288,28 @@ function renderHit(h,arabic){
       <p style="font-size:1.25rem;margin:8px 0"><span dir="auto">${esc(h.kind==="un_en"?u.en:u.ar)}</span></p>
       <p class="muted">${where}</p>
       <p>Potential candidates — unmatched villages in the same district and region:</p>`;
-    const sec=(title,items,nameFn,extraFn)=>{
+    const sugFor=h.kind==="un_en"?(SUGGEST.byEn[u.en]||[]):(SUGGEST.byAr[u.ar]||[]);
+    if(sugFor.length){
+      inner+=`<div class="votebar">🤝 Community suggestion${sugFor.length>1?"s":""}: `+
+        sugFor.map(s=>`<b dir="auto">${esc(h.kind==="un_en"?s.ar:s.en)}</b> <span class="muted">by ${esc(s.by||"?")}</span>`).join(" · ")+`</div>`;
+    }
+    const sec=(title,items,nameFn,extraFn,pickFn)=>{
       if(!items.length)return "";
       return `<h2 class="sec">${title} (${items.length})</h2><ul class="vlist">`+
-        items.map(x=>`<li data-q="${esc(nameFn(x))}"><span dir="auto">${esc(nameFn(x))}</span><br><span class="muted">${esc(extraFn(x))}</span></li>`).join("")+`</ul>`;};
+        items.map(x=>`<li data-q="${esc(nameFn(x))}"><span dir="auto">${esc(nameFn(x))}</span><br><span class="muted">${esc(extraFn(x))}</span><br>${pickFn?pickFn(x):""}</li>`).join("")+`</ul>`;};
     if(h.kind==="un_en"){
-      inner+=sec(`Unmatched Arabic villages — same district & region (${where})`,ar,x=>x.ar,x=>x.district||"");
+      inner+=sec(`Unmatched Arabic villages — same district & region (${where})`,ar,x=>x.ar,x=>x.district||"",
+        x=>pickBtn(u.en,x.ar,u.district,u.mohafaza));
       inner+=sec(`Other unmatched English villages — same district & region`,en.filter(x=>x.en!==u.en),x=>x.en,x=>x.district||"");
     }else{
-      inner+=sec(`Unmatched English villages — same district & region (${where})`,en,x=>x.en,x=>x.district||"");
+      inner+=sec(`Unmatched English villages — same district & region (${where})`,en,x=>x.en,x=>x.district||"",
+        x=>pickBtn(x.en,u.ar,u.district,u.mohafaza));
       inner+=sec(`Other unmatched Arabic villages — same district & region`,ar.filter(x=>x.ar!==u.ar),x=>x.ar,x=>x.district||"");
     }
     if(!ar.length&&!en.length)
       inner+=`<p class="muted">No unmatched villages share this district and region.</p>`;
     el.innerHTML=inner;
+    el.querySelectorAll(".pickbtn").forEach(b=>b.onclick=e=>{e.stopPropagation();stagePick(b);});
   }
   return el;
 }
@@ -360,7 +391,10 @@ function renderReview(){
           <span class="ar">${esc(c.ar)}</span>
           ${c.ar_district?`<span class="muted ar" style="font-size:.85em">(${esc(c.ar_district)})</span>`:""}
           <span class="bar"><i style="width:${Math.min(100,c.score)}%"></i></span>
-          <span class="score">${c.score}</span></div>`).join("")}</div>
+          <span class="score">${c.score}</span>
+          ${(()=>{const s=(SUGGEST.byEn[r.en]||[]).find(s=>s.ar===c.ar);
+            return s?`<span class="sugtag">🤝 by ${esc(s.by||"?")}</span>`:"";})()}
+          ${pickBtn(r.en,c.ar,r.district,r.mohafaza)}</div>`).join("")}</div>
       ${(()=>{const vt=VOTES[r.en];
         return vt?`<div class="votebar">🗳️ Community: <b>${vt.confirm}</b> ✓ · <b>${vt.reject}</b> ✗`+
           (vt.cand?` <span class="muted">for “${esc(vt.cand)}”</span>`:"")+
@@ -369,9 +403,10 @@ function renderReview(){
         <button class="yes ${dec==="yes"?"on":""}">✓ Looks right</button>
         <button class="no ${dec==="no"?"on":""}">✗ Looks wrong</button>
       </div>`;
-    const [yes,no]=card.querySelectorAll("button");
+    const [yes,no]=card.querySelectorAll(".decide button");
     yes.onclick=()=>{decisions[key]=decisions[key]==="yes"?null:"yes";if(!decisions[key])delete decisions[key];saveDecisions();renderReview();};
     no.onclick=()=>{decisions[key]=decisions[key]==="no"?null:"no";if(!decisions[key])delete decisions[key];saveDecisions();renderReview();};
+    card.querySelectorAll(".pickbtn").forEach(b=>b.onclick=()=>stagePick(b));
     list.appendChild(card);
   });
 }
@@ -429,6 +464,59 @@ async function loadVotes(){
   }catch(e){/* offline or not published yet — stay silent */}
 }
 
+/* ---------- suggest-a-match (read back suggested_matches.csv) ---------- */
+const SUGGEST_RAW="https://raw.githubusercontent.com/EbrahimKaram/Lebanese-Villages-List/master/FuzzyMatch/suggested_matches.csv";
+const SUGGEST_PATH="FuzzyMatch/suggested_matches.csv";
+const SUGGEST_HEADER="english_name,arabic_name,district,mohafaza,suggester,timestamp_utc\n";
+let SUGGEST={byEn:{},byAr:{}};
+let picks=[];
+try{picks=JSON.parse(localStorage.getItem("villagePicks")||"[]");}catch(e){picks=[];}
+function savePicks(){try{localStorage.setItem("villagePicks",JSON.stringify(picks));}catch(e){}}
+
+function stagePick(btn){
+  const p={en:btn.dataset.en,ar:btn.dataset.ar,district:btn.dataset.d||"",mohafaza:btn.dataset.m||""};
+  const dupLocal=picks.some(x=>x.en===p.en&&x.ar===p.ar);
+  const dupMerged=(SUGGEST.byEn[p.en]||[]).some(s=>s.ar===p.ar);
+  if(dupLocal||dupMerged){
+    btn.textContent="✓ Suggested";btn.classList.remove("armed");btn.classList.add("done");btn.disabled=true;return;
+  }
+  if(!btn.classList.contains("armed")){
+    btn.classList.add("armed");btn.textContent="Tap again to confirm";return;
+  }
+  picks.push(p);savePicks();renderPicks();
+  btn.textContent="✓ Suggested";btn.classList.remove("armed");btn.classList.add("done");btn.disabled=true;
+}
+function renderPicks(){
+  const box=$("pickList"); if(!box)return;
+  if(!picks.length){
+    box.innerHTML=`<p class="muted">No picks yet — use <b>✓ Select as match</b> on any candidate in search results or review rows.</p>`;
+    return;
+  }
+  box.innerHTML=picks.map((p,i)=>
+    `<div class="pickrow"><span><b dir="auto">${esc(p.en)}</b> <span class="muted">⟷</span> `+
+    `<b class="ar">${esc(p.ar)}</b> <span class="muted">· ${esc(p.district)} · ${esc(p.mohafaza)}</span></span>`+
+    `<button data-i="${i}" title="Remove">✕</button></div>`).join("");
+  box.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    picks.splice(+b.dataset.i,1);savePicks();renderPicks();
+  });
+}
+async function loadSuggest(){
+  try{
+    const r=await fetch(SUGGEST_RAW,{cache:"no-store"});
+    if(!r.ok)return;                       // no suggestions merged yet
+    const rows=parseCSV(await r.text());
+    const byEn={},byAr={};
+    for(let i=1;i<rows.length;i++){
+      const en=(rows[i][0]||"").trim(), ar=(rows[i][1]||"").trim(), by=(rows[i][4]||"").trim();
+      if(!en||!ar)continue;
+      (byEn[en]=byEn[en]||[]).push({ar,by});
+      (byAr[ar]=byAr[ar]||[]).push({en,by});
+    }
+    SUGGEST={byEn,byAr};
+    if($("reviewList"))renderReview();
+  }catch(e){/* offline or not published yet — stay silent */}
+}
+
 /* ---------- vote-to-PR workflow ---------- */
 const GH_OWNER="EbrahimKaram", GH_REPO="Lebanese-Villages-List", VOTES_PATH="FuzzyMatch/votes.csv";
 const VOTES_HEADER="english_name,district,mohafaza,candidate_1,candidate_1_score,decision,voter,timestamp_utc\n";
@@ -452,54 +540,79 @@ async function gh(path,token,method,body){
   if(!r.ok)throw new Error("GitHub: "+(j.message||("HTTP "+r.status)));
   return j;
 }
+function ghCreds(statusEl){
+  const user=$("ghUser").value.trim(), token=$("ghToken").value.trim();
+  if(!user||!token){statusEl.textContent="Enter your GitHub username and token first.";return null;}
+  if($("ghRemember").checked){localStorage.setItem("ghUser",user);localStorage.setItem("ghToken",token);}
+  else{localStorage.removeItem("ghUser");localStorage.removeItem("ghToken");}
+  return {user,token};
+}
+async function ghSubmitCsv(o){
+  // o: {token,user,path,header,lines,branchPrefix,prTitle,prBody}
+  let sha=null, content=o.header;
+  try{
+    const cur=await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${o.path}?ref=master`,o.token);
+    sha=cur.sha; content=b64decodeUtf8(cur.content);
+    if(!content.endsWith("\n"))content+="\n";
+  }catch(e){ if(!/Not Found/i.test(e.message))throw e; }
+  content+=o.lines.join("\n")+"\n";
+  const master=await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/ref/heads/master`,o.token);
+  const stamp=new Date().toISOString().replace(/\.\d+Z$/,"Z").replace(/[-:]/g,"").replace("T","-").slice(0,15);
+  let branch=`${o.branchPrefix}${o.user}-${stamp}`, n=0;
+  for(;;){
+    try{
+      await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/refs`,o.token,"POST",
+        {ref:"refs/heads/"+branch,sha:master.object.sha});
+      break;
+    }catch(e){
+      if(/Reference already exists/.test(e.message)){n++;branch=`${o.branchPrefix}${o.user}-${stamp}-${n}`;}
+      else throw e;
+    }
+  }
+  const payload={message:o.prTitle,content:b64encodeUtf8(content),branch:branch};
+  if(sha)payload.sha=sha;
+  await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${o.path}`,o.token,"PUT",payload);
+  return gh(`/repos/${GH_OWNER}/${GH_REPO}/pulls`,o.token,"POST",{
+    title:o.prTitle,head:branch,base:"master",body:o.prBody});
+}
 async function submitVotes(){
   const st=$("voteStatus");
-  const user=$("ghUser").value.trim(), token=$("ghToken").value.trim();
-  const remember=$("ghRemember").checked;
-  if(!user||!token){st.textContent="Enter your GitHub username and token first.";return;}
   const rows=Object.keys(decisions).filter(k=>decisions[k]==="yes"||decisions[k]==="no");
   if(!rows.length){st.textContent="No decisions yet — tap ✓ / ✗ on some review rows first.";return;}
+  const cred=ghCreds(st); if(!cred)return;
   st.textContent="Sending "+rows.length+" vote(s)…";
   try{
-    if(remember){localStorage.setItem("ghUser",user);localStorage.setItem("ghToken",token);}
-    else{localStorage.removeItem("ghUser");localStorage.removeItem("ghToken");}
     const ts=new Date().toISOString().replace(/\.\d+Z$/,"Z");
     const lines=rows.map(k=>{
       const en=k.slice(3);
       const r=DB.review.find(x=>x.en===en)||{};
       const c=(r.candidates||[])[0]||{};
       return [en,r.district||"",r.mohafaza||"",c.ar||"",c.score==null?"":c.score,
-        decisions[k]==="yes"?"confirm":"reject",user,ts].map(csvCell).join(",");
+        decisions[k]==="yes"?"confirm":"reject",cred.user,ts].map(csvCell).join(",");
     });
-    let sha=null, content=VOTES_HEADER;
-    try{
-      const cur=await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${VOTES_PATH}?ref=master`,token);
-      sha=cur.sha; content=b64decodeUtf8(cur.content);
-      if(!content.endsWith("\n"))content+="\n";
-    }catch(e){ if(!/Not Found/i.test(e.message))throw e; }
-    content+=lines.join("\n")+"\n";
-    const master=await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/ref/heads/master`,token);
-    const stamp=ts.replace(/[-:]/g,"").replace("T","-").slice(0,15);
-    let branch=`votes/${user}-${stamp}`, n=0;
-    for(;;){
-      try{
-        await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/refs`,token,"POST",
-          {ref:"refs/heads/"+branch,sha:master.object.sha});
-        break;
-      }catch(e){
-        if(/Reference already exists/.test(e.message)){n++;branch=`votes/${user}-${stamp}-${n}`;}
-        else throw e;
-      }
-    }
-    const payload={message:`Votes on fuzzy matches by ${user} (${rows.length} decisions)`,
-      content:b64encodeUtf8(content),branch:branch};
-    if(sha)payload.sha=sha;
-    await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${VOTES_PATH}`,token,"PUT",payload);
-    const pr=await gh(`/repos/${GH_OWNER}/${GH_REPO}/pulls`,token,"POST",{
-      title:`Votes on fuzzy matches by ${user} (${rows.length} decisions)`,
-      head:branch, base:"master",
-      body:`${rows.length} review decision(s) submitted from the village search page.\n\nAppended to \`${VOTES_PATH}\` for the next matching round.`});
+    const pr=await ghSubmitCsv({token:cred.token,user:cred.user,path:VOTES_PATH,header:VOTES_HEADER,lines,
+      branchPrefix:"votes/",
+      prTitle:`Votes on fuzzy matches by ${cred.user} (${rows.length} decisions)`,
+      prBody:`${rows.length} review decision(s) submitted from the village search page.\n\nAppended to \`${VOTES_PATH}\` for the next matching round.`});
     st.innerHTML=`Votes submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
+  }catch(e){
+    st.textContent="Failed: "+e.message;
+  }
+}
+async function submitPicks(){
+  const st=$("pickStatus");
+  if(!picks.length){st.textContent="No picks yet — tap ✓ Select as match on a candidate first.";return;}
+  const cred=ghCreds(st); if(!cred)return;
+  st.textContent="Sending "+picks.length+" suggestion(s)…";
+  try{
+    const ts=new Date().toISOString().replace(/\.\d+Z$/,"Z");
+    const lines=picks.map(p=>[p.en,p.ar,p.district,p.mohafaza,cred.user,ts].map(csvCell).join(","));
+    const pr=await ghSubmitCsv({token:cred.token,user:cred.user,path:SUGGEST_PATH,header:SUGGEST_HEADER,lines,
+      branchPrefix:"suggest/",
+      prTitle:`Suggested village matches by ${cred.user} (${picks.length})`,
+      prBody:`${picks.length} match suggestion(s) picked from the village search page.\n\nAppended to \`${SUGGEST_PATH}\` for the next matching round.`});
+    picks=[];savePicks();renderPicks();
+    st.innerHTML=`Suggestions submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
   }catch(e){
     st.textContent="Failed: "+e.message;
   }
@@ -542,6 +655,7 @@ $("reviewFilter").onchange=renderReview;
 $("unFilter").onchange=renderUnmatched;
 $("copyCsv").onclick=copyCsv;
 $("voteBtn").onclick=submitVotes;
+$("pickBtn").onclick=submitPicks;
 try{
   const gu=localStorage.getItem("ghUser"), gt=localStorage.getItem("ghToken");
   if(gu)$("ghUser").value=gu;
@@ -556,7 +670,7 @@ fetch("data.json").then(r=>r.json()).then(db=>{
     `<span class="badge"><b>${DB.counts.unmatched_en+DB.counts.unmatched_ar}</b> still unmatched</span>`;
   $("reviewCount").textContent=`(${DB.counts.review})`;
   $("srcFile").textContent=DB.generated_from;
-  renderReview(); renderUnmatched(); loadVotes();
+  renderReview(); renderUnmatched(); renderPicks(); loadVotes(); loadSuggest();
   document.querySelector('[data-tab="search"]').click();
 }).catch(err=>{
   document.body.insertAdjacentHTML("beforeend",
