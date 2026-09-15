@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lebanese Villages — Arabic ↔ English Matcher</title>
+<style>
+:root{
+  --bg:#f7f5ef; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
+  --accent:#0e7c5b; --accent-soft:#e3f2ec; --warn:#b45309; --warn-soft:#fef3e2;
+  --line:#e5e0d3; --radius:12px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI",system-ui,-apple-system,"Noto Sans Arabic",Tahoma,sans-serif;
+  line-height:1.55}
+header.top{background:#123f33;color:#fff;padding:28px 20px 22px}
+.wrap{max-width:1024px;margin:0 auto;padding:0 16px}
+h1{margin:0 0 6px;font-size:1.6rem}
+.sub{opacity:.85;margin:0 0 14px;max-width:70ch}
+.badges{display:flex;gap:10px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
+  border-radius:999px;padding:4px 14px;font-size:.85rem}
+.badge b{font-size:1.05rem}
+a.repo{color:#ffd98a}
+nav.tabs{display:flex;gap:6px;margin:18px 0 4px;flex-wrap:wrap}
+nav.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);
+  padding:9px 18px;border-radius:999px;font-size:.95rem;cursor:pointer}
+nav.tabs button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+section.tab{display:none;padding:14px 0 40px}
+section.tab.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin:14px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.ar{direction:rtl;unicode-bidi:isolate;font-size:1.15em}
+.muted{color:var(--muted);font-size:.9rem}
+.pill{display:inline-block;border-radius:999px;padding:2px 12px;font-size:.78rem;font-weight:600}
+.pill.ok{background:var(--accent-soft);color:var(--accent)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.src{background:#eef2ff;color:#4338ca}
+h2.sec{font-size:1.05rem;margin:22px 0 6px}
+ul.vlist{list-style:none;margin:8px 0;padding:0;columns:2;column-gap:24px}
+@media(max-width:640px){ul.vlist{columns:1}}
+ul.vlist li{break-inside:avoid;padding:7px 10px;border:1px solid var(--line);
+  border-radius:8px;margin-bottom:8px;cursor:pointer;background:#fff}
+ul.vlist li:hover{border-color:var(--accent);background:var(--accent-soft)}
+.searchrow{display:flex;gap:8px;margin:8px 0}
+.searchrow input{flex:1;padding:12px 14px;font-size:1rem;border:1px solid var(--line);
+  border-radius:10px;background:#fff;color:var(--ink)}
+.searchrow button{padding:12px 22px;font-size:1rem;border:0;border-radius:10px;
+  background:var(--accent);color:#fff;cursor:pointer}
+.suggest{position:relative}
+.suggest ul{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--line);
+  border-radius:10px;margin:4px 0 0;padding:0;list-style:none;z-index:20;max-height:280px;overflow:auto;
+  box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.suggest li{padding:9px 14px;cursor:pointer}
+.suggest li:hover{background:var(--accent-soft)}
+.matchpair{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:1.2rem}
+.matchpair .arrow{color:var(--accent);font-weight:700}
+.cand{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--line)}
+.cand .bar{flex:1;height:8px;background:#eee;border-radius:4px;overflow:hidden;min-width:80px}
+.cand .bar i{display:block;height:100%;background:var(--accent)}
+.cand .score{font-variant-numeric:tabular-nums;color:var(--muted);min-width:44px;text-align:right}
+.decide{display:flex;gap:8px;margin-top:10px}
+.decide button{border:1px solid var(--line);background:#fff;border-radius:8px;
+  padding:6px 14px;cursor:pointer;font-size:.85rem}
+.decide button.yes.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.decide button.no.on{background:#b91c1c;color:#fff;border-color:#b91c1c}
+select.filter{padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:.95rem;background:#fff}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.cols{grid-template-columns:1fr}}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center}
+.empty{padding:26px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>Lebanese Villages — Arabic ↔ English Matcher</h1>
+  <p class="sub">Look up any village name in Arabic or English. Definite matches come from the
+  latest matched workbook; where there is no definite match yet, the page shows the
+  potential candidates — the review shortlist, or every still-unmatched village in the
+  same district and region. Data: <a class="repo" href="https://github.com/EbrahimKaram/Lebanese-Villages-List">EbrahimKaram/Lebanese-Villages-List</a>.</p>
+  <div class="badges" id="badges"></div>
+</div></header>
+
+<div class="wrap">
+<nav class="tabs">
+  <button data-tab="search" class="active">🔎 Search</button>
+  <button data-tab="review">📝 Review candidates <span id="reviewCount"></span></button>
+  <button data-tab="unmatched">📋 Unmatched</button>
+</nav>
+
+<section id="tab-search" class="tab active">
+  <div class="card">
+    <div class="searchrow suggest">
+      <input id="q" dir="auto" placeholder="Type a village name — عربي or English…" autocomplete="off">
+      <button id="go">Search</button>
+      <ul id="sugg" hidden></ul>
+    </div>
+    <p class="muted">Arabic and Latin input are both accepted. Matches ignore accents, hamza forms and diacritics.</p>
+  </div>
+  <div id="results"></div>
+</section>
+
+<section id="tab-review" class="tab">
+  <div class="card">
+    <p style="margin-top:0">These English names have <b>no definite match yet</b>. Each has up to three
+    Arabic candidates with a similarity score. Confirm or reject them — your decisions are
+    kept in this browser and can be copied out as CSV for the repo's contribution workflow.</p>
+    <div class="toolbar">
+      <label class="muted">District
+        <select id="reviewFilter" class="filter"><option value="">All districts</option></select>
+      </label>
+      <button id="copyCsv" class="filter" style="cursor:pointer">⧉ Copy decisions as CSV</button>
+    </div>
+  </div>
+  <div id="reviewList"></div>
+</section>
+
+<section id="tab-unmatched" class="tab">
+  <div class="card">
+    <p style="margin-top:0">Villages with no match on either side. Click any name to see its
+    same-district / same-region counterparts.</p>
+    <div class="toolbar">
+      <label class="muted">District
+        <select id="unFilter" class="filter"><option value="">All districts</option></select>
+      </label>
+    </div>
+    <div class="cols">
+      <div><h2 class="sec">English — no Arabic match (<span id="cEn"></span>)</h2><ul class="vlist" id="listEn"></ul></div>
+      <div><h2 class="sec">Arabic — no English match (<span id="cAr"></span>)</h2><ul class="vlist" id="listAr"></ul></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>Built from <span id="srcFile"></span> · Fuzzy matching is a best effort — verify before treating a candidate as definite.</footer>
+
+<script>
+"use strict";
+let DB=null;
+const $=id=>document.getElementById(id);
+const decisions=JSON.parse(localStorage.getItem("villageDecisions")||"{}");
+function saveDecisions(){localStorage.setItem("villageDecisions",JSON.stringify(decisions));}
+
+/* ---------- normalization ---------- */
+function normLat(s){return (s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"")
+  .replace(/\s+/g," ").trim().toLowerCase();}
+function normAr(s){return (s||"").replace(/[\u064b-\u0652\u0670]/g,"").replace(/\u0640/g,"")
+  .replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه")
+  .replace(/\s+/g," ").trim();}
+const isAr=s=>/[\u0600-\u06FF]/.test(s||"");
+
+/* ---------- indexes ---------- */
+let enIdx=new Map(), arIdx=new Map();   // norm -> array of records
+function addIdx(map,key,rec){ if(!map.has(key)) map.set(key,[]); map.get(key).push(rec); }
+
+function buildIndexes(){
+  DB.matched.forEach((m,i)=>{
+    addIdx(enIdx,normLat(m.en),{kind:"match",i});
+    addIdx(arIdx,normAr(m.ar),{kind:"match",i});
+  });
+  DB.unmatched_en.forEach((u,i)=>addIdx(enIdx,normLat(u.en),{kind:"un_en",i}));
+  DB.unmatched_ar.forEach((u,i)=>addIdx(arIdx,normAr(u.ar),{kind:"un_ar",i}));
+}
+
+/* ---------- district helpers ---------- */
+function districtLabel(dkey){ const d=DB.districts.find(x=>x.key===dkey); return d||null; }
+function sameDistrictUnmatched(v){
+  // v: {dkey, mkey} plus side info; returns {ar:[], en:[]} of the OPPOSITE side
+  const arD=DB.unmatched_ar.filter(u=>v.dkey&&u.dkey===v.dkey);
+  const arM=DB.unmatched_ar.filter(u=>v.mkey&&u.mkey===v.mkey&&u.dkey!==v.dkey);
+  const enD=DB.unmatched_en.filter(u=>v.dkey&&u.dkey===v.dkey);
+  const enM=DB.unmatched_en.filter(u=>v.mkey&&u.mkey===v.mkey&&u.dkey!==v.dkey);
+  return {arD,arM,enD,enM};
+}
+function placeLine(district,mohafaza,district_ar,mohafaza_ar){
+  let s=`${district||"?"} · ${mohafaza||"?"}`;
+  if(district_ar||mohafaza_ar) s+=` <span class="ar">(${district_ar||""}${district_ar&&mohafaza_ar?"، ":""}${mohafaza_ar||""})</span>`;
+  return s;
+}
+
+/* ---------- search ---------- */
+function search(q){
+  q=(q||"").trim(); if(!q) return;
+  const box=$("results"); box.innerHTML="";
+  const arabic=isAr(q), key=arabic?normAr(q):normLat(q);
+  const idx=arabic?arIdx:enIdx;
+  const hits=idx.get(key)||[];
+  if(!hits.length){
+    // loose substring suggestions
+    const pool=arabic?[...arIdx.keys()]:[...enIdx.keys()];
+    const loose=pool.filter(k=>k.includes(key)).slice(0,12);
+    box.innerHTML=`<div class="card"><span class="pill warn">Not found</span>
+      <p>No village named <b dir="auto">${esc(q)}</b> in the workbook.</p>
+      ${loose.length?`<p class="muted">Did you mean:</p><ul class="vlist">`+
+        loose.map(k=>{const r=idx.get(k)[0];const nm=recName(r,arabic);
+          return `<li data-q="${esc(nm)}"><span dir="auto">${esc(nm)}</span></li>`;}).join("")+`</ul>`:""}
+      </div>`;
+    wireListClicks(box); return;
+  }
+  hits.forEach(h=>box.appendChild(renderHit(h,arabic)));
+  wireListClicks(box);
+}
+function recName(h,arabic){
+  if(h.kind==="match"){const m=DB.matched[h.i];return arabic?m.ar:m.en;}
+  if(h.kind==="un_en")return DB.unmatched_en[h.i].en;
+  return DB.unmatched_ar[h.i].ar;
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+function renderHit(h,arabic){
+  const el=document.createElement("div"); el.className="card";
+  if(h.kind==="match"){
+    const m=DB.matched[h.i];
+    el.innerHTML=`<span class="pill ok">Definite match</span> <span class="pill src">${esc(m.source||"matched")}</span>
+      <div class="matchpair" style="margin-top:10px">
+        <span dir="auto">${esc(m.en)}</span><span class="arrow">⟷</span><span class="ar">${esc(m.ar)}</span>
+      </div>
+      <p class="muted">${placeLine(m.district,m.mohafaza,m.district_ar,m.mohafaza_ar)}</p>`;
+  }else{
+    const u=h.kind==="un_en"?DB.unmatched_en[h.i]:DB.unmatched_ar[h.i];
+    const {arD,arM,enD,enM}=sameDistrictUnmatched(u);
+    const d=districtLabel(u.dkey);
+    const dName=d?`${d.label_en}${d.label_ar?` / ${d.label_ar}`:""}`:"(district unknown)";
+    let inner=`<span class="pill warn">No definite match yet</span>
+      <p style="font-size:1.25rem;margin:8px 0"><span dir="auto">${esc(h.kind==="un_en"?u.en:u.ar)}</span></p>
+      <p class="muted">${esc(u.district||"?")} · ${esc(u.mohafaza||"?")}</p>
+      <p>Potential candidates — still-unmatched villages in the same district and region:</p>`;
+    const sec=(title,items,nameFn,extraFn)=>{
+      if(!items.length)return "";
+      return `<h2 class="sec">${title} (${items.length})</h2><ul class="vlist">`+
+        items.map(x=>`<li data-q="${esc(nameFn(x))}"><span dir="auto">${esc(nameFn(x))}</span><br><span class="muted">${esc(extraFn(x))}</span></li>`).join("")+`</ul>`;};
+    if(h.kind==="un_en"){
+      inner+=sec(`Unmatched Arabic villages — same district ${esc(dName)}`,arD,x=>x.ar,x=>x.district||"");
+      inner+=sec(`Unmatched Arabic villages — rest of region ${esc(u.mohafaza||"")}`,arM,x=>x.ar,x=>x.district||"");
+      inner+=sec(`Other unmatched English villages — same district`,enD,x=>x.en,x=>x.district||"");
+    }else{
+      inner+=sec(`Unmatched English villages — same district ${esc(dName)}`,enD,x=>x.en,x=>x.district||"");
+      inner+=sec(`Unmatched English villages — rest of region ${esc(u.mohafaza||"")}`,enM,x=>x.en,x=>x.district||"");
+      inner+=sec(`Other unmatched Arabic villages — same district`,arD,x=>x.ar,x=>x.district||"");
+    }
+    if(!arD.length&&!arM.length&&!enD.length&&!enM.length)
+      inner+=`<p class="muted">No unmatched villages share this district/region.</p>`;
+    el.innerHTML=inner;
+  }
+  return el;
+}
+function wireListClicks(root){
+  const fromUnmatched=root.id==="tab-unmatched";
+  root.querySelectorAll("li[data-q]").forEach(li=>{
+    li.onclick=()=>{
+      $("q").value=li.dataset.q; search(li.dataset.q);
+      if(fromUnmatched) document.querySelector('[data-tab="search"]').click();
+      window.scrollTo({top:0,behavior:"smooth"});
+    };
+  });
+}
+
+/* ---------- suggestions ---------- */
+function suggestions(q){
+  const box=$("sugg"); q=(q||"").trim();
+  if(q.length<2){box.hidden=true;return;}
+  const arabic=isAr(q), key=arabic?normAr(q):normLat(q);
+  const idx=arabic?arIdx:enIdx, out=[];
+  for(const [k,recs] of idx){ if(k.includes(key)){ out.push({k,recs}); if(out.length>=8)break; } }
+  if(!out.length){box.hidden=true;return;}
+  box.innerHTML=out.map(o=>{
+    const nm=recName(o.recs[0],arabic);
+    const tag=o.recs[0].kind==="match"?"✓":"?";
+    return `<li data-q="${esc(nm)}"><span dir="auto">${esc(nm)}</span> <span class="muted">${tag}</span></li>`;
+  }).join("");
+  box.hidden=false;
+  box.querySelectorAll("li").forEach(li=>li.onmousedown=()=>{$("q").value=li.dataset.q;box.hidden=true;search(li.dataset.q);});
+}
+
+/* ---------- review tab ---------- */
+function renderReview(){
+  const f=$("reviewFilter").value, list=$("reviewList"); list.innerHTML="";
+  const rows=DB.review.filter(r=>!f||r.district===f);
+  if(!rows.length){list.innerHTML=`<div class="card empty">No review candidates for this district.</div>`;return;}
+  rows.forEach(r=>{
+    const key="en:"+r.en, dec=decisions[key];
+    const card=document.createElement("div"); card.className="card";
+    card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+        <b dir="auto">${esc(r.en)}</b>
+        <span class="muted">${esc(r.district||"")} · ${esc(r.mohafaza||"")}${r.district_ar?` · <span class="ar">${esc(r.district_ar)}</span>`:""}</span></div>
+      <div>${r.candidates.map((c,i)=>`
+        <div class="cand"><span class="muted">#${i+1}</span>
+          <span class="ar">${esc(c.ar)}</span>
+          ${c.ar_district?`<span class="muted ar" style="font-size:.85em">(${esc(c.ar_district)})</span>`:""}
+          <span class="bar"><i style="width:${Math.min(100,c.score)}%"></i></span>
+          <span class="score">${c.score}</span></div>`).join("")}</div>
+      <div class="decide">
+        <button class="yes ${dec==="yes"?"on":""}">✓ Looks right</button>
+        <button class="no ${dec==="no"?"on":""}">✗ Looks wrong</button>
+      </div>`;
+    const [yes,no]=card.querySelectorAll("button");
+    yes.onclick=()=>{decisions[key]=decisions[key]==="yes"?null:"yes";if(!decisions[key])delete decisions[key];saveDecisions();renderReview();};
+    no.onclick=()=>{decisions[key]=decisions[key]==="no"?null:"no";if(!decisions[key])delete decisions[key];saveDecisions();renderReview();};
+    list.appendChild(card);
+  });
+}
+function copyCsv(){
+  const rows=[["english","district","mohafaza","candidate_ar","score","decision"]];
+  DB.review.forEach(r=>{
+    const dec=decisions["en:"+r.en]||"";
+    r.candidates.forEach(c=>rows.push([r.en,r.district||"",r.mohafaza||"",c.ar,c.score,dec]));
+  });
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
+  navigator.clipboard.writeText(csv).then(()=>{$("copyCsv").textContent="✓ Copied!";setTimeout(()=>$("copyCsv").textContent="⧉ Copy decisions as CSV",2000);});
+}
+
+/* ---------- unmatched tab ---------- */
+function renderUnmatched(){
+  const f=$("unFilter").value;
+  const en=DB.unmatched_en.filter(u=>!f||u.dkey===f||(!u.dkey&&f===""));
+  const ar=DB.unmatched_ar.filter(u=>!f||u.dkey===f);
+  $("cEn").textContent=en.length; $("cAr").textContent=ar.length;
+  $("listEn").innerHTML=en.map(u=>`<li data-q="${esc(u.en)}"><span dir="auto">${esc(u.en)}</span><br><span class="muted">${esc(u.district||"")}</span></li>`).join("");
+  $("listAr").innerHTML=ar.map(u=>`<li data-q="${esc(u.ar)}"><span class="ar">${esc(u.ar)}</span><br><span class="muted">${esc(u.district||"")}</span></li>`).join("");
+  wireListClicks($("tab-unmatched"));
+}
+
+/* ---------- boot ---------- */
+function fillDistrictSelects(){
+  ["reviewFilter","unFilter"].forEach(id=>{
+    const sel=$(id);
+    DB.districts.forEach(d=>{
+      const o=document.createElement("option"); o.value=d.key;
+      o.textContent=d.label_ar?`${d.label_en} / ${d.label_ar}`:d.label_en;
+      sel.appendChild(o);
+    });
+  });
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll("nav.tabs button").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll("section.tab").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active"); $("tab-"+b.dataset.tab).classList.add("active");
+  };
+});
+$("go").onclick=()=>search($("q").value);
+$("q").addEventListener("keydown",e=>{if(e.key==="Enter")search($("q").value);});
+$("q").addEventListener("input",e=>suggestions(e.target.value));
+document.addEventListener("click",e=>{if(!e.target.closest(".suggest"))$("sugg").hidden=true;});
+$("reviewFilter").onchange=renderReview;
+$("unFilter").onchange=renderUnmatched;
+$("copyCsv").onclick=copyCsv;
+
+fetch("data.json").then(r=>r.json()).then(db=>{
+  DB=db; buildIndexes(); fillDistrictSelects();
+  $("badges").innerHTML=
+    `<span class="badge"><b>${DB.counts.matched}</b> matched</span>`+
+    `<span class="badge"><b>${DB.counts.review}</b> review candidates</span>`+
+    `<span class="badge"><b>${DB.counts.unmatched_en+DB.counts.unmatched_ar}</b> still unmatched</span>`;
+  $("reviewCount").textContent=`(${DB.counts.review})`;
+  $("srcFile").textContent=DB.generated_from;
+  renderReview(); renderUnmatched();
+  document.querySelector('[data-tab="search"]').click();
+}).catch(err=>{
+  document.body.insertAdjacentHTML("beforeend",
+    `<div class="wrap"><div class="card">Failed to load data.json: ${esc(err.message)}</div></div>`);
+});
+</script>
+</body>
+</html>
