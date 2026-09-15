@@ -54,6 +54,17 @@ ul.vlist li:hover{border-color:var(--accent);background:var(--accent-soft)}
   box-shadow:0 8px 24px rgba(0,0,0,.12)}
 .suggest li{padding:9px 14px;cursor:pointer}
 .suggest li:hover{background:var(--accent-soft)}
+.suggest li.sug-h{font-size:.72rem;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;cursor:default;background:var(--accent-soft);padding:6px 14px 4px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em;
+  background:var(--accent-soft);padding:1px 6px;border-radius:4px}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:10px;
+  padding:10px 20px;font-size:.95rem;cursor:pointer}
+.btn:hover{filter:brightness(.92)}
+.tinput{padding:10px 12px;border:1px solid var(--line);border-radius:10px;
+  font-size:.95rem;background:#fff;color:var(--ink);min-width:200px}
+.votebar{margin-top:10px;font-size:.88rem;background:var(--accent-soft);
+  border-radius:8px;padding:7px 11px}
 .matchpair{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:1.2rem}
 .matchpair .arrow{color:var(--accent);font-weight:700}
 .cand{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--line)}
@@ -105,8 +116,9 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
 <section id="tab-review" class="tab">
   <div class="card">
     <p style="margin-top:0">These English names have <b>no definite match yet</b>. Each has up to three
-    Arabic candidates with a similarity score. Confirm or reject them — your decisions are
-    kept in this browser and can be copied out as CSV for the repo's contribution workflow.</p>
+    Arabic candidates with a similarity score — all from the <b>same district and region</b>.
+    The ✓ / ✗ buttons record your verdict on the <b>#1 candidate</b>; decisions are kept in
+    this browser and can be submitted to the repo as a pull request below.</p>
     <div class="toolbar">
       <label class="muted">District
         <select id="reviewFilter" class="filter"><option value="">All districts</option></select>
@@ -115,6 +127,35 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     </div>
   </div>
   <div id="reviewList"></div>
+  <div class="card">
+    <h2 class="sec" style="margin-top:0">Contribute your votes</h2>
+    <p class="muted">Tapped ✓ / ✗ on rows above? Send your decisions back to the repo: they are appended to
+    <span class="mono">FuzzyMatch/votes.csv</span> through a pull request, so everyone's votes
+    accumulate for the next matching round.</p>
+    <p class="muted">You'll need a GitHub <b>personal access token</b> (fine-grained, with
+    <b>Contents: read and write</b> on <span class="mono">EbrahimKaram/Lebanese-Villages-List</span>).
+    The token is used only inside your browser to call <span class="mono">api.github.com</span> —
+    it is never sent anywhere else.</p>
+    <details style="margin:8px 0">
+      <summary style="cursor:pointer;color:var(--accent);font-weight:600">How to create a token (takes ~1 minute)</summary>
+      <ol class="muted" style="font-size:.9rem;line-height:1.8">
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (fine-grained token)</li>
+        <li>Token name: <span class="mono">village-votes</span>; set an expiration (e.g. 30 days)</li>
+        <li>Resource owner: <b>EbrahimKaram</b></li>
+        <li>Repository access → <b>Only select repositories</b> → pick <span class="mono">Lebanese-Villages-List</span></li>
+        <li>Under <b>Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b></li>
+        <li>Click <b>Generate token</b>, copy it, and paste it below</li>
+      </ol>
+    </details>
+    <div class="toolbar">
+      <input id="ghUser" class="tinput" placeholder="GitHub username" autocomplete="username">
+      <input id="ghToken" class="tinput" type="password" placeholder="Personal access token" autocomplete="off">
+    </div>
+    <label class="muted" style="font-size:.85rem"><input type="checkbox" id="ghRemember"> remember on this device</label>
+    <div class="toolbar"><button id="voteBtn" class="btn">Submit votes as pull request</button></div>
+    <div id="voteStatus" class="muted"></div>
+    <p class="muted" style="font-size:.85rem">After vote PRs are merged, their tallies show up on the review rows above.</p>
+  </div>
 </section>
 
 <section id="tab-unmatched" class="tab">
@@ -253,20 +294,54 @@ function wireListClicks(root){
 }
 
 /* ---------- suggestions ---------- */
+function translitArLat(s){
+  const m={"ا":"a","ب":"b","ت":"t","ث":"th","ج":"j","ح":"h","خ":"kh","د":"d","ذ":"z",
+    "ر":"r","ز":"z","س":"s","ش":"sh","ص":"s","ض":"d","ط":"t","ظ":"z","ع":"a","غ":"gh",
+    "ف":"f","ق":"q","ك":"k","ل":"l","م":"m","ن":"n","ه":"h","و":"w","ي":"y","ى":"a",
+    "ة":"a","ء":"","أ":"a","إ":"a","آ":"a","ؤ":"w","ئ":"y"};
+  let o="";
+  for(const ch of (s||"")) o+=(ch in m)?m[ch]:ch;
+  return normLat(o).replace(/^(al|el)(?=[a-z]{2})/,"");
+}
 function suggestions(q){
   const box=$("sugg"); q=(q||"").trim();
   if(q.length<2){box.hidden=true;return;}
-  const arabic=isAr(q), key=arabic?normAr(q):normLat(q);
-  const idx=arabic?arIdx:enIdx, out=[];
-  for(const [k,recs] of idx){ if(k.includes(key)){ out.push({k,recs}); if(out.length>=8)break; } }
-  if(!out.length){box.hidden=true;return;}
-  box.innerHTML=out.map(o=>{
-    const nm=recName(o.recs[0],arabic);
-    const tag=o.recs[0].kind==="match"?"✓":"?";
+  const arabic=isAr(q);
+  const groups=[];
+  const collectItems=(idx,key,limit)=>{
+    const items=[];
+    for(const [k,recs] of idx){
+      if(k.includes(key)){items.push(recs[0]); if(items.length>=limit)break;}
+    }
+    return items;
+  };
+  const liFor=(r,wantAr)=>{
+    const nm=recName(r,wantAr);
+    const tag=r.kind==="match"?"✓":"?";
     return `<li data-q="${esc(nm)}"><span dir="auto">${esc(nm)}</span> <span class="muted">${tag}</span></li>`;
-  }).join("");
+  };
+  if(arabic){
+    const ar=collectItems(arIdx,normAr(q),6);
+    if(ar.length)groups.push(["Arabic",ar.map(r=>liFor(r,true)).join("")]);
+    const seen=new Set(), en=[];
+    for(const t of [translitArLat(q),translitArLat(q).replace(/y/g,"i")]){
+      if(t.length<2)continue;
+      for(const r of collectItems(enIdx,t,6)){
+        const nm=recName(r,false);
+        if(!seen.has(nm)){seen.add(nm);en.push(r);}
+      }
+      if(en.length>=6)break;
+    }
+    if(en.length)groups.push(["English",en.slice(0,6).map(r=>liFor(r,false)).join("")]);
+  }else{
+    const en=collectItems(enIdx,normLat(q),8);
+    if(en.length)groups.push(["English",en.map(r=>liFor(r,false)).join("")]);
+  }
+  if(!groups.length){box.hidden=true;return;}
+  box.innerHTML=groups.map(([label,items])=>
+    `<li class="sug-h">${esc(label)}</li>${items}`).join("");
   box.hidden=false;
-  box.querySelectorAll("li").forEach(li=>li.onmousedown=()=>{$("q").value=li.dataset.q;box.hidden=true;search(li.dataset.q);});
+  box.querySelectorAll("li[data-q]").forEach(li=>li.onmousedown=()=>{$("q").value=li.dataset.q;box.hidden=true;search(li.dataset.q);});
 }
 
 /* ---------- review tab ---------- */
@@ -286,6 +361,10 @@ function renderReview(){
           ${c.ar_district?`<span class="muted ar" style="font-size:.85em">(${esc(c.ar_district)})</span>`:""}
           <span class="bar"><i style="width:${Math.min(100,c.score)}%"></i></span>
           <span class="score">${c.score}</span></div>`).join("")}</div>
+      ${(()=>{const vt=VOTES[r.en];
+        return vt?`<div class="votebar">🗳️ Community: <b>${vt.confirm}</b> ✓ · <b>${vt.reject}</b> ✗`+
+          (vt.cand?` <span class="muted">for “${esc(vt.cand)}”</span>`:"")+
+          `<span class="muted"> · ${vt.nvoters} voter${vt.nvoters===1?"":"s"} (merged vote PRs)</span></div>`:"";})()}
       <div class="decide">
         <button class="yes ${dec==="yes"?"on":""}">✓ Looks right</button>
         <button class="no ${dec==="no"?"on":""}">✗ Looks wrong</button>
@@ -304,6 +383,126 @@ function copyCsv(){
   });
   const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
   navigator.clipboard.writeText(csv).then(()=>{$("copyCsv").textContent="✓ Copied!";setTimeout(()=>$("copyCsv").textContent="⧉ Copy decisions as CSV",2000);});
+}
+
+/* ---------- community votes (read back votes.csv) ---------- */
+const VOTES_RAW="https://raw.githubusercontent.com/EbrahimKaram/Lebanese-Villages-List/master/FuzzyMatch/votes.csv";
+let VOTES={};
+function parseCSV(txt){
+  const rows=[]; let row=[], f="", q=false;
+  for(let i=0;i<txt.length;i++){
+    const c=txt[i];
+    if(q){
+      if(c==='"'){ if(txt[i+1]==='"'){f+='"';i++;} else q=false; }
+      else f+=c;
+    }else if(c==='"')q=true;
+    else if(c==="," ){row.push(f);f="";}
+    else if(c==="\n"||c==="\r"){
+      if(c==="\r"&&txt[i+1]==="\n")i++;
+      row.push(f);rows.push(row);row=[];f="";
+    }
+    else f+=c;
+  }
+  if(f!==""||row.length){row.push(f);rows.push(row);}
+  return rows.filter(r=>r.length>1||(r[0]&&r[0].trim()!==""));
+}
+function tallyVotes(rows){
+  const t={};
+  for(let i=1;i<rows.length;i++){
+    const r=rows[i], en=(r[0]||"").trim();
+    if(!en)continue;
+    if(!t[en])t[en]={confirm:0,reject:0,voters:{},cand:""};
+    if(r[5]==="confirm")t[en].confirm++;
+    else if(r[5]==="reject")t[en].reject++;
+    if(r[6])t[en].voters[r[6].trim()]=1;
+    if(r[3])t[en].cand=r[3].trim();
+  }
+  for(const k in t)t[k].nvoters=Object.keys(t[k].voters).length;
+  return t;
+}
+async function loadVotes(){
+  try{
+    const r=await fetch(VOTES_RAW,{cache:"no-store"});
+    if(!r.ok)return;                       // no votes merged yet
+    VOTES=tallyVotes(parseCSV(await r.text()));
+    if($("reviewList"))renderReview();
+  }catch(e){/* offline or not published yet — stay silent */}
+}
+
+/* ---------- vote-to-PR workflow ---------- */
+const GH_OWNER="EbrahimKaram", GH_REPO="Lebanese-Villages-List", VOTES_PATH="FuzzyMatch/votes.csv";
+const VOTES_HEADER="english_name,district,mohafaza,candidate_1,candidate_1_score,decision,voter,timestamp_utc\n";
+function csvCell(v){v=String(v==null?"":v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function b64encodeUtf8(s){
+  const b=new TextEncoder().encode(s); let bin="";
+  for(let i=0;i<b.length;i+=8192)bin+=String.fromCharCode.apply(null,b.subarray(i,i+8192));
+  return btoa(bin);
+}
+function b64decodeUtf8(b64){
+  const bin=atob(b64.replace(/\s/g,""));
+  return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)));
+}
+async function gh(path,token,method,body){
+  const r=await fetch("https://api.github.com"+path,{
+    method:method||"GET",
+    headers:Object.assign({Accept:"application/vnd.github+json",Authorization:"Bearer "+token},
+      body?{"Content-Type":"application/json"}:{}),
+    body:body?JSON.stringify(body):undefined});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error("GitHub: "+(j.message||("HTTP "+r.status)));
+  return j;
+}
+async function submitVotes(){
+  const st=$("voteStatus");
+  const user=$("ghUser").value.trim(), token=$("ghToken").value.trim();
+  const remember=$("ghRemember").checked;
+  if(!user||!token){st.textContent="Enter your GitHub username and token first.";return;}
+  const rows=Object.keys(decisions).filter(k=>decisions[k]==="yes"||decisions[k]==="no");
+  if(!rows.length){st.textContent="No decisions yet — tap ✓ / ✗ on some review rows first.";return;}
+  st.textContent="Sending "+rows.length+" vote(s)…";
+  try{
+    if(remember){localStorage.setItem("ghUser",user);localStorage.setItem("ghToken",token);}
+    else{localStorage.removeItem("ghUser");localStorage.removeItem("ghToken");}
+    const ts=new Date().toISOString().replace(/\.\d+Z$/,"Z");
+    const lines=rows.map(k=>{
+      const en=k.slice(3);
+      const r=DB.review.find(x=>x.en===en)||{};
+      const c=(r.candidates||[])[0]||{};
+      return [en,r.district||"",r.mohafaza||"",c.ar||"",c.score==null?"":c.score,
+        decisions[k]==="yes"?"confirm":"reject",user,ts].map(csvCell).join(",");
+    });
+    let sha=null, content=VOTES_HEADER;
+    try{
+      const cur=await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${VOTES_PATH}?ref=master`,token);
+      sha=cur.sha; content=b64decodeUtf8(cur.content);
+      if(!content.endsWith("\n"))content+="\n";
+    }catch(e){ if(!/Not Found/i.test(e.message))throw e; }
+    content+=lines.join("\n")+"\n";
+    const master=await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/ref/heads/master`,token);
+    const stamp=ts.replace(/[-:]/g,"").replace("T","-").slice(0,15);
+    let branch=`votes/${user}-${stamp}`, n=0;
+    for(;;){
+      try{
+        await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/refs`,token,"POST",
+          {ref:"refs/heads/"+branch,sha:master.object.sha});
+        break;
+      }catch(e){
+        if(/Reference already exists/.test(e.message)){n++;branch=`votes/${user}-${stamp}-${n}`;}
+        else throw e;
+      }
+    }
+    const payload={message:`Votes on fuzzy matches by ${user} (${rows.length} decisions)`,
+      content:b64encodeUtf8(content),branch:branch};
+    if(sha)payload.sha=sha;
+    await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${VOTES_PATH}`,token,"PUT",payload);
+    const pr=await gh(`/repos/${GH_OWNER}/${GH_REPO}/pulls`,token,"POST",{
+      title:`Votes on fuzzy matches by ${user} (${rows.length} decisions)`,
+      head:branch, base:"master",
+      body:`${rows.length} review decision(s) submitted from the village search page.\n\nAppended to \`${VOTES_PATH}\` for the next matching round.`});
+    st.innerHTML=`Votes submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
+  }catch(e){
+    st.textContent="Failed: "+e.message;
+  }
 }
 
 /* ---------- unmatched tab ---------- */
@@ -342,6 +541,12 @@ document.addEventListener("click",e=>{if(!e.target.closest(".suggest"))$("sugg")
 $("reviewFilter").onchange=renderReview;
 $("unFilter").onchange=renderUnmatched;
 $("copyCsv").onclick=copyCsv;
+$("voteBtn").onclick=submitVotes;
+try{
+  const gu=localStorage.getItem("ghUser"), gt=localStorage.getItem("ghToken");
+  if(gu)$("ghUser").value=gu;
+  if(gt){$("ghToken").value=gt;$("ghRemember").checked=true;}
+}catch(e){}
 
 fetch("data.json").then(r=>r.json()).then(db=>{
   DB=db; buildIndexes(); fillDistrictSelects();
@@ -351,7 +556,7 @@ fetch("data.json").then(r=>r.json()).then(db=>{
     `<span class="badge"><b>${DB.counts.unmatched_en+DB.counts.unmatched_ar}</b> still unmatched</span>`;
   $("reviewCount").textContent=`(${DB.counts.review})`;
   $("srcFile").textContent=DB.generated_from;
-  renderReview(); renderUnmatched();
+  renderReview(); renderUnmatched(); loadVotes();
   document.querySelector('[data-tab="search"]').click();
 }).catch(err=>{
   document.body.insertAdjacentHTML("beforeend",
