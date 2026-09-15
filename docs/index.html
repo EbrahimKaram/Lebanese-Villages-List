@@ -143,23 +143,37 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <p class="muted">Tapped ✓ / ✗ on rows above? Send your decisions back to the repo: they are appended to
     <span class="mono">FuzzyMatch/votes.csv</span> through a pull request, so everyone's votes
     accumulate for the next matching round. Anyone with a GitHub account can contribute.</p>
-    <p class="muted">You'll need a GitHub <b>classic personal access token</b> with the
-    <b>public_repo</b> scope. Collaborators submit straight into the repo;
-    everyone else gets a <b>fork created automatically</b> and the pull request
-    opened from it. The token is used only inside your browser to call
+    <p class="muted">You'll need a GitHub <b>personal access token</b> — a <b>classic</b> token with the
+    <b>public_repo</b> scope works for everyone; a <b>fine-grained</b> token works too, for
+    collaborators (see both options below). If you can push to this repo your contribution goes
+    in directly; otherwise the page <b>forks the repo to your account automatically</b> and opens
+    the pull request from it. The token is used only inside your browser to call
     <span class="mono">api.github.com</span> — it is never sent anywhere else.</p>
     <details style="margin:8px 0">
       <summary style="cursor:pointer;color:var(--accent);font-weight:600">How to create a token (takes ~30 seconds)</summary>
-      <ol class="muted" style="font-size:.9rem;line-height:1.8">
-        <li>Open <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a> (classic token)</li>
+      <p class="muted" style="font-size:.9rem;margin-bottom:4px"><b>Option 1 — classic token (recommended, works for everyone):</b></p>
+      <ol class="muted" style="font-size:.9rem;line-height:1.8;margin-top:4px">
+        <li>Open <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a></li>
         <li>Note: <span class="mono">village-votes</span>; expiration: 30 days (or longer)</li>
         <li>Tick <b>public_repo</b> — the only scope needed (vote, fork if needed, open the PR)</li>
         <li>Click <b>Generate token</b>, copy it, and paste it below</li>
       </ol>
-      <p class="muted" style="font-size:.85rem">A classic token can act on all your public repos — it never leaves
-      your browser, and you can revoke it any time at
-      <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">github.com/settings/tokens</a>.
-      (A fine-grained token with Contents + Pull requests read/write on this repo still works too.)</p>
+      <p class="muted" style="font-size:.85rem">A classic token can act on all your public repos — it never leaves your
+      browser, and you can revoke it any time at
+      <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">github.com/settings/tokens</a>.</p>
+      <p class="muted" style="font-size:.9rem;margin-bottom:4px"><b>Option 2 — fine-grained token (collaborators only):</b></p>
+      <ol class="muted" style="font-size:.9rem;line-height:1.8;margin-top:4px">
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+        <li>Token name: <span class="mono">village-votes</span>; expiration: 30 days</li>
+        <li>Resource owner: <b>EbrahimKaram</b></li>
+        <li>Repository access → <b>Only select repositories</b> → pick <span class="mono">Lebanese-Villages-List</span></li>
+        <li>Under <b>Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b></li>
+        <li>Also set <b>Pull requests</b> to <b>Read and write</b> (needed to open the PR)</li>
+        <li>Click <b>Generate token</b>, copy it, and paste it below</li>
+      </ol>
+      <p class="muted" style="font-size:.85rem">Least privilege, but GitHub doesn't let fine-grained tokens open pull
+      requests on repos you can't push to — so visitors without write access should use the
+      classic token above.</p>
     </details>
     <div class="toolbar">
       <input id="ghUser" class="tinput" placeholder="GitHub username" autocomplete="username">
