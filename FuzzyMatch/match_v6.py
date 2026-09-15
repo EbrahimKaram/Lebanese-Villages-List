@@ -4,6 +4,12 @@
 Review/auto candidates may ONLY come from the same district AND mohafaza
 as the English village. Regenerates FuzzyMatch/Lebanese_Villages_Matched_v6.xlsx
 from the v5 workbook (v5 itself is untouched).
+
+Community suggestions: if FuzzyMatch/suggested_matches.csv exists (written by
+the website's "Suggest a match" flow), each suggestion is auto-accepted as a
+definite match when both names resolve to currently-unmatched rows in the same
+district+mohafaza. Earliest timestamp wins on conflicts; everything is logged
+on the "Suggestions" sheet.
 """
 import json
 import re
@@ -329,6 +335,77 @@ for ei, cands in list(review.items())[:8]:
     print(f"  {u['en']} ({u['d']}/{u['m']}): " +
           "; ".join(f"{unm_ar[aj]['ar']} [{s}]" for aj, s in cands))
 
+# ---------------- community suggestions (from the website) ----------------
+SUGGEST_CSV = REPO / "FuzzyMatch" / "suggested_matches.csv"
+suggested = {}        # en_idx -> (ar_idx, suggester)
+suggest_log = []      # (english, arabic, suggester, status)
+suggest_stats = defaultdict(int)
+
+if SUGGEST_CSV.exists():
+    import csv
+    with open(SUGGEST_CSV, encoding="utf-8-sig") as f:
+        srows = list(csv.DictReader(f))
+    srows.sort(key=lambda r: r.get("timestamp_utc") or "")
+    en_by_exact = {u["en"]: i for i, u in enumerate(unm_en)}
+    en_by_norm = {norm_lat(u["en"]): i for i, u in enumerate(unm_en)}
+    ar_by_exact = {u["ar"]: j for j, u in enumerate(unm_ar)}
+    ar_by_norm = {norm_ar(u["ar"]): j for j, u in enumerate(unm_ar)}
+
+    def find_en(name):
+        if name in en_by_exact:
+            return en_by_exact[name]
+        return en_by_norm.get(norm_lat(name))
+
+    def find_ar(name):
+        if name in ar_by_exact:
+            return ar_by_exact[name]
+        return ar_by_norm.get(norm_ar(name))
+
+    for r in srows:
+        en_n = (r.get("english_name") or "").strip()
+        ar_n = (r.get("arabic_name") or "").strip()
+        suggester = (r.get("suggester") or "").strip()
+        if not en_n or not ar_n:
+            suggest_stats["skipped_empty"] += 1
+            suggest_log.append((en_n, ar_n, suggester, "skipped — empty name"))
+            continue
+        ei, aj = find_en(en_n), find_ar(ar_n)
+        if ei is None:
+            suggest_stats["skipped_en_gone"] += 1
+            suggest_log.append((en_n, ar_n, suggester, "skipped — english not unmatched"))
+            continue
+        if aj is None:
+            suggest_stats["skipped_ar_gone"] += 1
+            suggest_log.append((en_n, ar_n, suggester, "skipped — arabic not unmatched"))
+            continue
+        if ei in suggested and suggested[ei][0] == aj:
+            suggest_stats["duplicate"] += 1
+            suggest_log.append((en_n, ar_n, suggester, "duplicate — already applied"))
+            continue
+        if ei in auto or ei in suggested:
+            suggest_stats["conflict_en"] += 1
+            suggest_log.append((en_n, ar_n, suggester, "conflict — english already matched"))
+            continue
+        if aj in ar_taken:
+            suggest_stats["conflict_ar"] += 1
+            suggest_log.append((en_n, ar_n, suggester, "conflict — arabic already taken"))
+            continue
+        eu, au = unm_en[ei], unm_ar[aj]
+        if (eu["dkey"] and eu["mkey"] and au["dkey"] and au["mkey"]
+                and (eu["dkey"], eu["mkey"]) != (au["dkey"], au["mkey"])):
+            suggest_stats["skipped_district"] += 1
+            suggest_log.append((en_n, ar_n, suggester, "skipped — district/mohafaza mismatch"))
+            continue
+        suggested[ei] = (aj, suggester)
+        ar_taken.add(aj)
+        review.pop(ei, None)   # a suggested english leaves the review pile
+        suggest_stats["applied"] += 1
+        suggest_log.append((en_n, ar_n, suggester, "applied"))
+    n_bad = sum(v for k, v in suggest_stats.items() if k != "applied")
+    print(f"community suggestions: {suggest_stats['applied']} applied, {n_bad} skipped/conflicted")
+else:
+    print("community suggestions: no suggested_matches.csv found")
+
 # ---------------- write workbook ----------------
 wb = openpyxl.Workbook()
 ws = wb.active
@@ -340,6 +417,8 @@ ws.append(["Method", "Offline Arabic->Latin transliteration (ya y/i, ta t/a vari
            "French-dialect EN normalization; rapidfuzz WRatio; Hungarian one-to-one "
            "per (district, mohafaza) group"])
 ws.append(["Constraint", "Candidates ONLY from the same district AND mohafaza as the English village"])
+ws.append(["Community suggestions", "auto-accepted from FuzzyMatch/suggested_matches.csv "
+           "(earliest timestamp wins on conflicts; district+mohafaza enforced)"])
 ws.append(["Auto-match threshold", f">= {AUTO_MIN}"])
 ws.append(["Review band", f"{REVIEW_MIN}-{AUTO_MIN} (top-3 candidates, human confirm)"])
 ws.append([None])
@@ -348,8 +427,11 @@ ws.append(["Unmatched English before rerun", len(unm_en)])
 ws.append(["Unmatched Arabic before rerun", len(unm_ar)])
 ws.append(["New auto matches", len(auto)])
 ws.append(["Review candidate rows", len(review)])
+ws.append(["Community-suggested matches applied", len(suggested)])
+ws.append(["Suggestions skipped/conflicted/duplicated",
+           sum(v for k, v in suggest_stats.items() if k != "applied")])
 still_en = len(unm_en) - len(auto) - sum(1 for ei in review if ei not in auto)
-ws.append(["Still unmatched English", len(unm_en) - len(auto)])
+ws.append(["Still unmatched English", len(unm_en) - len(auto) - len(suggested)])
 ws.append(["Still unmatched Arabic", len(unm_ar) - len(ar_taken)])
 
 we = wb.create_sheet("English (Full)")
@@ -360,6 +442,10 @@ for i, u in enumerate(unm_en):
     if i in auto:
         aj, s = auto[i]
         we.append([u["en"], unm_ar[aj]["ar"], u["d"], u["m"], f"Fuzzy-auto ({s:.1f})"])
+    elif i in suggested:
+        aj, suggester = suggested[i]
+        by = f" (by {suggester})" if suggester else ""
+        we.append([u["en"], unm_ar[aj]["ar"], u["d"], u["m"], f"Community suggestion{by}"])
     else:
         we.append([u["en"], None, u["d"], u["m"], "Missing"])
 
@@ -371,10 +457,12 @@ for rec in ar_full:
 for ei, (aj, s) in auto.items():
     # find row index in ar_full for this unmatched arabic record
     pass
-# (Arabic (Full) keeps original EN column from v5; patch auto-matched rows)
+# (Arabic (Full) keeps original EN column from v5; patch auto/suggested rows)
 auto_ar_to_en = {}
 for ei, (aj, s) in auto.items():
     auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], s)
+for ei, (aj, _suggester) in suggested.items():
+    auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], None)
 row_idx = 2
 for rec in ar_full:
     if id(rec) in auto_ar_to_en and not (rec["en"] and str(rec["en"]).strip()):
@@ -399,11 +487,16 @@ for ei in sorted(review, key=lambda i: unm_en[i]["en"]):
 wu = wb.create_sheet("Unmatched")
 wu.append(["Side", "Name", "District", "Mohafaza"])
 for i, u in enumerate(unm_en):
-    if i not in auto:
+    if i not in auto and i not in suggested:
         wu.append(["English", u["en"], u["d"], u["m"]])
 for j, u in enumerate(unm_ar):
     if j not in ar_taken:
         wu.append(["Arabic", u["ar"], u["d"], u["m"]])
+
+wsug = wb.create_sheet("Suggestions")
+wsug.append(["English Name", "Arabic Name", "Suggester", "Status"])
+for row in suggest_log:
+    wsug.append(list(row))
 
 for name in ["DistrictTranslation", "Mohafaza Translations"]:
     src = wb5[name]
