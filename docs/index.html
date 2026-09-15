@@ -144,7 +144,8 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <span class="mono">FuzzyMatch/votes.csv</span> through a pull request, so everyone's votes
     accumulate for the next matching round.</p>
     <p class="muted">You'll need a GitHub <b>personal access token</b> (fine-grained, with
-    <b>Contents: read and write</b> on <span class="mono">EbrahimKaram/Lebanese-Villages-List</span>).
+    <b>Contents</b> and <b>Pull requests</b> set to <b>read and write</b> on
+    <span class="mono">EbrahimKaram/Lebanese-Villages-List</span>).
     The token is used only inside your browser to call <span class="mono">api.github.com</span> —
     it is never sent anywhere else.</p>
     <details style="margin:8px 0">
@@ -155,6 +156,7 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
         <li>Resource owner: <b>EbrahimKaram</b></li>
         <li>Repository access → <b>Only select repositories</b> → pick <span class="mono">Lebanese-Villages-List</span></li>
         <li>Under <b>Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b></li>
+        <li>Also under <b>Repository permissions</b>, set <b>Pull requests</b> to <b>Read and write</b> (needed to open the PR)</li>
         <li>Click <b>Generate token</b>, copy it, and paste it below</li>
       </ol>
     </details>
@@ -562,6 +564,15 @@ function ghCreds(statusEl){
   else{localStorage.removeItem("ghUser");localStorage.removeItem("ghToken");}
   return {user,token};
 }
+function friendlyErr(e){
+  const m=String(e&&e.message||e);
+  if(/Resource not accessible by personal access token/i.test(m))
+    return "Token lacks access — it needs Contents AND Pull requests set to Read and write on "+
+      "EbrahimKaram/Lebanese-Villages-List (see the how-to above), and must not be expired.";
+  if(/Bad credentials/i.test(m))
+    return "Token rejected — check it was copied correctly and hasn't expired.";
+  return m;
+}
 async function ghSubmitCsv(o){
   // o: {token,user,path,header,lines,branchPrefix,prTitle,prBody}
   let sha=null, content=o.header;
@@ -611,7 +622,7 @@ async function submitVotes(){
       prBody:`${rows.length} review decision(s) submitted from the village search page.\n\nAppended to \`${VOTES_PATH}\` for the next matching round.`});
     st.innerHTML=`Votes submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
   }catch(e){
-    st.textContent="Failed: "+e.message;
+    st.textContent="Failed: "+friendlyErr(e);
   }
 }
 async function submitPicks(){
@@ -631,7 +642,7 @@ async function submitPicks(){
       b.textContent="✓ Select as match";b.classList.remove("done");b.disabled=false;});
     st.innerHTML=`Suggestions submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
   }catch(e){
-    st.textContent="Failed: "+e.message;
+    st.textContent="Failed: "+friendlyErr(e);
   }
 }
 
