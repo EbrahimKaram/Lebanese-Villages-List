@@ -19,6 +19,12 @@ header.top{background:#123f33;color:#fff;padding:28px 20px 22px}
 h1{margin:0 0 6px;font-size:1.6rem}
 .sub{opacity:.85;margin:0 0 14px;max-width:70ch}
 .badges{display:flex;gap:10px;flex-wrap:wrap}
+.ghsign{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;
+  background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px}
+.ghsign-label{font-size:.8rem;color:var(--muted);font-weight:600}
+#ghUserTop{width:130px}#ghTokenTop{width:180px}
+.ghsign input[type=text],.ghsign input[type=password],.ghsign input:not([type]){padding:7px 10px;font-size:.85rem}
+.ghsign-rem{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:4px;white-space:nowrap}
 .badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
   border-radius:999px;padding:4px 14px;font-size:.85rem}
 .badge b{font-size:1.05rem}
@@ -102,6 +108,12 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
   potential candidates — the review shortlist, or every still-unmatched village in the
   same district and region. Data: <a class="repo" href="https://github.com/EbrahimKaram/Lebanese-Villages-List">EbrahimKaram/Lebanese-Villages-List</a>.</p>
   <div class="badges" id="badges"></div>
+  <div class="ghsign">
+    <span class="ghsign-label">GitHub sign-in</span>
+    <input class="gh-user" id="ghUserTop" placeholder="GitHub username" autocomplete="username">
+    <input class="gh-token" id="ghTokenTop" type="password" placeholder="Token (paste)" autocomplete="off">
+    <label class="ghsign-rem"><input type="checkbox" class="gh-remember" id="ghRememberTop" checked> remember</label>
+  </div>
 </div></header>
 
 <div class="wrap">
@@ -176,10 +188,10 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
       classic token above.</p>
     </details>
     <div class="toolbar">
-      <input id="ghUser" class="tinput" placeholder="GitHub username" autocomplete="username">
-      <input id="ghToken" class="tinput" type="password" placeholder="Personal access token" autocomplete="off">
+      <input id="ghUser" class="tinput gh-user" placeholder="GitHub username" autocomplete="username">
+      <input id="ghToken" class="tinput gh-token" type="password" placeholder="Personal access token" autocomplete="off">
     </div>
-    <label class="muted" style="font-size:.85rem"><input type="checkbox" id="ghRemember"> remember on this device</label>
+    <label class="muted" style="font-size:.85rem"><input type="checkbox" id="ghRemember" class="gh-remember"> remember on this device</label>
     <div class="toolbar"><button id="voteBtn" class="btn">Submit votes as pull request</button></div>
     <div id="voteStatus" class="muted"></div>
     <p class="muted" style="font-size:.85rem">After vote PRs are merged, their tallies show up on the review rows above.</p>
@@ -187,7 +199,7 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <p class="muted">Spotted the right pair in a search result or review row? Tap
     <b>✓ Select as match</b> on any candidate — tap again to undo. Your picks are staged
     here, then sent to <span class="mono">FuzzyMatch/suggested_matches.csv</span> through a
-    pull request (same token as above).</p>
+    pull request (same GitHub sign-in — header or below).</p>
     <div id="pickList"></div>
     <div class="toolbar"><button id="pickBtn" class="btn">Submit suggestions as pull request</button></div>
     <div id="pickStatus" class="muted"></div>
@@ -572,10 +584,29 @@ async function gh(path,token,method,body){
   if(!r.ok)throw new Error("GitHub: "+(j.message||("HTTP "+r.status)));
   return j;
 }
+function ghFields(){
+  const val=cls=>{const els=[...document.querySelectorAll("."+cls)];
+    const v=els.map(e=>(e.value||"").trim()).find(v=>v);return v||"";};
+  const remember=[...document.querySelectorAll(".gh-remember")].some(e=>e.checked);
+  return {user:val("gh-user"),token:val("gh-token"),remember};
+}
+function syncGh(changed){
+  const cls=changed.classList.contains("gh-user")?"gh-user":
+            changed.classList.contains("gh-token")?"gh-token":"gh-remember";
+  document.querySelectorAll("."+cls).forEach(e=>{
+    if(e===changed)return;
+    if(cls==="gh-remember")e.checked=changed.checked; else e.value=changed.value;
+  });
+  const f=ghFields();
+  if(f.remember){
+    if(f.user)localStorage.setItem("ghUser",f.user);
+    if(f.token)localStorage.setItem("ghToken",f.token);
+  }else{localStorage.removeItem("ghUser");localStorage.removeItem("ghToken");}
+}
 function ghCreds(statusEl){
-  const user=$("ghUser").value.trim(), token=$("ghToken").value.trim();
+  const {user,token,remember}=ghFields();
   if(!user||!token){statusEl.textContent="Enter your GitHub username and token first.";return null;}
-  if($("ghRemember").checked){localStorage.setItem("ghUser",user);localStorage.setItem("ghToken",token);}
+  if(remember){localStorage.setItem("ghUser",user);localStorage.setItem("ghToken",token);}
   else{localStorage.removeItem("ghUser");localStorage.removeItem("ghToken");}
   return {user,token};
 }
@@ -732,8 +763,13 @@ $("voteBtn").onclick=submitVotes;
 $("pickBtn").onclick=submitPicks;
 try{
   const gu=localStorage.getItem("ghUser"), gt=localStorage.getItem("ghToken");
-  if(gu)$("ghUser").value=gu;
-  if(gt){$("ghToken").value=gt;$("ghRemember").checked=true;}
+  document.querySelectorAll(".gh-user").forEach(e=>{if(gu)e.value=gu;});
+  document.querySelectorAll(".gh-token").forEach(e=>{if(gt)e.value=gt;});
+  document.querySelectorAll(".gh-remember").forEach(e=>{e.checked=!!(gu||gt);});
+  document.querySelectorAll(".gh-user,.gh-token,.gh-remember").forEach(e=>{
+    e.addEventListener("input",()=>syncGh(e));
+    e.addEventListener("change",()=>syncGh(e));
+  });
 }catch(e){}
 
 fetch("data.json").then(r=>r.json()).then(db=>{
