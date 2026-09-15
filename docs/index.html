@@ -168,9 +168,9 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <p class="muted" style="font-size:.85rem">After vote PRs are merged, their tallies show up on the review rows above.</p>
     <h2 class="sec" style="margin-top:18px">Suggest matches</h2>
     <p class="muted">Spotted the right pair in a search result or review row? Tap
-    <b>✓ Select as match</b> on any candidate — your picks are staged here, then sent to
-    <span class="mono">FuzzyMatch/suggested_matches.csv</span> through a pull request
-    (same token as above).</p>
+    <b>✓ Select as match</b> on any candidate — tap again to undo. Your picks are staged
+    here, then sent to <span class="mono">FuzzyMatch/suggested_matches.csv</span> through a
+    pull request (same token as above).</p>
     <div id="pickList"></div>
     <div class="toolbar"><button id="pickBtn" class="btn">Submit suggestions as pull request</button></div>
     <div id="pickStatus" class="muted"></div>
@@ -475,16 +475,29 @@ function savePicks(){try{localStorage.setItem("villagePicks",JSON.stringify(pick
 
 function stagePick(btn){
   const p={en:btn.dataset.en,ar:btn.dataset.ar,district:btn.dataset.d||"",mohafaza:btn.dataset.m||""};
-  const dupLocal=picks.some(x=>x.en===p.en&&x.ar===p.ar);
+  const idx=picks.findIndex(x=>x.en===p.en&&x.ar===p.ar);
+  if(idx>=0){
+    // undo a staged pick
+    picks.splice(idx,1);savePicks();renderPicks();syncPickBtn(p,false);
+    return;
+  }
   const dupMerged=(SUGGEST.byEn[p.en]||[]).some(s=>s.ar===p.ar);
-  if(dupLocal||dupMerged){
-    btn.textContent="✓ Suggested";btn.classList.remove("armed");btn.classList.add("done");btn.disabled=true;return;
-  }
-  if(!btn.classList.contains("armed")){
-    btn.classList.add("armed");btn.textContent="Tap again to confirm";return;
-  }
-  picks.push(p);savePicks();renderPicks();
-  btn.textContent="✓ Suggested";btn.classList.remove("armed");btn.classList.add("done");btn.disabled=true;
+  if(dupMerged){syncPickBtn(p,true);return;}
+  picks.push(p);savePicks();renderPicks();syncPickBtn(p,false);
+}
+// reflect staged/merged state on every visible button for a pair
+function syncPickBtn(p,merged){
+  document.querySelectorAll(".pickbtn").forEach(b=>{
+    if(b.dataset.en!==p.en||b.dataset.ar!==p.ar)return;
+    const staged=picks.some(x=>x.en===p.en&&x.ar===p.ar);
+    if(merged||staged){
+      b.textContent=merged?"✓ Suggested":"✓ Suggested — tap to undo";
+      b.classList.remove("armed");b.classList.add("done");b.disabled=!!merged;
+    }else{
+      b.textContent="✓ Select as match";
+      b.classList.remove("armed","done");b.disabled=false;
+    }
+  });
 }
 function renderPicks(){
   const box=$("pickList"); if(!box)return;
@@ -497,7 +510,9 @@ function renderPicks(){
     `<b class="ar">${esc(p.ar)}</b> <span class="muted">· ${esc(p.district)} · ${esc(p.mohafaza)}</span></span>`+
     `<button data-i="${i}" title="Remove">✕</button></div>`).join("");
   box.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    const p=picks[+b.dataset.i];
     picks.splice(+b.dataset.i,1);savePicks();renderPicks();
+    if(p)syncPickBtn(p,false);
   });
 }
 async function loadSuggest(){
@@ -612,6 +627,8 @@ async function submitPicks(){
       prTitle:`Suggested village matches by ${cred.user} (${picks.length})`,
       prBody:`${picks.length} match suggestion(s) picked from the village search page.\n\nAppended to \`${SUGGEST_PATH}\` for the next matching round.`});
     picks=[];savePicks();renderPicks();
+    document.querySelectorAll(".pickbtn.done:not(:disabled)").forEach(b=>{
+      b.textContent="✓ Select as match";b.classList.remove("done");b.disabled=false;});
     st.innerHTML=`Suggestions submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
   }catch(e){
     st.textContent="Failed: "+e.message;
