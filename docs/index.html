@@ -142,21 +142,38 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
     <h2 class="sec" style="margin-top:0">Contribute your votes</h2>
     <p class="muted">Tapped ✓ / ✗ on rows above? Send your decisions back to the repo: they are appended to
     <span class="mono">FuzzyMatch/votes.csv</span> through a pull request, so everyone's votes
-    accumulate for the next matching round.</p>
-    <p class="muted">You'll need a GitHub <b>personal access token</b> (fine-grained, with
-    <b>Contents: read and write</b> on <span class="mono">EbrahimKaram/Lebanese-Villages-List</span>).
-    The token is used only inside your browser to call <span class="mono">api.github.com</span> —
-    it is never sent anywhere else.</p>
+    accumulate for the next matching round. Anyone with a GitHub account can contribute.</p>
+    <p class="muted">You'll need a GitHub <b>personal access token</b> — a <b>classic</b> token with the
+    <b>public_repo</b> scope works for everyone; a <b>fine-grained</b> token works too, for
+    collaborators (see both options below). If you can push to this repo your contribution goes
+    in directly; otherwise the page <b>forks the repo to your account automatically</b> and opens
+    the pull request from it. The token is used only inside your browser to call
+    <span class="mono">api.github.com</span> — it is never sent anywhere else.</p>
     <details style="margin:8px 0">
-      <summary style="cursor:pointer;color:var(--accent);font-weight:600">How to create a token (takes ~1 minute)</summary>
-      <ol class="muted" style="font-size:.9rem;line-height:1.8">
-        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> (fine-grained token)</li>
-        <li>Token name: <span class="mono">village-votes</span>; set an expiration (e.g. 30 days)</li>
+      <summary style="cursor:pointer;color:var(--accent);font-weight:600">How to create a token (takes ~30 seconds)</summary>
+      <p class="muted" style="font-size:.9rem;margin-bottom:4px"><b>Option 1 — classic token (recommended, works for everyone):</b></p>
+      <ol class="muted" style="font-size:.9rem;line-height:1.8;margin-top:4px">
+        <li>Open <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a></li>
+        <li>Note: <span class="mono">village-votes</span>; expiration: 30 days (or longer)</li>
+        <li>Tick <b>public_repo</b> — the only scope needed (vote, fork if needed, open the PR)</li>
+        <li>Click <b>Generate token</b>, copy it, and paste it below</li>
+      </ol>
+      <p class="muted" style="font-size:.85rem">A classic token can act on all your public repos — it never leaves your
+      browser, and you can revoke it any time at
+      <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">github.com/settings/tokens</a>.</p>
+      <p class="muted" style="font-size:.9rem;margin-bottom:4px"><b>Option 2 — fine-grained token (collaborators only):</b></p>
+      <ol class="muted" style="font-size:.9rem;line-height:1.8;margin-top:4px">
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+        <li>Token name: <span class="mono">village-votes</span>; expiration: 30 days</li>
         <li>Resource owner: <b>EbrahimKaram</b></li>
         <li>Repository access → <b>Only select repositories</b> → pick <span class="mono">Lebanese-Villages-List</span></li>
         <li>Under <b>Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b></li>
+        <li>Also set <b>Pull requests</b> to <b>Read and write</b> (needed to open the PR)</li>
         <li>Click <b>Generate token</b>, copy it, and paste it below</li>
       </ol>
+      <p class="muted" style="font-size:.85rem">Least privilege, but GitHub doesn't let fine-grained tokens open pull
+      requests on repos you can't push to — so visitors without write access should use the
+      classic token above.</p>
     </details>
     <div class="toolbar">
       <input id="ghUser" class="tinput" placeholder="GitHub username" autocomplete="username">
@@ -562,33 +579,73 @@ function ghCreds(statusEl){
   else{localStorage.removeItem("ghUser");localStorage.removeItem("ghToken");}
   return {user,token};
 }
+function friendlyErr(e){
+  const m=String(e&&e.message||e);
+  if(/Resource not accessible by personal access token/i.test(m))
+    return "Token lacks access — it needs Contents AND Pull requests set to Read and write on "+
+      "EbrahimKaram/Lebanese-Villages-List (see the how-to above), and must not be expired.";
+  if(/Bad credentials/i.test(m))
+    return "Token rejected — check it was copied correctly and hasn't expired.";
+  return m;
+}
+async function ensureFork(user,token){
+  // returns the fork's default branch; creates the fork if missing
+  try{
+    const f=await gh(`/repos/${user}/${GH_REPO}`,token);
+    return f.default_branch||"master";
+  }catch(e){ if(!/Not Found/i.test(e.message)) throw e; }
+  try{ await gh(`/repos/${GH_OWNER}/${GH_REPO}/forks`,token,"POST",{}); }
+  catch(e){ if(!/already exists/i.test(e.message)) throw e; }
+  for(let i=0;i<10;i++){
+    await new Promise(r=>setTimeout(r,3000));
+    try{
+      const f=await gh(`/repos/${user}/${GH_REPO}`,token);
+      return f.default_branch||"master";
+    }catch(e){ if(!/Not Found/i.test(e.message)) throw e; }
+  }
+  throw new Error("Your fork is taking too long to appear — check github.com/"+user+"/"+GH_REPO+" and try again.");
+}
 async function ghSubmitCsv(o){
   // o: {token,user,path,header,lines,branchPrefix,prTitle,prBody}
+  // collaborators (push access) submit straight in; everyone else goes via an auto-created fork
+  const meta=await gh(`/repos/${GH_OWNER}/${GH_REPO}`,o.token);
+  const direct=!!(meta.permissions&&meta.permissions.push);
+  let me=o.user;
+  try{ me=(await gh("/user",o.token)).login||me; }catch(e){}
+  let target=`${GH_OWNER}/${GH_REPO}`, base="master", prHead=null;
+  if(!direct){
+    base=await ensureFork(me,o.token);
+    target=`${me}/${GH_REPO}`;
+    try{ await gh(`/repos/${target}/merge-upstream`,o.token,"POST",{branch:base}); }catch(e){/* best effort */}
+  }
   let sha=null, content=o.header;
   try{
-    const cur=await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${o.path}?ref=master`,o.token);
+    const cur=await gh(`/repos/${target}/contents/${o.path}?ref=${encodeURIComponent(base)}`,o.token);
     sha=cur.sha; content=b64decodeUtf8(cur.content);
     if(!content.endsWith("\n"))content+="\n";
   }catch(e){ if(!/Not Found/i.test(e.message))throw e; }
   content+=o.lines.join("\n")+"\n";
-  const master=await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/ref/heads/master`,o.token);
+  const master=await gh(`/repos/${target}/git/ref/heads/${encodeURIComponent(base)}`,o.token);
   const stamp=new Date().toISOString().replace(/\.\d+Z$/,"Z").replace(/[-:]/g,"").replace("T","-").slice(0,15);
-  let branch=`${o.branchPrefix}${o.user}-${stamp}`, n=0;
+  let branch=`${o.branchPrefix}${me}-${stamp}`, n=0;
   for(;;){
     try{
-      await gh(`/repos/${GH_OWNER}/${GH_REPO}/git/refs`,o.token,"POST",
+      await gh(`/repos/${target}/git/refs`,o.token,"POST",
         {ref:"refs/heads/"+branch,sha:master.object.sha});
       break;
     }catch(e){
-      if(/Reference already exists/.test(e.message)){n++;branch=`${o.branchPrefix}${o.user}-${stamp}-${n}`;}
+      if(/Reference already exists/.test(e.message)){n++;branch=`${o.branchPrefix}${me}-${stamp}-${n}`;}
       else throw e;
     }
   }
   const payload={message:o.prTitle,content:b64encodeUtf8(content),branch:branch};
   if(sha)payload.sha=sha;
-  await gh(`/repos/${GH_OWNER}/${GH_REPO}/contents/${o.path}`,o.token,"PUT",payload);
-  return gh(`/repos/${GH_OWNER}/${GH_REPO}/pulls`,o.token,"POST",{
-    title:o.prTitle,head:branch,base:"master",body:o.prBody});
+  await gh(`/repos/${target}/contents/${o.path}`,o.token,"PUT",payload);
+  if(!direct)prHead=`${me}:${branch}`;
+  const pr=await gh(`/repos/${GH_OWNER}/${GH_REPO}/pulls`,o.token,"POST",{
+    title:o.prTitle,head:prHead||branch,base:"master",body:o.prBody});
+  pr._viaFork=!direct;
+  return pr;
 }
 async function submitVotes(){
   const st=$("voteStatus");
@@ -609,9 +666,9 @@ async function submitVotes(){
       branchPrefix:"votes/",
       prTitle:`Votes on fuzzy matches by ${cred.user} (${rows.length} decisions)`,
       prBody:`${rows.length} review decision(s) submitted from the village search page.\n\nAppended to \`${VOTES_PATH}\` for the next matching round.`});
-    st.innerHTML=`Votes submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
+    st.innerHTML=`Votes submitted${pr._viaFork?" (from your fork)":""}! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
   }catch(e){
-    st.textContent="Failed: "+e.message;
+    st.textContent="Failed: "+friendlyErr(e);
   }
 }
 async function submitPicks(){
@@ -629,9 +686,9 @@ async function submitPicks(){
     picks=[];savePicks();renderPicks();
     document.querySelectorAll(".pickbtn.done:not(:disabled)").forEach(b=>{
       b.textContent="✓ Select as match";b.classList.remove("done");b.disabled=false;});
-    st.innerHTML=`Suggestions submitted! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
+    st.innerHTML=`Suggestions submitted${pr._viaFork?" (from your fork)":""}! Pull request: <a href="${pr.html_url}" target="_blank" rel="noopener">#${pr.number}</a>`;
   }catch(e){
-    st.textContent="Failed: "+e.message;
+    st.textContent="Failed: "+friendlyErr(e);
   }
 }
 
