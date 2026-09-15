@@ -106,6 +106,13 @@ for r in list(wb["English (Full)"].iter_rows(values_only=True))[1:]:
         "source": src,
     })
 
+# one-to-one guard: (normalized arabic, district key, mohafaza key) already matched
+matched_triples = set()
+for m in matched:
+    dk, mk = district_key_en(m["district"]), mohafaza_key_en(m["mohafaza"])
+    if dk and mk:
+        matched_triples.add((norm_ar(m["ar"]), dk, mk))
+
 # --- review candidates ------------------------------------------------------
 review = []
 for r in list(wb["Review"].iter_rows(values_only=True))[1:]:
@@ -145,9 +152,12 @@ for r in list(wb["Unmatched"].iter_rows(values_only=True))[1:]:
             "dkey": district_key_en(d), "mkey": mohafaza_key_en(m),
         })
     else:
+        dk, mk = district_key_ar(d), mohafaza_key_ar(m)
+        if dk and mk and (norm_ar(name), dk, mk) in matched_triples:
+            continue  # one-to-one: already matched, not unmatched
         unmatched_ar.append({
             "ar": name, "district": d, "mohafaza": m,
-            "dkey": district_key_ar(d), "mkey": mohafaza_key_ar(m),
+            "dkey": dk, "mkey": mk,
         })
 
 # --- district list for filters ----------------------------------------------

@@ -278,6 +278,31 @@ no_key_en = sum(1 for u in unm_en if not u["dkey"] or not u["mkey"])
 no_key_ar = sum(1 for u in unm_ar if not u["dkey"] or not u["mkey"])
 print(f"rows without district/mohafaza key (no candidates possible): EN={no_key_en} AR={no_key_ar}")
 
+# ---------------- one-to-one: an arabic village already matched in the same
+# district+mohafaza is NOT unmatched (same-district homonyms stay untouched) --
+already_triples = defaultdict(list)   # (norm_ar, dkey, mkey) -> [english names]
+for rec in already:
+    if rec["ar"] and str(rec["ar"]).strip():
+        t = (norm_ar(rec["ar"]), dkey_en(rec["d"]), mkey_en(rec["m"]))
+        already_triples[t].append(str(rec["en"]).strip())
+
+dup_arabic = []    # (ar, district, mohafaza, [english]) dropped from unm_ar
+kept_ar = []
+for u in unm_ar:
+    t = (norm_ar(u["ar"]), u.get("dkey"), u.get("mkey"))
+    if t[1] and t[2] and t in already_triples:
+        dup_arabic.append((u["ar"], u["d"], u["m"], sorted(set(already_triples[t]))))
+    else:
+        kept_ar.append(u)
+unm_ar = kept_ar
+print(f"one-to-one: dropped {len(dup_arabic)} arabic rows already matched in the same district+mohafaza")
+
+conflicts = {t: sorted(set(v)) for t, v in already_triples.items()
+             if len(set(v)) > 1 and t[1] and t[2]}
+print(f"one-to-one conflicts (same arabic+district claimed by 2+ english): {len(conflicts)}")
+for t, v in sorted(conflicts.items()):
+    print(f"  CONFLICT {t[0]} [{t[1]}/{t[2]}] <-> {v}")
+
 # ---------------- group by (dkey, mkey) ----------------
 groups_en, groups_ar = defaultdict(list), defaultdict(list)
 for i, u in enumerate(unm_en):
@@ -433,6 +458,20 @@ ws.append(["Suggestions skipped/conflicted/duplicated",
 still_en = len(unm_en) - len(auto) - sum(1 for ei in review if ei not in auto)
 ws.append(["Still unmatched English", len(unm_en) - len(auto) - len(suggested)])
 ws.append(["Still unmatched Arabic", len(unm_ar) - len(ar_taken)])
+ws.append(["Arabic rows dropped as already-matched (one-to-one)", len(dup_arabic)])
+ws.append(["One-to-one conflicts needing human review", len(conflicts)])
+if dup_arabic:
+    ws.append([None])
+    ws.append(["DROPPED — arabic village already matched in the same district+mohafaza"])
+    ws.append(["Arabic Name", "District", "Mohafaza", "Matched English"])
+    for ar, d, m, ens in sorted(dup_arabic, key=lambda x: norm_ar(x[0])):
+        ws.append([ar, d, m, " | ".join(ens)])
+if conflicts:
+    ws.append([None])
+    ws.append(["CONFLICTS — one arabic+district claimed by 2+ english names (resolve in v5 source)"])
+    ws.append(["Arabic (normalized)", "District", "Mohafaza", "English names"])
+    for (ar, dk, mk), ens in sorted(conflicts.items()):
+        ws.append([ar, dk, mk, " | ".join(ens)])
 
 we = wb.create_sheet("English (Full)")
 we.append(["English Name", "Arabic Name", "District Name", "Mohafaza", "Match Source"])
