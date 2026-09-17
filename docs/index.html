@@ -98,6 +98,28 @@ select.filter{padding:9px 12px;border:1px solid var(--line);border-radius:10px;f
 .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
 footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center}
 .empty{padding:26px;text-align:center;color:var(--muted)}
+.pbar{height:10px;border-radius:6px;background:var(--line);overflow:hidden}
+.pbar>i{display:block;height:100%;border-radius:6px;background:var(--accent)}
+.prow{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin:10px 0;overflow:hidden}
+.prowhead{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;width:100%;background:none;border:0;color:inherit;text-align:left;font:inherit}
+.prowhead .nm{flex:1;min-width:0}
+.prowhead .nm b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prowhead .nm span{font-size:.8rem;color:var(--muted)}
+.pwrap{width:38%;min-width:110px}
+.ppct{width:52px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.pcnt{font-size:.8rem;color:var(--muted);width:96px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chev{color:var(--muted);transition:transform .15s;font-size:.75rem}
+.prow.open .chev{transform:rotate(90deg)}
+.pdetail{display:none;border-top:1px solid var(--line);padding:6px 14px 14px}
+.prow.open .pdetail{display:block}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:var(--card);color:var(--muted);border:0;padding:8px 14px;font-size:.9rem;cursor:pointer;font:inherit}
+.seg button.active{background:var(--accent);color:#fff;font-weight:600}
+.vstat{font-size:.72rem;font-weight:700;border-radius:20px;padding:1px 9px;white-space:nowrap}
+.vstat.ok{background:var(--accent-soft);color:var(--accent)}
+.vstat.rv{background:var(--warn-soft);color:var(--warn)}
+.vstat.no{background:#fde8e8;color:#b91c1c}
+.pmoh{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:16px 0 4px}
 </style>
 </head>
 <body>
@@ -121,6 +143,7 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
   <button data-tab="search" class="active">🔎 Search</button>
   <button data-tab="review">📝 Review candidates <span id="reviewCount"></span></button>
   <button data-tab="unmatched">📋 Unmatched</button>
+  <button data-tab="progress">📊 Progress</button>
 </nav>
 
 <section id="tab-search" class="tab active">
@@ -221,6 +244,28 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
       <div><h2 class="sec">Arabic — no English match (<span id="cAr"></span>)</h2><ul class="vlist" id="listAr"></ul></div>
     </div>
   </div>
+</section>
+
+<section id="tab-progress" class="tab">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+      <b>Overall matching progress</b><span id="progOverallPct" style="font-weight:700"></span>
+    </div>
+    <div class="pbar" style="margin:10px 0 4px"><i id="progOverallBar"></i></div>
+    <p class="muted" id="progOverallTxt" style="margin:6px 0 0"></p>
+  </div>
+  <div class="card">
+    <div class="toolbar">
+      <label class="muted">Mohafaza
+        <select id="progMohFilter" class="filter"><option value="all">All mohafazas</option></select>
+      </label>
+      <div class="seg" id="progViewSeg">
+        <button data-v="d" class="active">Districts</button><button data-v="m">Mohafazas</button>
+      </div>
+      <input id="progQ" class="tinput" placeholder="Filter by name…" dir="auto">
+    </div>
+  </div>
+  <div id="progList"></div>
 </section>
 </div>
 
@@ -757,6 +802,121 @@ function renderUnmatched(){
   wireListClicks($("tab-unmatched"));
 }
 
+/* ---------- progress tab ---------- */
+const PROG={moh:"all",view:"d",q:""};
+let PROGDATA=null;
+function progPct(m,u){const t=m+u;return t?Math.round(100*m/t):0;}
+function buildProgData(){
+  const d={},m={};
+  DB.matched.forEach(x=>{
+    const dd=d[x.district]||(d[x.district]={m:new Set(),u:0,moh:x.mohafaza||"",moh_ar:x.mohafaza_ar||"",d_ar:x.district_ar||""});
+    dd.m.add(x.en);
+    const mm=m[x.mohafaza]||(m[x.mohafaza]={m:new Set(),u:0,moh_ar:x.mohafaza_ar||""});
+    mm.m.add(x.en);
+  });
+  DB.unmatched_en.forEach(u=>{
+    if(u.district){const dd=d[u.district]||(d[u.district]={m:new Set(),u:0,moh:u.mohafaza||"",moh_ar:"",d_ar:""});dd.u++;}
+    if(u.mohafaza){const mm=m[u.mohafaza]||(m[u.mohafaza]={m:new Set(),u:0,moh_ar:""});mm.u++;}
+  });
+  const v={},seen=new Set(),revEn={};
+  DB.review.forEach(r=>{revEn[r.en]=1;});
+  DB.matched.forEach(x=>{
+    const k=x.en+"|"+x.district;
+    if(seen.has(k))return; seen.add(k);
+    const e=v[x.district]||(v[x.district]={matched:[],review:[],unmatched:[]});
+    e.matched.push({en:x.en,ar:(x.ar_all&&x.ar_all.length?x.ar_all.join("، "):x.ar)});
+  });
+  DB.unmatched_en.forEach(u=>{
+    if(!u.district)return;
+    const e=v[u.district]||(v[u.district]={matched:[],review:[],unmatched:[]});
+    (revEn[u.en]?e.review:e.unmatched).push({en:u.en});
+  });
+  Object.values(v).forEach(e=>Object.values(e).forEach(l=>l.sort((a,b)=>a.en.localeCompare(b.en))));
+  return {d,m,v};
+}
+function progRowHTML(name,sub,m,u,detail){
+  const p=progPct(m,u),t=m+u;
+  return `<div class="prow"><button class="prowhead">
+    <span class="chev">▶</span>
+    <span class="nm"><b dir="auto">${esc(name)}</b><span dir="auto">${esc(sub||"")}</span></span>
+    <span class="pwrap"><span class="pbar"><i style="width:${p}%"></i></span></span>
+    <span class="ppct">${p}%</span><span class="pcnt">${m}/${t}</span>
+  </button><div class="pdetail">${detail}</div></div>`;
+}
+function progVillList(v){
+  const sec=(label,cls,list,ar)=>{
+    if(!list.length)return "";
+    return `<h2 class="sec">${label} (${list.length})</h2><ul class="vlist">`+
+      list.slice(0,80).map(x=>`<li data-q="${esc(x.en)}"><span class="vstat ${cls}">${label}</span> `+
+        `<span dir="auto">${esc(x.en)}</span>`+
+        (ar&&x.ar?` <span class="muted">⟷</span> <span class="ar">${esc(x.ar)}</span>`:"")+
+        `</li>`).join("")+
+      (list.length>80?`<li><span class="muted">…and ${list.length-80} more</span></li>`:"")+`</ul>`;
+  };
+  return sec("Matched","ok",v.matched,true)+sec("In review","rv",v.review,false)+sec("Unmatched","no",v.unmatched,false)
+    ||`<p class="muted">No villages in this district.</p>`;
+}
+function renderProgress(){
+  const box=$("progList"); box.innerHTML="";
+  const q=PROG.q.trim().toLowerCase();
+  const {d,m,v}=PROGDATA;
+  if(PROG.view==="d"){
+    const groups={};
+    Object.keys(d).forEach(n=>{
+      const s=d[n];
+      if(PROG.moh!=="all"&&s.moh!==PROG.moh)return;
+      if(q&&!n.toLowerCase().includes(q))return;
+      (groups[s.moh||"—"]=groups[s.moh||"—"]||[]).push(n);
+    });
+    const mohs=Object.keys(groups).sort();
+    if(!mohs.length)box.innerHTML=`<div class="card"><p class="muted">No districts match this filter.</p></div>`;
+    mohs.forEach(moh=>{
+      const mh=m[moh]||{};
+      box.insertAdjacentHTML("beforeend",
+        `<div class="pmoh" dir="auto">${esc(moh)}${mh.moh_ar?` <span>(${esc(mh.moh_ar)})</span>`:""}</div>`);
+      groups[moh].sort((a,b)=>progPct(d[a].m.size,d[a].u)-progPct(d[b].m.size,d[b].u)).forEach(n=>{
+        const s=d[n],dl=districtLabel(n);
+        box.insertAdjacentHTML("beforeend",progRowHTML(n,
+          s.d_ar||(dl&&dl.label_ar)||"",s.m.size,s.u,
+          progVillList(v[n]||{matched:[],review:[],unmatched:[]})));
+      });
+    });
+  }else{
+    const names=Object.keys(m).filter(n=>
+      (PROG.moh==="all"||n===PROG.moh)&&(!q||n.toLowerCase().includes(q))
+    ).sort((a,b)=>progPct(m[a].m.size,m[a].u)-progPct(m[b].m.size,m[b].u));
+    if(!names.length)box.innerHTML=`<div class="card"><p class="muted">No mohafazas match this filter.</p></div>`;
+    names.forEach(n=>{
+      const s=m[n];
+      const ds=Object.keys(d).filter(dn=>d[dn].moh===n)
+        .sort((a,b)=>progPct(d[a].m.size,d[a].u)-progPct(d[b].m.size,d[b].u));
+      const det=ds.map(dn=>{
+        const p=progPct(d[dn].m.size,d[dn].u),t=d[dn].m.size+d[dn].u;
+        return `<div style="display:flex;align-items:center;gap:10px;padding:7px 2px;border-bottom:1px solid var(--line)">
+          <span dir="auto" style="flex:1">${esc(dn)}</span>
+          <span class="pwrap"><span class="pbar"><i style="width:${p}%"></i></span></span>
+          <span class="ppct">${p}%</span><span class="pcnt">${d[dn].m.size}/${t}</span></div>`;
+      }).join("");
+      box.insertAdjacentHTML("beforeend",progRowHTML(n,s.moh_ar||"",s.m.size,s.u,det));
+    });
+  }
+  box.querySelectorAll(".prowhead").forEach(b=>b.onclick=()=>b.closest(".prow").classList.toggle("open"));
+  box.querySelectorAll("li[data-q]").forEach(li=>{li.onclick=()=>{
+    $("q").value=li.dataset.q;
+    document.querySelector('[data-tab="search"]').click();
+    search(li.dataset.q); window.scrollTo({top:0,behavior:"smooth"});
+  };});
+}
+function fillProgMoh(){
+  const sel=$("progMohFilter");
+  Object.keys(PROGDATA.m).sort().forEach(n=>{
+    const o=document.createElement("option"); o.value=n;
+    const ar=PROGDATA.m[n].moh_ar;
+    o.textContent=ar?`${n} / ${ar}`:n;
+    sel.appendChild(o);
+  });
+}
+
 /* ---------- boot ---------- */
 function fillDistrictSelects(){
   ["reviewFilter","unFilter"].forEach(id=>{
@@ -774,6 +934,12 @@ document.querySelectorAll("nav.tabs button").forEach(b=>{
     document.querySelectorAll("section.tab").forEach(x=>x.classList.remove("active"));
     b.classList.add("active"); $("tab-"+b.dataset.tab).classList.add("active");
   };
+});
+$("progMohFilter").onchange=e=>{PROG.moh=e.target.value;renderProgress();};
+$("progQ").addEventListener("input",e=>{PROG.q=e.target.value;renderProgress();});
+document.querySelectorAll("#progViewSeg button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#progViewSeg button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); PROG.view=b.dataset.v; renderProgress();
 });
 $("go").onclick=()=>search($("q").value);
 $("q").addEventListener("keydown",e=>{if(e.key==="Enter")search($("q").value);});
@@ -804,6 +970,14 @@ fetch("data.json").then(r=>r.json()).then(db=>{
   $("reviewCount").textContent=`(${DB.counts.review})`;
   $("srcFile").textContent=DB.generated_from;
   renderReview(); renderUnmatched(); renderPicks(); loadVotes(); loadSuggest();
+  PROGDATA=buildProgData(); fillProgMoh();
+  let _tm=0,_tu=0;
+  Object.values(PROGDATA.d).forEach(s=>{_tm+=s.m.size;_tu+=s.u;});
+  const _p=progPct(_tm,_tu);
+  $("progOverallPct").textContent=_p+"%";
+  $("progOverallBar").style.width=_p+"%";
+  $("progOverallTxt").textContent=`${_tm.toLocaleString()} of ${(_tm+_tu).toLocaleString()} English villages matched · ${Object.keys(PROGDATA.d).length} districts · ${Object.keys(PROGDATA.m).length} mohafazas`;
+  renderProgress();
   document.querySelector('[data-tab="search"]').click();
 }).catch(err=>{
   document.body.insertAdjacentHTML("beforeend",
