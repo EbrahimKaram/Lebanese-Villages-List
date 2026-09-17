@@ -587,6 +587,10 @@ else:
 # ---------------- write workbook ----------------
 wb = openpyxl.Workbook()
 ws = wb.active
+# english indices claimed by any automatic match are decided: they must not
+# appear in Review, Unmatched, or "still unmatched" counts
+decided_en = set(auto) | set(suggested) | set(subdiv)
+
 ws.title = "Summary"
 ws.append(["Lebanese Villages - Fuzzy Arabic<->English Matching v6 (rerun)"])
 ws.append(["Date", date.today().isoformat()])
@@ -605,12 +609,12 @@ ws.append(["Original matched pairs (v5, subdivisions expanded)", len(already)])
 ws.append(["Unmatched English before rerun", len(unm_en)])
 ws.append(["Unmatched Arabic before rerun", len(unm_ar)])
 ws.append(["New auto matches", len(auto)])
-ws.append(["Review candidate rows", len(review)])
+ws.append(["Review candidate rows", sum(1 for ei in review if ei not in decided_en)])
 ws.append(["Community-suggested matches applied", len(suggested)])
 ws.append(["Suggestions skipped/conflicted/duplicated",
            sum(v for k, v in suggest_stats.items() if k != "applied")])
 still_en = len(unm_en) - len(auto) - sum(1 for ei in review if ei not in auto)
-ws.append(["Still unmatched English", len(unm_en) - len(auto) - len(suggested)])
+ws.append(["Still unmatched English", len(unm_en) - len(decided_en)])
 ws.append(["Still unmatched Arabic", len(unm_ar) - len(ar_taken)])
 ws.append(["Arabic rows dropped as already-matched (one-to-one)", len(dup_arabic)])
 ws.append(["One-to-one conflicts needing human review", len(conflicts)])
@@ -691,6 +695,8 @@ wr = wb.create_sheet("Review")
 wr.append(["English Name", "District", "Mohafaza",
            "Candidate 1 (score)", "Candidate 2 (score)", "Candidate 3 (score)"])
 for ei in sorted(review, key=lambda i: unm_en[i]["en"]):
+    if ei in decided_en:
+        continue  # matched via auto/suggested/subdiv — not reviewable
     u = unm_en[ei]
     cells = [u["en"], u["d"], u["m"]]
     for aj, s in review[ei][:3]:
@@ -704,7 +710,7 @@ for ei in sorted(review, key=lambda i: unm_en[i]["en"]):
 wu = wb.create_sheet("Unmatched")
 wu.append(["Side", "Name", "District", "Mohafaza"])
 for i, u in enumerate(unm_en):
-    if i not in auto and i not in suggested:
+    if i not in decided_en:
         wu.append(["English", u["en"], u["d"], u["m"]])
 for j, u in enumerate(unm_ar):
     if j not in ar_taken:
