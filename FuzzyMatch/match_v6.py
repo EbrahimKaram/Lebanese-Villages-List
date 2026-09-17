@@ -10,11 +10,23 @@ the website's "Suggest a match" flow), each suggestion is auto-accepted as a
 definite match when both names resolve to currently-unmatched rows in the same
 district+mohafaza. Earliest timestamp wins on conflicts; everything is logged
 on the "Suggestions" sheet.
+
+Subdivisions: a comma-separated arabic cell (e.g. "بسكنتا جنوبي,بسكنتا شمالي")
+is expanded into one pair per arabic name. After the one-to-one auto pass, a
+subdivision pass attaches still-unmatched arabic rows that share the
+qualifier-stripped base (جنوبي/شمالي/شرقي/غربي/فوقا/تحتا/حي …) of a definite
+match in the same district+mohafaza — e.g. الفرزل الفوقا joins
+Fourzol <-> الفرزل التحتا. Each arabic subdivision still maps to exactly one
+english; one english may own many arabic subdivisions.
+
+Usage: python3 match_v6.py [--input workbook.xlsx] [--output out.xlsx]
 """
+import argparse
 import json
 import re
 import unicodedata
 from collections import defaultdict
+from datetime import date
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -24,6 +36,13 @@ from rapidfuzz import fuzz
 REPO = Path(__file__).resolve().parent.parent
 V5 = REPO / "FuzzyMatch" / "Grok 4.6" / "Lebanese_Villages_Improved_Matching_v5.xlsx"
 OUT = REPO / "FuzzyMatch" / "Lebanese_Villages_Matched_v6.xlsx"
+
+_ap = argparse.ArgumentParser()
+_ap.add_argument("--input", default=str(V5), help="source workbook (.xlsx)")
+_ap.add_argument("--output", default=str(OUT), help="output workbook (.xlsx)")
+_args = _ap.parse_args()
+V5 = Path(_args.input)
+OUT = Path(_args.output)
 
 AUTO_MIN = 88.0
 REVIEW_MIN = 70.0
@@ -52,6 +71,34 @@ def clean_ar_district(s: str) -> str:
     s = re.sub(r"\s*\([^)]*\)\s*", " ", s)
     s = re.sub(r"^(قضاءي?|قرى|محافظة)\s+", "", s.strip())
     return norm_ar(s)
+
+
+def split_ar_cell(s: str):
+    """A v5 arabic cell may hold several subdivisions: 'a,b،c' -> [a, b, c]."""
+    return [p.strip() for p in re.split(r"[,،;]", s or "") if p.strip()]
+
+
+# qualifier suffixes marking a subdivision (normalized forms, with/without ال)
+SUBDIV_QUALS = {
+    "جنوبي", "الجنوبي", "شمالي", "الشمالي", "شرقي", "الشرقي",
+    "غربي", "الغربي", "فوقا", "الفوقا", "تحتا", "التحتا",
+    "وسطي", "الوسطي", "اوسط", "الاوسط", "جديده", "الجديده",
+    "قديمه", "القديمه",
+}
+
+
+def subdiv_base(ar: str):
+    """Qualifier-stripped base of an arabic village name, or None.
+
+    'الفرزل الفوقا' -> 'الفرزل'; 'بريتال حي التين' -> 'بريتال'.
+    """
+    toks = norm_ar(ar).split()
+    if "حي" in toks:                      # neighborhood suffix: 'X حي Y' -> 'X'
+        toks = toks[:toks.index("حي")]
+    while toks and toks[-1] in SUBDIV_QUALS:
+        toks.pop()
+    base = " ".join(toks)
+    return base if base and len(base.replace(" ", "")) >= 4 else None
 
 
 # ---------------- transliteration (arabic -> latin) ----------------
@@ -245,18 +292,25 @@ def is_placeholder(name):
 en_rows = list(wb5["English (Improved)"].iter_rows(values_only=True))[1:]
 ar_rows = list(wb5["Arabic (Improved)"].iter_rows(values_only=True))[1:]
 
-# already matched pairs (kept as-is)
+# already matched pairs (kept as-is); multi-arabic cells are expanded so each
+# arabic subdivision is its own pair (one english may own many subdivisions)
 already = []          # dicts for English (Full)
 unm_en, unm_ar = [], []
+subdiv_groups_v5 = []  # (en, d, m, [arabic names]) from comma-separated cells
 
 for r in en_rows:
     en, ar, d, m, src = r[0], r[1], r[2], r[3], r[4]
     if not en or not str(en).strip() or is_placeholder(en):
         continue
-    rec = {"en": en, "ar": ar, "d": d, "m": m, "src": src}
     if ar and str(ar).strip():
-        already.append(rec)
+        parts = split_ar_cell(ar)
+        if len(parts) > 1:
+            subdiv_groups_v5.append((en, d, m, parts))
+        for a in parts:
+            already.append({"en": en, "ar": a, "d": d, "m": m, "src": src,
+                            "subdiv": len(parts) > 1})
     else:
+        rec = {"en": en, "ar": ar, "d": d, "m": m, "src": src}
         rec["dkey"] = dkey_en(d)
         rec["mkey"] = mkey_en(m)
         unm_en.append(rec)
@@ -360,6 +414,76 @@ for ei, cands in list(review.items())[:8]:
     print(f"  {u['en']} ({u['d']}/{u['m']}): " +
           "; ".join(f"{unm_ar[aj]['ar']} [{s}]" for aj, s in cands))
 
+# ---------------- subdivision discovery ------------------------------------
+# A subdivision = a still-unmatched arabic row sharing the qualifier-stripped
+# base of a definite match in the same district+mohafaza.
+# Pass A (seeded): definite matches (v5 + auto) attract their subdivisions.
+# Pass B (unseeded): an unmatched english matching the shared base of 2+
+# unmatched arabic rows in its district takes the whole group.
+subdiv = defaultdict(list)   # unm_en idx -> [(ar_idx, score)]
+already_subdiv = []          # (en_name, ar_idx, d, m, source) for already-seeds
+discovered = []              # (en, ar, d, m, source) for the Summary sheet
+
+seeds = []  # (en_name, ar_name, dkey, mkey, d_raw, m_raw, en_idx_or_None)
+for rec in already:
+    dk, mk = dkey_en(rec["d"]), mkey_en(rec["m"])
+    if dk and mk:
+        seeds.append((rec["en"], rec["ar"], dk, mk, rec["d"], rec["m"], None))
+for ei, (aj, _s) in auto.items():
+    u = unm_en[ei]
+    seeds.append((u["en"], unm_ar[aj]["ar"], u["dkey"], u["mkey"], u["d"], u["m"], ei))
+
+for en_name, ar_name, dk, mk, d_raw, m_raw, ei in seeds:
+    base = subdiv_base(ar_name)
+    if not base:
+        continue
+    for j in groups_ar.get((dk, mk), []):
+        if j in ar_taken:
+            continue
+        ajr = unm_ar[j]
+        b2 = subdiv_base(ajr["ar"])
+        if b2 and b2 == base:
+            s = pair_score(en_name, ajr["ar"])
+            src = f"Fuzzy-auto subdivision ({s:.1f})"
+            if ei is None:
+                already_subdiv.append((en_name, j, d_raw, m_raw, src))
+            else:
+                subdiv[ei].append((j, s))
+            ar_taken.add(j)
+            discovered.append((en_name, ajr["ar"], d_raw, m_raw, src + " [seeded]"))
+
+for key in sorted(set(groups_en) & set(groups_ar)):
+    for ei in groups_en[key]:
+        if ei in auto or ei in subdiv:
+            continue
+        u = unm_en[ei]
+        by_base = defaultdict(list)
+        for j in groups_ar[key]:
+            if j in ar_taken:
+                continue
+            b = subdiv_base(unm_ar[j]["ar"])
+            if b:
+                by_base[b].append(j)
+        for b, js in sorted(by_base.items()):
+            if len(js) >= 2 and pair_score(u["en"], b) >= AUTO_MIN:
+                for j in js:
+                    s = pair_score(u["en"], unm_ar[j]["ar"])
+                    subdiv[ei].append((j, s))
+                    ar_taken.add(j)
+                    discovered.append((u["en"], unm_ar[j]["ar"], u["d"], u["m"],
+                                       f"Fuzzy-auto subdivision ({s:.1f}) [unseeded]"))
+
+print(f"subdivision pairs discovered: {len(discovered)} "
+      f"({len(subdiv_groups_v5)} groups already in v5 source)")
+for en_name, ar_name, _d, _m, src in discovered[:15]:
+    print(f"  subdiv  {en_name}  <->  {ar_name}  ({src})")
+
+# drop taken arabic rows from review lists
+for ei in list(review):
+    review[ei] = [(aj, s) for aj, s in review[ei] if aj not in ar_taken]
+    if not review[ei]:
+        del review[ei]
+
 # ---------------- community suggestions (from the website) ----------------
 SUGGEST_CSV = REPO / "FuzzyMatch" / "suggested_matches.csv"
 suggested = {}        # en_idx -> (ar_idx, suggester)
@@ -436,18 +560,19 @@ wb = openpyxl.Workbook()
 ws = wb.active
 ws.title = "Summary"
 ws.append(["Lebanese Villages - Fuzzy Arabic<->English Matching v6 (rerun)"])
-ws.append(["Date", "2026-09-14"])
-ws.append(["Source file", "FuzzyMatch/Grok 4.6/Lebanese_Villages_Improved_Matching_v5.xlsx"])
+ws.append(["Date", date.today().isoformat()])
+ws.append(["Source file", str(V5)])
 ws.append(["Method", "Offline Arabic->Latin transliteration (ya y/i, ta t/a variants) + "
            "French-dialect EN normalization; rapidfuzz WRatio; Hungarian one-to-one "
-           "per (district, mohafaza) group"])
+           "per (district, mohafaza) group; subdivision pass attaches qualifier-sharing "
+           "arabic rows (جنوبي/شمالي/شرقي/غربي/فوقا/تحتا/حي …) to a definite match"])
 ws.append(["Constraint", "Candidates ONLY from the same district AND mohafaza as the English village"])
 ws.append(["Community suggestions", "auto-accepted from FuzzyMatch/suggested_matches.csv "
            "(earliest timestamp wins on conflicts; district+mohafaza enforced)"])
 ws.append(["Auto-match threshold", f">= {AUTO_MIN}"])
 ws.append(["Review band", f"{REVIEW_MIN}-{AUTO_MIN} (top-3 candidates, human confirm)"])
 ws.append([None])
-ws.append(["Original matched pairs (v5, untouched)", len(already)])
+ws.append(["Original matched pairs (v5, subdivisions expanded)", len(already)])
 ws.append(["Unmatched English before rerun", len(unm_en)])
 ws.append(["Unmatched Arabic before rerun", len(unm_ar)])
 ws.append(["New auto matches", len(auto)])
@@ -460,6 +585,20 @@ ws.append(["Still unmatched English", len(unm_en) - len(auto) - len(suggested)])
 ws.append(["Still unmatched Arabic", len(unm_ar) - len(ar_taken)])
 ws.append(["Arabic rows dropped as already-matched (one-to-one)", len(dup_arabic)])
 ws.append(["One-to-one conflicts needing human review", len(conflicts)])
+ws.append(["Subdivision groups in source (expanded to pairs)", len(subdiv_groups_v5)])
+ws.append(["Subdivision pairs auto-discovered", len(discovered)])
+if subdiv_groups_v5:
+    ws.append([None])
+    ws.append(["SUBDIVISION GROUPS (source workbook)"])
+    ws.append(["English Name", "District", "Mohafaza", "Arabic subdivisions"])
+    for en, d, m, parts in sorted(subdiv_groups_v5, key=lambda x: str(x[0])):
+        ws.append([en, d, m, " | ".join(parts)])
+if discovered:
+    ws.append([None])
+    ws.append(["SUBDIVISION PAIRS AUTO-DISCOVERED"])
+    ws.append(["English Name", "Arabic Name", "District", "Mohafaza", "Source"])
+    for row in discovered:
+        ws.append(list(row))
 if dup_arabic:
     ws.append([None])
     ws.append(["DROPPED — arabic village already matched in the same district+mohafaza"])
@@ -477,6 +616,8 @@ we = wb.create_sheet("English (Full)")
 we.append(["English Name", "Arabic Name", "District Name", "Mohafaza", "Match Source"])
 for rec in already:
     we.append([rec["en"], rec["ar"], rec["d"], rec["m"], rec["src"]])
+for en_name, j, d_raw, m_raw, src in already_subdiv:
+    we.append([en_name, unm_ar[j]["ar"], d_raw, m_raw, src])
 for i, u in enumerate(unm_en):
     if i in auto:
         aj, s = auto[i]
@@ -485,8 +626,11 @@ for i, u in enumerate(unm_en):
         aj, suggester = suggested[i]
         by = f" (by {suggester})" if suggester else ""
         we.append([u["en"], unm_ar[aj]["ar"], u["d"], u["m"], f"Community suggestion{by}"])
-    else:
+    elif i not in subdiv:
         we.append([u["en"], None, u["d"], u["m"], "Missing"])
+    for aj2, s2 in subdiv.get(i, []):
+        we.append([u["en"], unm_ar[aj2]["ar"], u["d"], u["m"],
+                   f"Fuzzy-auto subdivision ({s2:.1f})"])
 
 wa = wb.create_sheet("Arabic (Full)")
 wa.append(["Village Name", "English Name", "District Name", "Mohafaza"])
@@ -502,6 +646,11 @@ for ei, (aj, s) in auto.items():
     auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], s)
 for ei, (aj, _suggester) in suggested.items():
     auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], None)
+for ei, lst in subdiv.items():
+    for aj, s in lst:
+        auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], s)
+for en_name, j, _d, _m, _s in already_subdiv:
+    auto_ar_to_en[id(unm_ar[j])] = (en_name, None)
 row_idx = 2
 for rec in ar_full:
     if id(rec) in auto_ar_to_en and not (rec["en"] and str(rec["en"]).strip()):

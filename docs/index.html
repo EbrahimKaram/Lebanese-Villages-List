@@ -287,7 +287,21 @@ function search(q){
       </div>`;
     wireListClicks(box); return;
   }
-  hits.forEach(h=>box.appendChild(renderHit(h,arabic)));
+  if(!arabic){
+    // group subdivision matches: one card per english+district
+    const seen=new Set(), grouped=[];
+    hits.forEach(h=>{
+      if(h.kind==="match"){
+        const g=DB.matched[h.i].subdiv_group||("solo:"+h.i);
+        if(seen.has(g))return; seen.add(g);
+        grouped.push({kind:"match_group",group:g,
+          members:hits.filter(x=>x.kind==="match"&&(DB.matched[x.i].subdiv_group||("solo:"+x.i))===g).map(x=>x.i)});
+      }else grouped.push(h);
+    });
+    grouped.forEach(h=>box.appendChild(renderHit(h,arabic)));
+  }else{
+    hits.forEach(h=>box.appendChild(renderHit(h,arabic)));
+  }
   wireListClicks(box);
 }
 function recName(h,arabic){
@@ -302,7 +316,16 @@ function pickBtn(en,ar,d,m){
 }
 function renderHit(h,arabic){
   const el=document.createElement("div"); el.className="card";
-  if(h.kind==="match"){
+  if(h.kind==="match_group"){
+    const ms=h.members.map(i=>DB.matched[i]);
+    const m0=ms[0];
+    const ars=[...new Set(ms.map(m=>m.ar))];
+    el.innerHTML=`<span class="pill ok">Definite match</span> <span class="pill src">${esc(m0.source||"matched")}</span>
+      <div class="matchpair" style="margin-top:10px">
+        <span dir="auto">${esc(m0.en)}</span><span class="arrow">⟷</span><span class="ar">${ars.map(esc).join("، ")}</span>
+      </div>
+      <p class="muted">${placeLine(m0.district,m0.mohafaza,m0.district_ar,m0.mohafaza_ar)}</p>`;
+  }else if(h.kind==="match"){
     const m=DB.matched[h.i];
     el.innerHTML=`<span class="pill ok">Definite match</span> <span class="pill src">${esc(m.source||"matched")}</span>
       <div class="matchpair" style="margin-top:10px">

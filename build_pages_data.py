@@ -6,9 +6,11 @@ with matched pairs, review candidates, and unmatched villages on both sides,
 each tagged with a canonical district key so the page can show same-district
 unmatched villages when there is no definite match.
 """
+import argparse
 import json
 import re
 import unicodedata
+from collections import defaultdict
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -17,6 +19,17 @@ import openpyxl
 REPO = Path(__file__).resolve().parent
 XLSX = REPO / "FuzzyMatch" / "Lebanese_Villages_Matched_v6.xlsx"
 OUT = REPO / "docs" / "data.json"
+
+_ap = argparse.ArgumentParser()
+_ap.add_argument("--input", default=str(XLSX), help="matched workbook (.xlsx)")
+_ap.add_argument("--output", default=str(OUT), help="output data.json")
+_args = _ap.parse_args()
+XLSX = Path(_args.input)
+OUT = Path(_args.output)
+
+
+def split_ar_cell(s: str):
+    return [p.strip() for p in re.split(r"[,،;]", s or "") if p.strip()]
 
 
 def norm_ar(s: str) -> str:
@@ -93,13 +106,27 @@ def mohafaza_key_ar(arabic: str):
 
 
 # --- matched pairs ----------------------------------------------------------
-matched = []
+# (multi-arabic cells are already expanded to one pair per row by match_v6;
+#  split defensively anyway and tag subdivision groups for the page)
+rows = []
 for r in list(wb["English (Full)"].iter_rows(values_only=True))[1:]:
     en, ar, d, m, src = r[0], r[1], r[2], r[3], r[4]
     if not en or not ar:
         continue
+    parts = split_ar_cell(ar)
+    for a in parts:
+        rows.append((en, a, d, m, src))
+ar_all_by_group = defaultdict(list)
+for en, a, d, m, _src in rows:
+    if a not in ar_all_by_group[(en, d, m)]:
+        ar_all_by_group[(en, d, m)].append(a)
+matched = []
+for en, a, d, m, src in rows:
+    group = f"{en}|{d}|{m}"
+    all_ar = ar_all_by_group[(en, d, m)]
     matched.append({
-        "en": en, "ar": ar,
+        "en": en, "ar": a, "ar_all": all_ar,
+        "subdiv": len(all_ar) > 1, "subdiv_group": group,
         "district": d, "mohafaza": m,
         "district_ar": lat2ar_d.get(norm_lat(d or "")),
         "mohafaza_ar": lat2ar_m.get(norm_lat(m or "")),
@@ -171,7 +198,7 @@ for latin, arabic, _moh in dist_rows:
 districts.sort(key=lambda x: x["label_en"])
 
 data = {
-    "generated_from": "FuzzyMatch/Lebanese_Villages_Matched_v6.xlsx",
+    "generated_from": Path(_args.input).name,
     "counts": {
         "matched": len(matched),
         "review": len(review),
