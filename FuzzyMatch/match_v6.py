@@ -260,6 +260,16 @@ for arabic, latin in moh_rows:
         lat2ar_m[norm_lat(latin)] = arabic
 
 
+# exact aliases for Arabic district labels missing from DistrictTranslation
+# (keys are clean_ar_district() output; checked before the table + fuzzy fallback)
+AR_DISTRICT_ALIASES = {
+    norm_ar("الضنية"): "Minieh-Danieh",
+    norm_ar("صيدا"): "Saida",  # "قرى صيدا" is cleaned to "صيدا"
+    norm_ar("بيروت الأولى"): "Beirut",
+    norm_ar("بيروت الثانية"): "Beirut",
+}
+
+
 def dkey_en(latin):
     k = norm_lat(latin)
     return latin if k in lat2ar_d else None
@@ -267,6 +277,8 @@ def dkey_en(latin):
 
 def dkey_ar(arabic):
     c = clean_ar_district(arabic)
+    if c in AR_DISTRICT_ALIASES:
+        return AR_DISTRICT_ALIASES[c]
     if c in ar2lat_d:
         return ar2lat_d[c]
     best, bs = None, 0.0
