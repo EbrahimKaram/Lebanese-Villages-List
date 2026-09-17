@@ -20,7 +20,7 @@ h1{margin:0 0 6px;font-size:1.6rem}
 .sub{opacity:.85;margin:0 0 14px;max-width:70ch}
 .badges{display:flex;gap:10px;flex-wrap:wrap}
 .ghsign{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;
-  background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 12px}
+  background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px}
 .ghsign-label{font-size:.8rem;color:var(--muted);font-weight:600}
 #ghUserTop{width:130px}#ghTokenTop{width:180px}
 .ghsign input[type=text],.ghsign input[type=password],.ghsign input:not([type]){padding:7px 10px;font-size:.85rem}
@@ -119,8 +119,8 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
 .vstat.ok{background:var(--accent-soft);color:var(--accent)}
 .vstat.rv{background:var(--warn-soft);color:var(--warn)}
 .vstat.no{background:#fde8e8;color:#b91c1c}
-.cand{display:flex;gap:8px;align-items:baseline;padding:4px 6px 4px 10px;font-size:.85rem;cursor:pointer;border-radius:6px}
-.cand:hover{background:var(--accent-soft)}
+.candchip{display:flex;gap:8px;align-items:baseline;padding:4px 6px 4px 10px;font-size:.85rem;cursor:pointer;border-radius:6px}
+.candchip:hover{background:var(--accent-soft)}
 .csc{color:var(--muted);font-variant-numeric:tabular-nums;min-width:46px}
 .pmoh{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:16px 0 4px}
 </style>
@@ -279,6 +279,7 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
 let DB=null;
 const $=id=>document.getElementById(id);
 const decisions=JSON.parse(localStorage.getItem("villageDecisions")||"{}");
+const vkey=(en,d,m)=>(en||"")+"|"+(d||"")+"|"+(m||""); // village key: name+district+mohafaza
 function saveDecisions(){localStorage.setItem("villageDecisions",JSON.stringify(decisions));}
 
 /* ---------- normalization ---------- */
@@ -388,7 +389,8 @@ function renderHit(h,arabic){
       <p style="font-size:1.25rem;margin:8px 0"><span dir="auto">${esc(h.kind==="un_en"?u.en:u.ar)}</span></p>
       <p class="muted">${where}</p>
       <p>Potential candidates — unmatched villages in the same district and region:</p>`;
-    const sugFor=h.kind==="un_en"?(SUGGEST.byEn[u.en]||[]):(SUGGEST.byAr[u.ar]||[]);
+    const sugFor=(h.kind==="un_en"?(SUGGEST.byEn[u.en]||[]):(SUGGEST.byAr[u.ar]||[]))
+      .filter(s=>(!s.district||s.district===(u.district||""))&&(!s.mohafaza||s.mohafaza===(u.mohafaza||"")));
     if(sugFor.length){
       inner+=`<div class="votebar">🤝 Community suggestion${sugFor.length>1?"s":""}: `+
         sugFor.map(s=>`<b dir="auto">${esc(h.kind==="un_en"?s.ar:s.en)}</b> <span class="muted">by ${esc(s.by||"?")}</span>`).join(" · ")+`</div>`;
@@ -481,7 +483,7 @@ function renderReview(){
   const rows=DB.review.filter(r=>!f||r.district===f);
   if(!rows.length){list.innerHTML=`<div class="card empty">No review candidates for this district.</div>`;return;}
   rows.forEach(r=>{
-    const key="en:"+r.en, dec=decisions[key];
+    const key="en:"+vkey(r.en,r.district,r.mohafaza), dec=decisions[key];
     const card=document.createElement("div"); card.className="card";
     card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
         <b dir="auto">${esc(r.en)}</b>
@@ -492,10 +494,10 @@ function renderReview(){
           ${c.ar_district?`<span class="muted ar" style="font-size:.85em">(${esc(c.ar_district)})</span>`:""}
           <span class="bar"><i style="width:${Math.min(100,c.score)}%"></i></span>
           <span class="score">${c.score}</span>
-          ${(()=>{const s=(SUGGEST.byEn[r.en]||[]).find(s=>s.ar===c.ar);
+          ${(()=>{const s=(SUGGEST.byEn[r.en]||[]).find(s=>s.ar===c.ar&&(!s.district||s.district===(r.district||"")));
             return s?`<span class="sugtag">🤝 by ${esc(s.by||"?")}</span>`:"";})()}
           ${pickBtn(r.en,c.ar,r.district,r.mohafaza)}</div>`).join("")}</div>
-      ${(()=>{const vt=VOTES[r.en];
+      ${(()=>{const vt=VOTES[vkey(r.en,r.district,r.mohafaza)];
         return vt?`<div class="votebar">🗳️ Community: <b>${vt.confirm}</b> ✓ · <b>${vt.reject}</b> ✗`+
           (vt.cand?` <span class="muted">for “${esc(vt.cand)}”</span>`:"")+
           `<span class="muted"> · ${vt.nvoters} voter${vt.nvoters===1?"":"s"} (merged vote PRs)</span></div>`:"";})()}
@@ -513,7 +515,7 @@ function renderReview(){
 function copyCsv(){
   const rows=[["english","district","mohafaza","candidate_ar","score","decision"]];
   DB.review.forEach(r=>{
-    const dec=decisions["en:"+r.en]||"";
+    const dec=decisions["en:"+vkey(r.en,r.district,r.mohafaza)]||"";
     r.candidates.forEach(c=>rows.push([r.en,r.district||"",r.mohafaza||"",c.ar,c.score,dec]));
   });
   const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
@@ -544,13 +546,13 @@ function parseCSV(txt){
 function tallyVotes(rows){
   const t={};
   for(let i=1;i<rows.length;i++){
-    const r=rows[i], en=(r[0]||"").trim();
-    if(!en)continue;
-    if(!t[en])t[en]={confirm:0,reject:0,voters:{},cand:""};
-    if(r[5]==="confirm")t[en].confirm++;
-    else if(r[5]==="reject")t[en].reject++;
-    if(r[6])t[en].voters[r[6].trim()]=1;
-    if(r[3])t[en].cand=r[3].trim();
+    const r=rows[i], k=vkey((r[0]||"").trim(),(r[1]||"").trim(),(r[2]||"").trim());
+    if(!(r[0]||"").trim())continue;
+    if(!t[k])t[k]={confirm:0,reject:0,voters:{},cand:""};
+    if(r[5]==="confirm")t[k].confirm++;
+    else if(r[5]==="reject")t[k].reject++;
+    if(r[6])t[k].voters[r[6].trim()]=1;
+    if(r[3])t[k].cand=r[3].trim();
   }
   for(const k in t)t[k].nvoters=Object.keys(t[k].voters).length;
   return t;
@@ -575,20 +577,20 @@ function savePicks(){try{localStorage.setItem("villagePicks",JSON.stringify(pick
 
 function stagePick(btn){
   const p={en:btn.dataset.en,ar:btn.dataset.ar,district:btn.dataset.d||"",mohafaza:btn.dataset.m||""};
-  const idx=picks.findIndex(x=>x.en===p.en&&x.ar===p.ar);
+  const idx=picks.findIndex(x=>x.en===p.en&&x.ar===p.ar&&x.district===p.district&&x.mohafaza===p.mohafaza);
   if(idx>=0){
     // undo a staged pick
     picks.splice(idx,1);savePicks();renderPicks();syncPickBtn(p,false);
     return;
   }
-  const dupMerged=(SUGGEST.byEn[p.en]||[]).some(s=>s.ar===p.ar);
+  const dupMerged=(SUGGEST.byEn[p.en]||[]).some(s=>s.ar===p.ar&&(!s.district||s.district===p.district)&&(!s.mohafaza||s.mohafaza===p.mohafaza));
   if(dupMerged){syncPickBtn(p,true);return;}
   picks.push(p);savePicks();renderPicks();syncPickBtn(p,false);
 }
 // reflect staged/merged state on every visible button for a pair
 function syncPickBtn(p,merged){
   document.querySelectorAll(".pickbtn").forEach(b=>{
-    if(b.dataset.en!==p.en||b.dataset.ar!==p.ar)return;
+    if(b.dataset.en!==p.en||b.dataset.ar!==p.ar||b.dataset.d!==(p.district||"")||b.dataset.m!==(p.mohafaza||""))return;
     const staged=picks.some(x=>x.en===p.en&&x.ar===p.ar);
     if(merged||staged){
       b.textContent=merged?"✓ Suggested":"✓ Suggested — tap to undo";
@@ -623,9 +625,10 @@ async function loadSuggest(){
     const byEn={},byAr={};
     for(let i=1;i<rows.length;i++){
       const en=(rows[i][0]||"").trim(), ar=(rows[i][1]||"").trim(), by=(rows[i][4]||"").trim();
+      const di=(rows[i][2]||"").trim(), mo=(rows[i][3]||"").trim();
       if(!en||!ar)continue;
-      (byEn[en]=byEn[en]||[]).push({ar,by});
-      (byAr[ar]=byAr[ar]||[]).push({en,by});
+      (byEn[en]=byEn[en]||[]).push({ar,by,district:di,mohafaza:mo});
+      (byAr[ar]=byAr[ar]||[]).push({en,by,district:di,mohafaza:mo});
     }
     SUGGEST={byEn,byAr};
     if($("reviewList"))renderReview();
@@ -751,19 +754,21 @@ async function ghSubmitCsv(o){
 }
 async function submitVotes(){
   const st=$("voteStatus");
-  const rows=Object.keys(decisions).filter(k=>decisions[k]==="yes"||decisions[k]==="no");
+  const rows=Object.keys(decisions).filter(k=>(decisions[k]==="yes"||decisions[k]==="no")&&k.slice(3).split("|").length>=3);
   if(!rows.length){st.textContent="No decisions yet — tap ✓ / ✗ on some review rows first.";return;}
   const cred=ghCreds(st); if(!cred)return;
   st.textContent="Sending "+rows.length+" vote(s)…";
   try{
     const ts=new Date().toISOString().replace(/\.\d+Z$/,"Z");
     const lines=rows.map(k=>{
-      const en=k.slice(3);
-      const r=DB.review.find(x=>x.en===en)||{};
+      const parts=k.slice(3).split("|");
+      if(parts.length<3)return null;
+      const [en,di,mo]=parts;
+      const r=DB.review.find(x=>x.en===en&&x.district===di&&x.mohafaza===mo)||{};
       const c=(r.candidates||[])[0]||{};
       return [en,r.district||"",r.mohafaza||"",c.ar||"",c.score==null?"":c.score,
         decisions[k]==="yes"?"confirm":"reject",cred.user,ts].map(csvCell).join(",");
-    });
+    }).filter(Boolean);
     const pr=await ghSubmitCsv({token:cred.token,user:cred.user,path:VOTES_PATH,header:VOTES_HEADER,lines,
       branchPrefix:"votes/",
       prTitle:`Votes on fuzzy matches by ${cred.user} (${rows.length} decisions)`,
@@ -822,7 +827,7 @@ function buildProgData(){
     if(u.mohafaza){const mm=m[u.mohafaza]||(m[u.mohafaza]={m:new Set(),u:0,moh_ar:""});mm.u++;}
   });
   const v={},seen=new Set(),revCands={};
-  DB.review.forEach(r=>{revCands[r.en+"|"+r.district]=(r.candidates||[]).map(c=>({ar:c.ar,score:c.score}));});
+  DB.review.forEach(r=>{revCands[vkey(r.en,r.district,r.mohafaza)]=(r.candidates||[]).map(c=>({ar:c.ar,score:c.score}));});
   DB.matched.forEach(x=>{
     const k=x.en+"|"+x.district;
     if(seen.has(k))return; seen.add(k);
@@ -832,14 +837,14 @@ function buildProgData(){
   DB.unmatched_en.forEach(u=>{
     if(!u.district)return;
     const e=v[u.district]||(v[u.district]={matched:[],review:[],unmatched:[]});
-    const cands=revCands[u.en+"|"+u.district];
+    const cands=revCands[vkey(u.en,u.district,u.mohafaza)];
     (cands?e.review:e.unmatched).push({en:u.en,cands:cands||[]});
   });
   Object.values(v).forEach(e=>Object.values(e).forEach(l=>l.sort((a,b)=>a.en.localeCompare(b.en))));
   const unAr={};
   DB.unmatched_ar.forEach(u=>{
-    const k=u.dkey||u.district;
-    if(!k)return;
+    const k=(u.district||"")+"|"+(u.mohafaza||"");
+    if(k==="|")return;
     (unAr[k]=unAr[k]||[]).push({ar:u.ar});
   });
   Object.values(unAr).forEach(l=>l.sort((a,b)=>a.ar.localeCompare(b.ar,"ar")));
@@ -866,7 +871,7 @@ function progVillList(v,unAr){
     h+=`<h2 class="sec">In review (${v.review.length})</h2><ul class="vlist">`+
       v.review.slice(0,80).map(x=>
         `<li data-q="${esc(x.en)}"><span class="vstat rv">In review</span> <span dir="auto">${esc(x.en)}</span>`+
-        (x.cands||[]).map(c=>`<div class="cand" data-q="${esc(c.ar)}"><span class="csc">${c.score}%</span> <span class="ar" dir="auto">${esc(c.ar)}</span></div>`).join("")+
+        (x.cands||[]).map(c=>`<div class="candchip" data-q="${esc(c.ar)}"><span class="csc">${c.score}%</span> <span class="ar" dir="auto">${esc(c.ar)}</span></div>`).join("")+
         `</li>`).join("")+more(v.review.length-80)+`</ul>`;
   const unE=v.unmatched,unA=unAr||[];
   if(unE.length||unA.length){
@@ -904,7 +909,7 @@ function renderProgress(){
         const s=d[n],dl=districtLabel(n);
         box.insertAdjacentHTML("beforeend",progRowHTML(n,
           s.d_ar||(dl&&dl.label_ar)||"",s.m.size,s.u,
-          progVillList(v[n]||{matched:[],review:[],unmatched:[]},unAr[n]||[])));
+          progVillList(v[n]||{matched:[],review:[],unmatched:[]},unAr[n+"|"+(s.moh||"")]||[])));
       });
     });
   }else{
@@ -931,7 +936,7 @@ function renderProgress(){
     document.querySelector('[data-tab="search"]').click();
     search(q); window.scrollTo({top:0,behavior:"smooth"});};
   box.querySelectorAll("li[data-q]").forEach(li=>{li.onclick=()=>progGo(li.dataset.q);});
-  box.querySelectorAll(".cand[data-q]").forEach(el=>{el.onclick=e=>{e.stopPropagation();progGo(el.dataset.q);};});
+  box.querySelectorAll(".candchip[data-q]").forEach(el=>{el.onclick=e=>{e.stopPropagation();progGo(el.dataset.q);};});
 }
 function fillProgMoh(){
   const sel=$("progMohFilter");
