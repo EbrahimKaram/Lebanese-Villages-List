@@ -11,6 +11,10 @@ definite match when both names resolve to currently-unmatched rows in the same
 district+mohafaza. Earliest timestamp wins on conflicts; everything is logged
 on the "Suggestions" sheet.
 
+Compound arabic district labels (e.g. "قضاءي بعلبك والهرمل") name two districts;
+those rows are filed under every district they name, so seeds and candidate
+groups of either district can see them.
+
 Subdivisions: a comma-separated arabic cell (e.g. "بسكنتا جنوبي,بسكنتا شمالي")
 is expanded into one pair per arabic name. After the one-to-one auto pass, a
 subdivision pass attaches still-unmatched arabic rows that share the
@@ -259,10 +263,12 @@ wb5 = openpyxl.load_workbook(V5, read_only=True, data_only=True)
 
 dist_rows = list(wb5["DistrictTranslation"].iter_rows(values_only=True))[1:]
 lat2ar_d, ar2lat_d = {}, {}
+ar_d_clean_to_lats = defaultdict(set)
 for latin, arabic, _m in dist_rows:
     if latin and arabic:
         lat2ar_d[norm_lat(latin)] = arabic
         ar2lat_d[norm_ar(arabic)] = latin
+        ar_d_clean_to_lats[clean_ar_district(arabic)].add(latin)
 KNOWN_AR_D = list(ar2lat_d.keys())
 
 moh_rows = list(wb5["Mohafaza Translations"].iter_rows(values_only=True))[1:]
@@ -286,6 +292,25 @@ AR_DISTRICT_ALIASES = {
 def dkey_en(latin):
     k = norm_lat(latin)
     return latin if k in lat2ar_d else None
+
+
+def dkeys_ar(arabic):
+    """Every latin district key an arabic district label maps to.
+
+    Compound labels (e.g. 'قضاءي بعلبك والهرمل') map to each district they name;
+    ordinary labels behave exactly like dkey_ar (single-element set).
+    """
+    c = clean_ar_district(arabic)
+    if c in AR_DISTRICT_ALIASES:
+        return {AR_DISTRICT_ALIASES[c]}
+    if c in ar_d_clean_to_lats:
+        return set(ar_d_clean_to_lats[c])
+    best, bs = None, 0.0
+    for known in KNOWN_AR_D:
+        s = SequenceMatcher(None, c, known).ratio()
+        if s > bs:
+            best, bs = known, s
+    return {ar2lat_d[best]} if bs >= 0.8 else set()
 
 
 def dkey_ar(arabic):
@@ -372,9 +397,18 @@ for rec in already:
 dup_arabic = []    # (ar, district, mohafaza, [english]) dropped from unm_ar
 kept_ar = []
 for u in unm_ar:
-    t = (norm_ar(u["ar"]), u.get("dkey"), u.get("mkey"))
-    if t[1] and t[2] and t in already_triples:
-        dup_arabic.append((u["ar"], u["d"], u["m"], sorted(set(already_triples[t]))))
+    # compound district labels count as every district they name: an arabic
+    # row that duplicates a definite match in any of those districts is dropped
+    hit = None
+    mk = u.get("mkey")
+    if mk:
+        for dk in dkeys_ar(u["d"]):
+            t = (norm_ar(u["ar"]), dk, mk)
+            if t in already_triples:
+                hit = t
+                break
+    if hit:
+        dup_arabic.append((u["ar"], u["d"], u["m"], sorted(set(already_triples[hit]))))
     else:
         kept_ar.append(u)
 unm_ar = kept_ar
@@ -392,8 +426,10 @@ for i, u in enumerate(unm_en):
     if u["dkey"] and u["mkey"]:
         groups_en[(u["dkey"], u["mkey"])].append(i)
 for j, u in enumerate(unm_ar):
-    if u["dkey"] and u["mkey"]:
-        groups_ar[(u["dkey"], u["mkey"])].append(j)
+    if u["mkey"]:
+        # compound district labels file under every district they name
+        for dk in dkeys_ar(u["d"]):
+            groups_ar[(dk, u["mkey"])].append(j)
 
 # ---------------- score + hungarian per group ----------------
 auto = {}            # en_idx -> (ar_idx, score)
@@ -415,7 +451,7 @@ for key in sorted(set(groups_en) & set(groups_ar)):
     for ii, ei in enumerate(eis):
         jj = int(en_best[ii])
         s = float(S[ii, jj])
-        if s >= AUTO_MIN and int(ar_best[jj]) == ii:
+        if s >= AUTO_MIN and int(ar_best[jj]) == ii and ajs[jj] not in ar_taken:
             auto[ei] = (ajs[jj], s)
             ar_taken.add(ajs[jj])
     # review: top-3 per en (excluding auto-taken ar), score in [REVIEW_MIN, AUTO_MIN)
@@ -587,6 +623,10 @@ else:
 # ---------------- write workbook ----------------
 wb = openpyxl.Workbook()
 ws = wb.active
+# english indices claimed by any automatic match are decided: they must not
+# appear in Review, Unmatched, or "still unmatched" counts
+decided_en = set(auto) | set(suggested) | set(subdiv)
+
 ws.title = "Summary"
 ws.append(["Lebanese Villages - Fuzzy Arabic<->English Matching v6 (rerun)"])
 ws.append(["Date", date.today().isoformat()])
@@ -605,12 +645,12 @@ ws.append(["Original matched pairs (v5, subdivisions expanded)", len(already)])
 ws.append(["Unmatched English before rerun", len(unm_en)])
 ws.append(["Unmatched Arabic before rerun", len(unm_ar)])
 ws.append(["New auto matches", len(auto)])
-ws.append(["Review candidate rows", len(review)])
+ws.append(["Review candidate rows", sum(1 for ei in review if ei not in decided_en)])
 ws.append(["Community-suggested matches applied", len(suggested)])
 ws.append(["Suggestions skipped/conflicted/duplicated",
            sum(v for k, v in suggest_stats.items() if k != "applied")])
 still_en = len(unm_en) - len(auto) - sum(1 for ei in review if ei not in auto)
-ws.append(["Still unmatched English", len(unm_en) - len(auto) - len(suggested)])
+ws.append(["Still unmatched English", len(unm_en) - len(decided_en)])
 ws.append(["Still unmatched Arabic", len(unm_ar) - len(ar_taken)])
 ws.append(["Arabic rows dropped as already-matched (one-to-one)", len(dup_arabic)])
 ws.append(["One-to-one conflicts needing human review", len(conflicts)])
@@ -691,6 +731,8 @@ wr = wb.create_sheet("Review")
 wr.append(["English Name", "District", "Mohafaza",
            "Candidate 1 (score)", "Candidate 2 (score)", "Candidate 3 (score)"])
 for ei in sorted(review, key=lambda i: unm_en[i]["en"]):
+    if ei in decided_en:
+        continue  # matched via auto/suggested/subdiv — not reviewable
     u = unm_en[ei]
     cells = [u["en"], u["d"], u["m"]]
     for aj, s in review[ei][:3]:
@@ -704,7 +746,7 @@ for ei in sorted(review, key=lambda i: unm_en[i]["en"]):
 wu = wb.create_sheet("Unmatched")
 wu.append(["Side", "Name", "District", "Mohafaza"])
 for i, u in enumerate(unm_en):
-    if i not in auto and i not in suggested:
+    if i not in decided_en:
         wu.append(["English", u["en"], u["d"], u["m"]])
 for j, u in enumerate(unm_ar):
     if j not in ar_taken:

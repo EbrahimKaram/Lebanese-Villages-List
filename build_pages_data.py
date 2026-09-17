@@ -62,11 +62,13 @@ wb = openpyxl.load_workbook(XLSX, read_only=True, data_only=True)
 dist_rows = list(wb["DistrictTranslation"].iter_rows(values_only=True))[1:]
 # (District latin, District Arabic, Mohafaza)
 lat2ar_d, ar2lat_d = {}, {}
+ar_d_clean_to_lats = defaultdict(set)
 for latin, arabic, _moh in dist_rows:
     if not latin or not arabic:
         continue
     lat2ar_d[norm_lat(latin)] = arabic
     ar2lat_d[norm_ar(arabic)] = latin
+    ar_d_clean_to_lats[clean_ar_district(arabic)].add(latin)
 KNOWN_AR_D = list(ar2lat_d.keys())
 
 moh_rows = list(wb["Mohafaza Translations"].iter_rows(values_only=True))[1:]
@@ -92,6 +94,25 @@ AR_DISTRICT_ALIASES = {
 def district_key_en(latin: str):
     k = norm_lat(latin)
     return latin if k in lat2ar_d else None
+
+
+def district_keys_ar(arabic: str):
+    """Every latin district key for an arabic district label.
+
+    Compound labels (e.g. 'قضاءي بعلبك والهرمل') name two districts; the row
+    is then visible under each. Ordinary labels behave like district_key_ar.
+    """
+    c = clean_ar_district(arabic)
+    if c in AR_DISTRICT_ALIASES:
+        return {AR_DISTRICT_ALIASES[c]}
+    if c in ar_d_clean_to_lats:
+        return set(ar_d_clean_to_lats[c])
+    best, bs = None, 0.0
+    for known in KNOWN_AR_D:
+        s = SequenceMatcher(None, c, known).ratio()
+        if s > bs:
+            best, bs = known, s
+    return {ar2lat_d[best]} if bs >= 0.8 else set()
 
 
 def district_key_ar(arabic: str):
@@ -197,6 +218,8 @@ for r in list(wb["Unmatched"].iter_rows(values_only=True))[1:]:
         unmatched_ar.append({
             "ar": name, "district": d, "mohafaza": m,
             "dkey": dk, "mkey": mk,
+            # compound district labels are listed under every district they name
+            "dkeys": sorted(district_keys_ar(d)),
         })
 
 # --- district list for filters ----------------------------------------------

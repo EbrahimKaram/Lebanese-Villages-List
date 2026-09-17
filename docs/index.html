@@ -307,7 +307,7 @@ function buildIndexes(){
 function districtLabel(dkey){ const d=DB.districts.find(x=>x.key===dkey); return d||null; }
 function sameDistrictUnmatched(v){
   // unmatched villages in the SAME district AND region (mohafaza) as v
-  const ar=DB.unmatched_ar.filter(u=>v.dkey&&v.mkey&&u.dkey===v.dkey&&u.mkey===v.mkey);
+  const ar=DB.unmatched_ar.filter(u=>v.dkey&&v.mkey&&(u.dkeys||[u.dkey]).includes(v.dkey)&&u.mkey===v.mkey);
   const en=DB.unmatched_en.filter(u=>v.dkey&&v.mkey&&u.dkey===v.dkey&&u.mkey===v.mkey);
   return {ar,en};
 }
@@ -803,7 +803,7 @@ async function submitPicks(){
 function renderUnmatched(){
   const f=$("unFilter").value;
   const en=DB.unmatched_en.filter(u=>!f||u.dkey===f||(!u.dkey&&f===""));
-  const ar=DB.unmatched_ar.filter(u=>!f||u.dkey===f);
+  const ar=DB.unmatched_ar.filter(u=>!f||(u.dkeys||[u.dkey]).includes(f));
   $("cEn").textContent=en.length; $("cAr").textContent=ar.length;
   $("listEn").innerHTML=en.map(u=>`<li data-q="${esc(u.en)}"><span dir="auto">${esc(u.en)}</span><br><span class="muted">${esc(u.district||"")}</span></li>`).join("");
   $("listAr").innerHTML=ar.map(u=>`<li data-q="${esc(u.ar)}"><span class="ar">${esc(u.ar)}</span><br><span class="muted">${esc(u.district||"")}</span></li>`).join("");
@@ -843,9 +843,13 @@ function buildProgData(){
   Object.values(v).forEach(e=>Object.values(e).forEach(l=>l.sort((a,b)=>a.en.localeCompare(b.en))));
   const unAr={};
   DB.unmatched_ar.forEach(u=>{
-    const k=(u.district||"")+"|"+(u.mohafaza||"");
-    if(k==="|")return;
-    (unAr[k]=unAr[k]||[]).push({ar:u.ar});
+    const mk=u.mkey||"";
+    if(!mk)return;
+    (u.dkeys||[u.dkey]).forEach(dk=>{
+      if(!dk)return;
+      const k=dk+"|"+mk;
+      (unAr[k]=unAr[k]||[]).push({ar:u.ar});
+    });
   });
   Object.values(unAr).forEach(l=>l.sort((a,b)=>a.ar.localeCompare(b.ar,"ar")));
   return {d,m,v,unAr};
