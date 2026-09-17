@@ -40,9 +40,22 @@ OUT = REPO / "FuzzyMatch" / "Lebanese_Villages_Matched_v6.xlsx"
 _ap = argparse.ArgumentParser()
 _ap.add_argument("--input", default=str(V5), help="source workbook (.xlsx)")
 _ap.add_argument("--output", default=str(OUT), help="output workbook (.xlsx)")
+_ap.add_argument("--unmatch", default=None,
+                help="CSV of reviewer-rejected matches to blank before matching "
+                     "(columns: english,arabic,district)")
 _args = _ap.parse_args()
 V5 = Path(_args.input)
 OUT = Path(_args.output)
+
+# reviewer overrides: (english, arabic, district) triples whose v5 match is
+# rejected — the english name is treated as unmatched and re-run through matching
+UNMATCH = set()
+if _args.unmatch:
+    import csv
+    with open(_args.unmatch, encoding="utf-8-sig") as _f:
+        for _row in csv.DictReader(_f):
+            UNMATCH.add((_row["english"].strip(), _row["arabic"].strip(), _row["district"].strip()))
+    print(f"unmatch overrides loaded: {len(UNMATCH)}")
 
 AUTO_MIN = 88.0
 REVIEW_MIN = 70.0
@@ -260,6 +273,16 @@ for arabic, latin in moh_rows:
         lat2ar_m[norm_lat(latin)] = arabic
 
 
+# exact aliases for Arabic district labels missing from DistrictTranslation
+# (keys are clean_ar_district() output; checked before the table + fuzzy fallback)
+AR_DISTRICT_ALIASES = {
+    norm_ar("الضنية"): "Minieh-Danieh",
+    norm_ar("صيدا"): "Saida",  # "قرى صيدا" is cleaned to "صيدا"
+    norm_ar("بيروت الأولى"): "Beirut",
+    norm_ar("بيروت الثانية"): "Beirut",
+}
+
+
 def dkey_en(latin):
     k = norm_lat(latin)
     return latin if k in lat2ar_d else None
@@ -267,6 +290,8 @@ def dkey_en(latin):
 
 def dkey_ar(arabic):
     c = clean_ar_district(arabic)
+    if c in AR_DISTRICT_ALIASES:
+        return AR_DISTRICT_ALIASES[c]
     if c in ar2lat_d:
         return ar2lat_d[c]
     best, bs = None, 0.0
@@ -302,6 +327,10 @@ for r in en_rows:
     en, ar, d, m, src = r[0], r[1], r[2], r[3], r[4]
     if not en or not str(en).strip() or is_placeholder(en):
         continue
+    if ar and str(ar).strip():
+        if (str(en).strip(), str(ar).strip(), str(d or "").strip()) in UNMATCH:
+            print(f"  unmatch override: {en} <-> {ar} [{d}] -> treated as unmatched")
+            ar = None
     if ar and str(ar).strip():
         parts = split_ar_cell(ar)
         if len(parts) > 1:
