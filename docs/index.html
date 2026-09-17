@@ -119,6 +119,9 @@ footer{padding:26px 0 40px;color:var(--muted);font-size:.85rem;text-align:center
 .vstat.ok{background:var(--accent-soft);color:var(--accent)}
 .vstat.rv{background:var(--warn-soft);color:var(--warn)}
 .vstat.no{background:#fde8e8;color:#b91c1c}
+.cand{display:flex;gap:8px;align-items:baseline;padding:4px 6px 4px 10px;font-size:.85rem;cursor:pointer;border-radius:6px}
+.cand:hover{background:var(--accent-soft)}
+.csc{color:var(--muted);font-variant-numeric:tabular-nums;min-width:46px}
 .pmoh{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:16px 0 4px}
 </style>
 </head>
@@ -818,8 +821,8 @@ function buildProgData(){
     if(u.district){const dd=d[u.district]||(d[u.district]={m:new Set(),u:0,moh:u.mohafaza||"",moh_ar:"",d_ar:""});dd.u++;}
     if(u.mohafaza){const mm=m[u.mohafaza]||(m[u.mohafaza]={m:new Set(),u:0,moh_ar:""});mm.u++;}
   });
-  const v={},seen=new Set(),revEn={};
-  DB.review.forEach(r=>{revEn[r.en]=1;});
+  const v={},seen=new Set(),revCands={};
+  DB.review.forEach(r=>{revCands[r.en+"|"+r.district]=(r.candidates||[]).map(c=>({ar:c.ar,score:c.score}));});
   DB.matched.forEach(x=>{
     const k=x.en+"|"+x.district;
     if(seen.has(k))return; seen.add(k);
@@ -829,10 +832,18 @@ function buildProgData(){
   DB.unmatched_en.forEach(u=>{
     if(!u.district)return;
     const e=v[u.district]||(v[u.district]={matched:[],review:[],unmatched:[]});
-    (revEn[u.en]?e.review:e.unmatched).push({en:u.en});
+    const cands=revCands[u.en+"|"+u.district];
+    (cands?e.review:e.unmatched).push({en:u.en,cands:cands||[]});
   });
   Object.values(v).forEach(e=>Object.values(e).forEach(l=>l.sort((a,b)=>a.en.localeCompare(b.en))));
-  return {d,m,v};
+  const unAr={};
+  DB.unmatched_ar.forEach(u=>{
+    const k=u.dkey||u.district;
+    if(!k)return;
+    (unAr[k]=unAr[k]||[]).push({ar:u.ar});
+  });
+  Object.values(unAr).forEach(l=>l.sort((a,b)=>a.ar.localeCompare(b.ar,"ar")));
+  return {d,m,v,unAr};
 }
 function progRowHTML(name,sub,m,u,detail){
   const p=progPct(m,u),t=m+u;
@@ -843,23 +854,38 @@ function progRowHTML(name,sub,m,u,detail){
     <span class="ppct">${p}%</span><span class="pcnt">${m}/${t}</span>
   </button><div class="pdetail">${detail}</div></div>`;
 }
-function progVillList(v){
-  const sec=(label,cls,list,ar)=>{
-    if(!list.length)return "";
-    return `<h2 class="sec">${label} (${list.length})</h2><ul class="vlist">`+
-      list.slice(0,80).map(x=>`<li data-q="${esc(x.en)}"><span class="vstat ${cls}">${label}</span> `+
-        `<span dir="auto">${esc(x.en)}</span>`+
-        (ar&&x.ar?` <span class="muted">⟷</span> <span class="ar">${esc(x.ar)}</span>`:"")+
-        `</li>`).join("")+
-      (list.length>80?`<li><span class="muted">…and ${list.length-80} more</span></li>`:"")+`</ul>`;
-  };
-  return sec("Matched","ok",v.matched,true)+sec("In review","rv",v.review,false)+sec("Unmatched","no",v.unmatched,false)
-    ||`<p class="muted">No villages in this district.</p>`;
+function progVillList(v,unAr){
+  const more=n=>n>0?`<li><span class="muted">…and ${n} more</span></li>`:"";
+  let h="";
+  if(v.matched.length)
+    h+=`<h2 class="sec">Matched (${v.matched.length})</h2><ul class="vlist">`+
+      v.matched.slice(0,80).map(x=>`<li data-q="${esc(x.en)}"><span class="vstat ok">Matched</span> `+
+        `<span dir="auto">${esc(x.en)}</span> <span class="muted">⟷</span> <span class="ar">${esc(x.ar)}</span></li>`).join("")+
+      more(v.matched.length-80)+`</ul>`;
+  if(v.review.length)
+    h+=`<h2 class="sec">In review (${v.review.length})</h2><ul class="vlist">`+
+      v.review.slice(0,80).map(x=>
+        `<li data-q="${esc(x.en)}"><span class="vstat rv">In review</span> <span dir="auto">${esc(x.en)}</span>`+
+        (x.cands||[]).map(c=>`<div class="cand" data-q="${esc(c.ar)}"><span class="csc">${c.score}%</span> <span class="ar" dir="auto">${esc(c.ar)}</span></div>`).join("")+
+        `</li>`).join("")+more(v.review.length-80)+`</ul>`;
+  const unE=v.unmatched,unA=unAr||[];
+  if(unE.length||unA.length){
+    h+=`<h2 class="sec">Unmatched (${unE.length+unA.length})</h2>`;
+    if(unA.length)
+      h+=`<p class="muted" style="margin:8px 0 2px;font-size:.85rem">Arabic — no English match (${unA.length}) · same district, possible counterparts</p><ul class="vlist">`+
+        unA.slice(0,80).map(a=>`<li data-q="${esc(a.ar)}"><span class="vstat no">Unmatched</span> <span class="ar" dir="auto">${esc(a.ar)}</span></li>`).join("")+
+        more(unA.length-80)+`</ul>`;
+    if(unE.length)
+      h+=`<p class="muted" style="margin:8px 0 2px;font-size:.85rem">English — no Arabic match (${unE.length})</p><ul class="vlist">`+
+        unE.slice(0,80).map(x=>`<li data-q="${esc(x.en)}"><span class="vstat no">Unmatched</span> <span dir="auto">${esc(x.en)}</span></li>`).join("")+
+        more(unE.length-80)+`</ul>`;
+  }
+  return h||`<p class="muted">No villages in this district.</p>`;
 }
 function renderProgress(){
   const box=$("progList"); box.innerHTML="";
   const q=PROG.q.trim().toLowerCase();
-  const {d,m,v}=PROGDATA;
+  const {d,m,v,unAr}=PROGDATA;
   if(PROG.view==="d"){
     const groups={};
     Object.keys(d).forEach(n=>{
@@ -878,7 +904,7 @@ function renderProgress(){
         const s=d[n],dl=districtLabel(n);
         box.insertAdjacentHTML("beforeend",progRowHTML(n,
           s.d_ar||(dl&&dl.label_ar)||"",s.m.size,s.u,
-          progVillList(v[n]||{matched:[],review:[],unmatched:[]})));
+          progVillList(v[n]||{matched:[],review:[],unmatched:[]},unAr[n]||[])));
       });
     });
   }else{
@@ -901,11 +927,11 @@ function renderProgress(){
     });
   }
   box.querySelectorAll(".prowhead").forEach(b=>b.onclick=()=>b.closest(".prow").classList.toggle("open"));
-  box.querySelectorAll("li[data-q]").forEach(li=>{li.onclick=()=>{
-    $("q").value=li.dataset.q;
+  const progGo=q=>{$("q").value=q;
     document.querySelector('[data-tab="search"]').click();
-    search(li.dataset.q); window.scrollTo({top:0,behavior:"smooth"});
-  };});
+    search(q); window.scrollTo({top:0,behavior:"smooth"});};
+  box.querySelectorAll("li[data-q]").forEach(li=>{li.onclick=()=>progGo(li.dataset.q);});
+  box.querySelectorAll(".cand[data-q]").forEach(el=>{el.onclick=e=>{e.stopPropagation();progGo(el.dataset.q);};});
 }
 function fillProgMoh(){
   const sel=$("progMohFilter");

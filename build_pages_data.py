@@ -86,6 +86,10 @@ def district_key_en(latin: str):
 
 def district_key_ar(arabic: str):
     c = clean_ar_district(arabic)
+    # Explicit aliases for Arabic district names missing from DistrictTranslation
+    # (keys are clean_ar_district() output).
+    if c == norm_ar("صيدا"):  # قرى صيدا — the villages of Saida
+        return "Saida"
     if c in ar2lat_d:
         return ar2lat_d[c]
     best, bs = None, 0.0
