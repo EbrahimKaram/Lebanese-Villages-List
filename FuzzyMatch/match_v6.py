@@ -23,6 +23,15 @@ match in the same district+mohafaza — e.g. الفرزل الفوقا joins
 Fourzol <-> الفرزل التحتا. Each arabic subdivision still maps to exactly one
 english; one english may own many arabic subdivisions.
 
+District-prefix stripping: an english name starting with its own district's
+latin name ('Tripoli Al-Tabbaneh' in Tripoli) is also tried without that
+prefix, since the arabic source names city quarters without the city prefix
+(التبانة). The original form is still tried too.
+
+Transliteration: ta marbuta (ة) also renders as 'e' (in addition to 't'/'a'),
+matching the Lebanese '-eh' pronunciation behind french spellings like
+Tabbaneh, Kobbé, Souéka.
+
 Usage: python3 match_v6.py [--input workbook.xlsx] [--output out.xlsx]
 """
 import argparse
@@ -178,10 +187,15 @@ def _variants(base: str):
 
 
 def norm_ar_tokens(s: str):
-    """All transliteration variants -> token lists, article stripped, prefixes dropped."""
+    """All transliteration variants -> token lists, article stripped, prefixes dropped.
+
+    ta marbuta (ة) gets three renderings: 't' (MSA-ish), 'a', and 'e' —
+    Lebanese pronounces it '-eh' (Tabbaneh, Kobbé, Souéka), which is what the
+    french-style english spellings reflect.
+    """
     variants = set()
     for ya in ("y", "i"):
-        for ta in ("t", "a"):
+        for ta in ("t", "a", "e"):
             for waw in ("w", "u", "ou"):
                 for thal in ("dh", "z"):
                     for qaf in ("q", "k"):
@@ -219,6 +233,25 @@ def norm_en_tokens(s: str):
     return tuple(v for v in _variants(base) if v) or ("",)
 
 
+def en_name_variants(en, dkey):
+    """English name, plus a district-prefix-stripped form.
+
+    City quarters are often named '<District> <Quarter>' in the english
+    source ('Tripoli Al-Tabbaneh') while the arabic source names just the
+    quarter (التبانة). Stripping a leading district-name token lets those
+    match; the original form is still tried too.
+    """
+    en = str(en)
+    out = [en]
+    if dkey:
+        toks = en.split()
+        if len(toks) > 1 and norm_lat(toks[0]) == norm_lat(dkey):
+            stripped = " ".join(toks[1:])
+            if stripped:
+                out.append(stripped)
+    return out
+
+
 def skeleton(s: str) -> str:
     s = re.sub(r"[^a-z]", "", (s or "").lower())
     s = re.sub(r"[aeiou]", "", s)
@@ -241,20 +274,24 @@ def _skel_score(ev: str, av: str) -> float:
     return fuzz.WRatio(se, sa)
 
 
-def pair_score(en: str, ar: str) -> float:
+def pair_score(en, ar) -> float:
+    """Best fuzzy score of an english name (or list of variant names)
+    against an arabic name, across all transliteration variants."""
+    ens = en if isinstance(en, (list, tuple)) else [en]
     best = 0.0
-    for ev in norm_en_tokens(en):
-        if not ev:
-            continue
-        for av in norm_ar_tokens(ar):
-            if not av:
+    for e in ens:
+        for ev in norm_en_tokens(e):
+            if not ev:
                 continue
-            s = _full_score(ev, av)
-            if s > best:
-                best = s
-            s2 = _skel_score(ev, av)
-            if s2 > best:
-                best = s2
+            for av in norm_ar_tokens(ar):
+                if not av:
+                    continue
+                s = _full_score(ev, av)
+                if s > best:
+                    best = s
+                s2 = _skel_score(ev, av)
+                if s2 > best:
+                    best = s2
     return best
 
 
@@ -442,9 +479,10 @@ for key in sorted(set(groups_en) & set(groups_ar)):
     eis, ajs = groups_en[key], groups_ar[key]
     n, m_ = len(eis), len(ajs)
     S = np.zeros((n, m_))
+    en_variants = [en_name_variants(unm_en[ei]["en"], unm_en[ei]["dkey"]) for ei in eis]
     for ii, ei in enumerate(eis):
         for jj, aj in enumerate(ajs):
-            S[ii, jj] = pair_score(unm_en[ei]["en"], unm_ar[aj]["ar"])
+            S[ii, jj] = pair_score(en_variants[ii], unm_ar[aj]["ar"])
     # mutual-best auto matching: each side must be the other's top choice
     en_best = np.argmax(S, axis=1)   # for each en row -> best ar col
     ar_best = np.argmax(S, axis=0)   # for each ar col -> best en row
@@ -508,7 +546,7 @@ for en_name, ar_name, dk, mk, d_raw, m_raw, ei in seeds:
         ajr = unm_ar[j]
         b2 = subdiv_base(ajr["ar"])
         if b2 and b2 == base:
-            s = pair_score(en_name, ajr["ar"])
+            s = pair_score(en_name_variants(en_name, dk), ajr["ar"])
             src = f"Fuzzy-auto subdivision ({s:.1f})"
             if ei is None:
                 already_subdiv.append((en_name, j, d_raw, m_raw, src))
@@ -530,9 +568,10 @@ for key in sorted(set(groups_en) & set(groups_ar)):
             if b:
                 by_base[b].append(j)
         for b, js in sorted(by_base.items()):
-            if len(js) >= 2 and pair_score(u["en"], b) >= AUTO_MIN:
+            u_variants = en_name_variants(u["en"], u["dkey"])
+            if len(js) >= 2 and pair_score(u_variants, b) >= AUTO_MIN:
                 for j in js:
-                    s = pair_score(u["en"], unm_ar[j]["ar"])
+                    s = pair_score(u_variants, unm_ar[j]["ar"])
                     subdiv[ei].append((j, s))
                     ar_taken.add(j)
                     discovered.append((u["en"], unm_ar[j]["ar"], u["d"], u["m"],
@@ -631,8 +670,10 @@ ws.title = "Summary"
 ws.append(["Lebanese Villages - Fuzzy Arabic<->English Matching v6 (rerun)"])
 ws.append(["Date", date.today().isoformat()])
 ws.append(["Source file", str(V5)])
-ws.append(["Method", "Offline Arabic->Latin transliteration (ya y/i, ta t/a variants) + "
-           "French-dialect EN normalization; rapidfuzz WRatio; Hungarian one-to-one "
+ws.append(["Method", "Offline Arabic->Latin transliteration (ya y/i, ta t/a/e variants) + "
+           "French-dialect EN normalization; english names also tried with a leading "
+           "district-name token stripped ('Tripoli Al-Tabbaneh' -> 'Al-Tabbaneh'); "
+           "rapidfuzz WRatio; Hungarian one-to-one "
            "per (district, mohafaza) group; subdivision pass attaches qualifier-sharing "
            "arabic rows (جنوبي/شمالي/شرقي/غربي/فوقا/تحتا/حي …) to a definite match"])
 ws.append(["Constraint", "Candidates ONLY from the same district AND mohafaza as the English village"])
