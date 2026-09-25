@@ -33,6 +33,11 @@ matching the Lebanese '-eh' pronunciation behind french spellings like
 Tabbaneh, Kobbé, Souéka.
 
 Usage: python3 match_v6.py [--input workbook.xlsx] [--output out.xlsx]
+       [--unmatch rejected.csv] [--accept approved.csv]
+
+Reviewer overrides: --unmatch blanks rejected v5 pairs before matching;
+--accept forces approved (english, arabic, district) triples as definite
+matches (both sides must be unmatched and share district+mohafaza).
 """
 import argparse
 import json
@@ -56,6 +61,9 @@ _ap.add_argument("--output", default=str(OUT), help="output workbook (.xlsx)")
 _ap.add_argument("--unmatch", default=None,
                 help="CSV of reviewer-rejected matches to blank before matching "
                      "(columns: english,arabic,district)")
+_ap.add_argument("--accept", default=None,
+                help="CSV of reviewer-approved matches to force as definite "
+                     "(columns: english,arabic,district)")
 _args = _ap.parse_args()
 V5 = Path(_args.input)
 OUT = Path(_args.output)
@@ -69,6 +77,18 @@ if _args.unmatch:
         for _row in csv.DictReader(_f):
             UNMATCH.add((_row["english"].strip(), _row["arabic"].strip(), _row["district"].strip()))
     print(f"unmatch overrides loaded: {len(UNMATCH)}")
+
+# reviewer approvals: (english, arabic, district) triples forced as definite
+# matches — both sides must be currently unmatched and share the same
+# district+mohafaza; applied after the auto pass (so they can also seed the
+# subdivision pass), before review/subdivision candidates are finalized
+ACCEPT = []
+if _args.accept:
+    import csv
+    with open(_args.accept, encoding="utf-8-sig") as _f:
+        for _row in csv.DictReader(_f):
+            ACCEPT.append((_row["english"].strip(), _row["arabic"].strip(), _row["district"].strip()))
+    print(f"accept overrides loaded: {len(ACCEPT)}")
 
 AUTO_MIN = 88.0
 REVIEW_MIN = 70.0
@@ -517,6 +537,35 @@ for ei, cands in list(review.items())[:8]:
     print(f"  {u['en']} ({u['d']}/{u['m']}): " +
           "; ".join(f"{unm_ar[aj]['ar']} [{s}]" for aj, s in cands))
 
+# ---------------- reviewer-approved matches -------------------------------
+accepted = {}          # en_idx -> (ar_idx, source)
+accept_log = []        # (english, arabic, district, status)
+for en_n, ar_n, d_n in ACCEPT:
+    ei = next((i for i, u in enumerate(unm_en)
+               if u["en"] == en_n and i not in auto), None)
+    aj = next((j for j, u in enumerate(unm_ar)
+               if u["ar"] == ar_n and j not in ar_taken), None)
+    if ei is None:
+        accept_log.append((en_n, ar_n, d_n, "skipped — english not unmatched"))
+        continue
+    if aj is None:
+        accept_log.append((en_n, ar_n, d_n, "skipped — arabic not unmatched"))
+        continue
+    eu, au = unm_en[ei], unm_ar[aj]
+    # compound arabic district labels count as every district they name
+    ok = (eu["dkey"] and eu["mkey"] and au["mkey"] and
+          (eu["dkey"], eu["mkey"]) in {(dk, au["mkey"]) for dk in dkeys_ar(au["d"])})
+    if norm_lat(d_n) != norm_lat(eu["d"] or "") or not ok:
+        accept_log.append((en_n, ar_n, d_n, "skipped — district/mohafaza mismatch"))
+        continue
+    accepted[ei] = (aj, "Reviewer-approved")
+    ar_taken.add(aj)
+    review.pop(ei, None)   # an approved english leaves the review pile
+    accept_log.append((en_n, ar_n, d_n, "applied"))
+if ACCEPT:
+    n_ok = sum(1 for r in accept_log if r[3] == "applied")
+    print(f"reviewer-approved matches: {n_ok} applied, {len(accept_log) - n_ok} skipped")
+
 # ---------------- subdivision discovery ------------------------------------
 # A subdivision = a still-unmatched arabic row sharing the qualifier-stripped
 # base of a definite match in the same district+mohafaza.
@@ -533,6 +582,10 @@ for rec in already:
     if dk and mk:
         seeds.append((rec["en"], rec["ar"], dk, mk, rec["d"], rec["m"], None))
 for ei, (aj, _s) in auto.items():
+    u = unm_en[ei]
+    seeds.append((u["en"], unm_ar[aj]["ar"], u["dkey"], u["mkey"], u["d"], u["m"], ei))
+for ei, (aj, _src) in accepted.items():
+    # reviewer-approved matches seed the subdivision pass like auto matches
     u = unm_en[ei]
     seeds.append((u["en"], unm_ar[aj]["ar"], u["dkey"], u["mkey"], u["d"], u["m"], ei))
 
@@ -557,7 +610,7 @@ for en_name, ar_name, dk, mk, d_raw, m_raw, ei in seeds:
 
 for key in sorted(set(groups_en) & set(groups_ar)):
     for ei in groups_en[key]:
-        if ei in auto or ei in subdiv:
+        if ei in auto or ei in accepted or ei in subdiv:
             continue
         u = unm_en[ei]
         by_base = defaultdict(list)
@@ -664,7 +717,7 @@ wb = openpyxl.Workbook()
 ws = wb.active
 # english indices claimed by any automatic match are decided: they must not
 # appear in Review, Unmatched, or "still unmatched" counts
-decided_en = set(auto) | set(suggested) | set(subdiv)
+decided_en = set(auto) | set(suggested) | set(subdiv) | set(accepted)
 
 ws.title = "Summary"
 ws.append(["Lebanese Villages - Fuzzy Arabic<->English Matching v6 (rerun)"])
@@ -688,6 +741,7 @@ ws.append(["Unmatched Arabic before rerun", len(unm_ar)])
 ws.append(["New auto matches", len(auto)])
 ws.append(["Review candidate rows", sum(1 for ei in review if ei not in decided_en)])
 ws.append(["Community-suggested matches applied", len(suggested)])
+ws.append(["Reviewer-approved matches applied (--accept)", len(accepted)])
 ws.append(["Suggestions skipped/conflicted/duplicated",
            sum(v for k, v in suggest_stats.items() if k != "applied")])
 still_en = len(unm_en) - len(auto) - sum(1 for ei in review if ei not in auto)
@@ -708,6 +762,12 @@ if discovered:
     ws.append(["SUBDIVISION PAIRS AUTO-DISCOVERED"])
     ws.append(["English Name", "Arabic Name", "District", "Mohafaza", "Source"])
     for row in discovered:
+        ws.append(list(row))
+if accept_log:
+    ws.append([None])
+    ws.append(["REVIEWER-APPROVED MATCHES (--accept overrides)"])
+    ws.append(["English Name", "Arabic Name", "District", "Status"])
+    for row in accept_log:
         ws.append(list(row))
 if dup_arabic:
     ws.append([None])
@@ -736,6 +796,9 @@ for i, u in enumerate(unm_en):
         aj, suggester = suggested[i]
         by = f" (by {suggester})" if suggester else ""
         we.append([u["en"], unm_ar[aj]["ar"], u["d"], u["m"], f"Community suggestion{by}"])
+    elif i in accepted:
+        aj, src = accepted[i]
+        we.append([u["en"], unm_ar[aj]["ar"], u["d"], u["m"], src])
     elif i not in subdiv:
         we.append([u["en"], None, u["d"], u["m"], "Missing"])
     for aj2, s2 in subdiv.get(i, []):
@@ -755,6 +818,8 @@ auto_ar_to_en = {}
 for ei, (aj, s) in auto.items():
     auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], s)
 for ei, (aj, _suggester) in suggested.items():
+    auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], None)
+for ei, (aj, _src) in accepted.items():
     auto_ar_to_en[id(unm_ar[aj])] = (unm_en[ei]["en"], None)
 for ei, lst in subdiv.items():
     for aj, s in lst:
