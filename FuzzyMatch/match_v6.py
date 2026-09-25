@@ -20,8 +20,10 @@ is expanded into one pair per arabic name. After the one-to-one auto pass, a
 subdivision pass attaches still-unmatched arabic rows that share the
 qualifier-stripped base (جنوبي/شمالي/شرقي/غربي/فوقا/تحتا/حي …) of a definite
 match in the same district+mohafaza — e.g. الفرزل الفوقا joins
-Fourzol <-> الفرزل التحتا. Each arabic subdivision still maps to exactly one
-english; one english may own many arabic subdivisions.
+Fourzol <-> الفرزل التحتا. It also attaches 'seed name + extra words'
+rows (القبيات الذوق joins El-Koubayet <-> القبيات) and short-base حي
+quarters (صور حي الجامع joins Sour (Tyr) <-> صور). Each arabic subdivision
+still maps to exactly one english; one english may own many arabic subdivisions.
 
 District-prefix stripping: an english name starting with its own district's
 latin name ('Tripoli Al-Tabbaneh' in Tripoli) is also tried without that
@@ -40,6 +42,7 @@ Reviewer overrides: --unmatch blanks rejected v5 pairs before matching;
 matches (both sides must be unmatched and share district+mohafaza).
 """
 import argparse
+import itertools
 import json
 import re
 import unicodedata
@@ -295,6 +298,49 @@ def _skel_score(ev: str, av: str) -> float:
 
 
 def pair_score(en, ar) -> float:
+    """Best fuzzy score of an english name (or list of variant names)
+    against an arabic name, across all transliteration variants.
+
+    Also tries the dedicated French 'et'-compound rule ('X et Y' <->
+    arabic 'X و Y'), which scores each side of the conjunction separately.
+    """
+    return max(_pair_score_base(en, ar), et_compound_score(en, ar))
+
+
+def et_compound_score(en, ar) -> float:
+    """French 'X et Y' <-> arabic 'X و Y' compounds.
+
+    'Nammoura et Kfar Jerif' <-> 'النموره وكفر جريف': the plain fuzzy
+    score undervalues these because the conjunction tokens ('et' / 'و')
+    are dropped asymmetrically. Splitting on the conjunction and scoring
+    each side separately (best part alignment — arabic sometimes reverses
+    the order, e.g. 'شوان والعبره' for 'El-Abri et Chouan') fixes that.
+    Returns 0 when the english side has no ' et ' or the part counts differ.
+    """
+    ens = en if isinstance(en, (list, tuple)) else [en]
+    best = 0.0
+    for e in ens:
+        el = norm_lat(e)
+        if " et " not in f" {el} ":
+            continue
+        en_parts = [p.strip(" -") for p in re.split(r"\set\s", el)]
+        en_parts = [p for p in en_parts if p]
+        # conjunction-و only: preceded by a space and attached to the next
+        # word (' وكفر'). Word-internal و ('نموره') and word-initial و
+        # ('وادي', followed by a space) are left alone.
+        ar_parts = [p.strip(" -") for p in re.split(r"(?<=\s)\u0648(?=\S)", norm_ar(ar))]
+        ar_parts = [p for p in ar_parts if p]
+        if len(en_parts) < 2 or len(en_parts) != len(ar_parts):
+            continue
+        for perm in itertools.permutations(range(len(ar_parts))):
+            s = sum(_pair_score_base(ep, ar_parts[perm[i]])
+                    for i, ep in enumerate(en_parts)) / len(en_parts)
+            if s > best:
+                best = s
+    return best
+
+
+def _pair_score_base(en, ar) -> float:
     """Best fuzzy score of an english name (or list of variant names)
     against an arabic name, across all transliteration variants."""
     ens = en if isinstance(en, (list, tuple)) else [en]
@@ -567,9 +613,19 @@ if ACCEPT:
     print(f"reviewer-approved matches: {n_ok} applied, {len(accept_log) - n_ok} skipped")
 
 # ---------------- subdivision discovery ------------------------------------
-# A subdivision = a still-unmatched arabic row sharing the qualifier-stripped
-# base of a definite match in the same district+mohafaza.
-# Pass A (seeded): definite matches (v5 + auto) attract their subdivisions.
+# A subdivision = a still-unmatched arabic row belonging to a definite match
+# in the same district+mohafaza. Three ways to recognize one:
+#  (i)  qualifier-stripped bases agree ('الفرزل الفوقا' -> 'الفرزل'), with the
+#       fixed SUBDIV_QUALS list; bases must be >= 4 chars;
+#  (ii) the arabic row is the seed's full arabic name plus extra words
+#       ('القبيات الذوق' belongs to seed 'القبيات') — generalizes (i) beyond
+#       the fixed qualifier list; seed name must be >= 4 chars;
+#  (iii) short-base حي quarters: 'صور حي الجامع' belongs to seed 'صور'.
+#       'حي' (quarter) is unambiguous, so no base-length floor is needed.
+# The district+mohafaza check is what keeps cross-district lookalikes apart
+# (e.g. 'الجديدة حي ...' rows never attach to a 'الجديدة' matched elsewhere).
+# Pass A (seeded): definite matches (v5 + auto + reviewer-approved) attract
+# their subdivisions.
 # Pass B (unseeded): an unmatched english matching the shared base of 2+
 # unmatched arabic rows in its district takes the whole group.
 subdiv = defaultdict(list)   # unm_en idx -> [(ar_idx, score)]
@@ -591,14 +647,27 @@ for ei, (aj, _src) in accepted.items():
 
 for en_name, ar_name, dk, mk, d_raw, m_raw, ei in seeds:
     base = subdiv_base(ar_name)
-    if not base:
+    # exact seed name (parens stripped), for rules (ii) and (iii)
+    seed_full = re.sub(r"\s+", " ", re.sub(r"\s*\([^)]*\)\s*", " ", norm_ar(ar_name or ""))).strip()
+    seed_long = len(seed_full.replace(" ", "")) >= 4
+    if not base and not seed_long and not seed_full:
         continue
     for j in groups_ar.get((dk, mk), []):
         if j in ar_taken:
             continue
         ajr = unm_ar[j]
+        arj = norm_ar(ajr["ar"])
         b2 = subdiv_base(ajr["ar"])
-        if b2 and b2 == base:
+        hit = False
+        if base and b2 and b2 == base:
+            hit = True                                        # (i) qualifier-stripped base
+        elif seed_long and arj.startswith(seed_full + " "):
+            hit = True                                        # (ii) seed name + extra words
+        elif seed_full and "حي" in arj.split():
+            toks = arj.split()
+            if " ".join(toks[:toks.index("حي")]) == seed_full:
+                hit = True                                    # (iii) short-base حي quarter
+        if hit:
             s = pair_score(en_name_variants(en_name, dk), ajr["ar"])
             src = f"Fuzzy-auto subdivision ({s:.1f})"
             if ei is None:
@@ -728,7 +797,9 @@ ws.append(["Method", "Offline Arabic->Latin transliteration (ya y/i, ta t/a/e va
            "district-name token stripped ('Tripoli Al-Tabbaneh' -> 'Al-Tabbaneh'); "
            "rapidfuzz WRatio; Hungarian one-to-one "
            "per (district, mohafaza) group; subdivision pass attaches qualifier-sharing "
-           "arabic rows (جنوبي/شمالي/شرقي/غربي/فوقا/تحتا/حي …) to a definite match"])
+           "arabic rows (جنوبي/شمالي/شرقي/غربي/فوقا/تحتا/حي …), 'seed + extra words' rows, "
+           "and short-base حي quarters to a definite match; french 'X et Y' compounds "
+           "scored per-side against arabic 'X و Y'"]) 
 ws.append(["Constraint", "Candidates ONLY from the same district AND mohafaza as the English village"])
 ws.append(["Community suggestions", "auto-accepted from FuzzyMatch/suggested_matches.csv "
            "(earliest timestamp wins on conflicts; district+mohafaza enforced)"])
