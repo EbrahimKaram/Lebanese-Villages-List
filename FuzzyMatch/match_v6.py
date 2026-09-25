@@ -473,16 +473,30 @@ for r in en_rows:
         unm_en.append(rec)
 
 ar_full = []
+# English names holding a definite v5 pair after --unmatch blanking. An arabic
+# row whose v5 english hint names one of these is already paired; any other
+# hint (or none) means the pair did not survive, so the arabic row is unmatched
+# and re-enters the pool. Without this, blanking the EN side of a rejected
+# pair orphans its arabic row: excluded from both the matched and unmatched
+# pools, invisible to the matcher and to every output sheet.
+matched_en_names = {str(a["en"]).strip() for a in already
+                    if a.get("en") and str(a["en"]).strip()}
+orphan_restored = 0
 for r in ar_rows:
     ar, en, d, m = r[0], r[1], r[2], r[3]
     if not ar or not str(ar).strip():
         continue
     rec = {"ar": ar, "en": en, "d": d, "m": m}
     ar_full.append(rec)
-    if not (en and str(en).strip()):
+    en_hint = str(en).strip() if en and str(en).strip() else ""
+    if not en_hint or en_hint not in matched_en_names:
+        if en_hint:
+            orphan_restored += 1
+            print(f"  orphan restored: {ar} [{d}] (v5 english '{en_hint}' has no surviving pair)")
         rec["dkey"] = dkey_ar(d)
         rec["mkey"] = mkey_ar(m)
         unm_ar.append(rec)
+print(f"orphaned arabic rows restored to the unmatched pool: {orphan_restored}")
 
 print(f"already matched: {len(already)} | unmatched EN: {len(unm_en)} | unmatched AR: {len(unm_ar)}")
 no_key_en = sum(1 for u in unm_en if not u["dkey"] or not u["mkey"])
@@ -547,8 +561,16 @@ for key in sorted(set(groups_en) & set(groups_ar)):
     S = np.zeros((n, m_))
     en_variants = [en_name_variants(unm_en[ei]["en"], unm_en[ei]["dkey"]) for ei in eis]
     for ii, ei in enumerate(eis):
+        eu = unm_en[ei]
+        eu_key = (str(eu["en"]).strip(), str(eu["d"] or "").strip())
         for jj, aj in enumerate(ajs):
-            S[ii, jj] = pair_score(en_variants[ii], unm_ar[aj]["ar"])
+            au = unm_ar[aj]
+            # a rejected (--unmatch) pair stays rejected: it can neither
+            # re-match nor re-surface as a review candidate
+            if (eu_key[0], str(au["ar"]).strip(), eu_key[1]) in UNMATCH:
+                S[ii, jj] = -1.0
+                continue
+            S[ii, jj] = pair_score(en_variants[ii], au["ar"])
     # mutual-best auto matching: each side must be the other's top choice
     en_best = np.argmax(S, axis=1)   # for each en row -> best ar col
     ar_best = np.argmax(S, axis=0)   # for each ar col -> best en row
